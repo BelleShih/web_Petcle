@@ -1,0 +1,17 @@
+// app global css in SCSS form
+// navbar--------------------------------------
+.tab {
+  color: $petcolor01;
+}
+.tab:hover {
+  border-bottom:1px solid $petcolor01;
+}
+#logo {
+  width: 100px;
+}
+.q-layout__shadow{
+  display: none;
+}
+.q-header {
+  padding: 1%;
+}
