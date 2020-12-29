@@ -1,23 +1,40 @@
 // app global css in SCSS form
+
 // navbar--------------------------------------
 .tab {
   color: $petcolor01;
 }
-.tab:hover {
+.q-tab__label:hover {
   border-bottom:1px solid $petcolor01;
+  font-weight: 900;
 }
 #logo {
-  width: 100px;
+  height: 50px;
 }
 .q-layout__shadow{
   display: none;
 }
 .q-header {
-  padding: 1%;
+  padding-top: 1%;
 }
 .q-tabs__content a{
-  padding: 1rem;
+  padding-right: 0.5rem;
 }
-.q-route-tab:hover {
-  background: white;
+
+body.desktop .q-hoverable:hover > .q-focus-helper {
+  background: transparent;
+}
+
+// index.vue------------------------------------------
+.my-card {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // @include sm {
+  //   height: 100px;
+  // }
+
 }
