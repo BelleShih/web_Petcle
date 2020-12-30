@@ -1,20 +1,68 @@
 // app global css in SCSS form
 
 // navbar--------------------------------------
-.tab {
+.nav-padding {
+  @include xs {
+    padding: 0 0rem;
+  }
+  @include sm {
+    padding: 0 1rem;
+  }
+  @include lg {
+    padding: 0 3rem;
+  }  
+}
+
+ul {
+  padding-left: 0;
+
+  @include xs {
+    justify-content: center;
+  }
+  @include sm {
+    justify-content: center;
+  }
+  @include md {
+    justify-content: center;
+  }
+  @include lg {
+    justify-content: flex-end;
+    padding-right: 1rem;
+  }
+}
+
+li {
   color: $petcolor01;
+  list-style:none;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+
+  &:hover{
+    border-bottom: 2px solid $petcolor01;
+    font-weight: 800;
+  }
+  @include xs {
+    margin-left: 1rem;
+  }
+  @include sm {
+    margin-left: 1rem;
+  }
+  @include md {
+    margin-left: 2rem;
+  }
+  @include lg {
+    margin-left: 2rem;
+  }
 }
-.q-tab__label:hover {
-  border-bottom:1px solid $petcolor01;
-  font-weight: 900;
-}
+
 #logo {
   height: 50px;
-  margin-left: 1.5rem;
 }
+
 .q-layout__shadow{
   display: none;
 }
+
 .q-header {
   @include xs {
     padding-top: 3%;
@@ -26,20 +74,12 @@
     padding-top: 1%;
   }
 }
-.q-tabs__content a{
-  @include xs {
-    padding-right: 0.5rem;
-  }
-  @include sm {
-    padding-right: 0.5rem;
-  }
-}
 
 body.desktop .q-hoverable:hover > .q-focus-helper {
   background: transparent;
 }
 
-.flex-sm-center {
+.flex-logo-justify {
   @include xs {
     justify-content: center;
   }
@@ -47,10 +87,96 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     justify-content: center;
   }
   @include md {
+    justify-content: center;
+  }
+  @include lg {
+    justify-content: center;
+  }
+  @include xl {
     justify-content: left;
   }
 }
-// index------------------------------------------
+
+// index 搜尋列
+input.q-field__native {
+  border: 1px solid $petcolor02;
+  border-radius: 100px;
+  text-indent: 40px;
+  margin-bottom: 0.4rem;
+
+  &:focus {
+    border: 2px solid $petcolor02;
+  }
+}
+
+// 放大鏡 icon
+#search-icon{
+  position: absolute;
+  left: 10px;
+  top: 6px;
+  color: $petcolor02;
+}
+
+//搜尋條件
+#search-select{
+  width: 130px;
+  height: 20px;
+  margin: 0 0.5rem;
+  position: relative;
+  top: 17px;
+  // background: white;
+  color: $petcolor02;
+  border-radius: 100px;
+  text-indent: 30px;
+  // border: 1px solid $petcolor02;
+  @include xs {
+    display: none;
+  }
+}
+
+// 消除搜尋條件預設效果
+.q-field--auto-height.q-field--labeled .q-field__control-container {
+  padding-top: 0px;
+}
+
+.q-field--standard .q-field__control:before {
+  border: 1px solid $petcolor02;
+  border-radius: 100px;
+  height: 38px;
+  margin: 7px 1px 0 5px;
+}
+
+.q-field--standard .q-field__control:hover:before {
+  border: 1px solid $petcolor02;
+}
+
+.q-field__control {
+  color: transparent;
+  height: 56px;
+  max-width: 100%;
+  outline: none;
+}
+
+.q-field__marginal {
+  height: 56px;
+  color:$petcolor02;
+  font-size: 25px;
+}
+
+//搜尋按鈕
+#search-btn{
+  width: 160px;
+  margin-bottom: 0.2rem;
+  margin-left: 0.3rem;
+  padding-bottom: 1rem;
+  background: $petcolor02;
+  color: white;
+  letter-spacing: 0.2rem;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+// index 首頁照片區------------------------------------------
 .my-card {
   img {
     width: 100%;
@@ -64,13 +190,14 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     height: 180px;
   }
   @include md {
-    height: 170px;
+    height: 200px;
   }
   @include lg {
-    height: 200px
+    height: 200px;
   }
   @include xl {
-    height: 300px;
+    height: 400px;
+    margin: 0 0.5rem;
   }
 }
 
@@ -82,12 +209,12 @@ q-layout-container{
     padding: 0 0.5rem;
   }
   @include md {
-    padding: 0 1rem;
+    padding: 0 1.5rem;
   }
   @include lg {
-    padding: 0 2rem;
+    padding: 0 2.5rem;
   }
   @include xl {
-    padding: 0 2rem;
+    padding: 0 3rem;
   }
 }
