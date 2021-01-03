@@ -16,10 +16,10 @@
           <li class="menu_link"><q-btn dense unelevated exact @click="registered = true" active-class="text-blue-3">註冊</q-btn></li>
         </ul>
       </div>
+      <!-- 登入 -->
       <q-dialog
         v-model="login"
       >
-      <!-- 登入 -->
         <q-card style="width: 500px; max-width: 80vw; height: 600px">
           <q-card-section>
             <div class="flex flex-center q-my-md">
@@ -40,30 +40,30 @@
               <div class="login-input text-center">
                 帳號
                 <input
-                  v-model="name"
+                  v-model="account"
                   placeholder="請輸入帳號"
-                  hint="Name and surname"
+                  type="string"
                   lazy-rules
-                  :rules="[ val => val && val.length > 0 || 'Please type something']"
+                  :rules="[ val => val && val.length > 0 || '請輸入帳號']"
                 />
               </div>
               <div class="login-input text-center">
                 密碼
                 <input
-                  v-model="age"
+                  v-model="password"
                   placeholder="請輸入密碼"
+                  type="string"
                   lazy-rules
-                  :rules="[ val => val && val.length > 0 || 'Please type something']"
+                  :rules="[ val => val && val.length > 0 || '請輸入密碼']"
                 />
               </div>
-              <div id="no-member-text" class="text-center"><a href="http://" >還不是會員嗎?趕快按我註冊</a></div>
+              <div id="no-member-text" class="text-center"><a @click="registered = true; login = false">還不是會員嗎?趕快按我註冊</a></div>
               <div class="login-line"></div>
               <div class="login-btn flex flex-center">
                 <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
-                <q-btn rounded label="重置" type="reset" size="1.1rem" style="width:80px"/>
+                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
               </div>
             </q-form>
-
           </div>
         </q-card>
       </q-dialog>
@@ -71,71 +71,84 @@
       <q-dialog
         v-model="registered"
       >
-        <q-card class="flex row" style="width: 800px; max-width: 80vw; height: 500px">
-          <q-card-section class="col-5 registered-left" style="background:#C2B593">
+        <q-card class="flex row wrap registered" style="width: 800px; max-width: 80vw; height: 500px">
+          <q-card-section class="col-xs-12 col-sm-12 col-md-4 col-xl-5" style="background:#C2B593">
             <div class="flex flex-center q-my-md column welcome">
               WELCOME
               <img id="registered-logo" src="../assets/petcle-logo-w.png">
             </div>
           </q-card-section>
-          <q-card-section class="col-7 q-pt-none flex flex-center column">
+          <q-card-section class="col-xs-12 col-sm-12 col-md-8 col-xl-7 q-pt-none flex flex-center column">
             <div class="registered-font">會員註冊</div>
             <div class="q-pa-md flex flex-center items-center">
               <q-form
                 @submit="onSubmit"
                 @reset="onReset"
-                class="q-gutter-md"
+                class="q-gutter-md registered-form"
               >
                 <div class="registered-input">
                   名稱
                   <input
                     v-model="name"
-                    placeholder="請輸入帳號"
-                    hint="Name and surname"
+                    placeholder="請輸入名稱"
                     lazy-rules
+                    type="string"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    style="position:relative;left:45px"
                   />
                 </div>
                 <div class="registered-input">
                   帳號
                   <input
-                    v-model="name"
+                    v-model="account"
                     placeholder="請輸入帳號"
-                    hint="Name and surname"
                     lazy-rules
+                    type="string"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    style="position:relative;left:45px"
                   />
                 </div>
                 <div class="registered-input">
                   密碼
                   <input
-                    v-model="age"
+                    v-model="password1"
                     placeholder="請輸入密碼"
                     lazy-rules
+                    type="string"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    style="position:relative;left:45px"
                   />
                 </div>
                 <div class="registered-input">
                   確認密碼
                   <input
-                    v-model="age"
-                    placeholder="請輸入密碼"
+                    v-model="password2"
+                    placeholder="請再次輸入密碼"
                     lazy-rules
+                    type="string"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    style="position:relative;left:12px"
                   />
                 </div>
                 <div class="registered-input">
                   E-MAIL
                   <input
-                    v-model="age"
-                    placeholder="請輸入密碼"
+                    v-model="email"
+                    placeholder="請輸入Email"
                     lazy-rules
+                    type="string"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    style="position:relative;left:20px"
                   />
                 </div>
-                <div class="login-btn flex flex-center">
-                  <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
-                  <q-btn rounded label="重置" type="reset" size="1.1rem" style="width:80px"/>
+                <div class="q-gutter-sm registered-input">
+                  是否有養寵物
+                  <q-radio v-model="shape" type="radio" val="true" label="是" />
+                  <q-radio v-model="shape" type="radio" val="false" label="否" />
+                </div>
+                <div class="registered-btn flex flex-center">
+                  <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                  <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
                 </div>
               </q-form>
             </div>
@@ -155,7 +168,23 @@ export default {
   data () {
     return {
       login: false,
-      registered: false
+      registered: false,
+      account: null,
+      password: null,
+      shape: 'line',
+
+      accept: false
+    }
+  },
+  methods: {
+    onReset () {
+      this.name = null
+      this.account = null
+      this.password1 = null
+      this.password2 = null
+      this.email = null
+      this.shape = null
+      this.accept = false
     }
   }
 }

@@ -163,10 +163,24 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   letter-spacing: 0.1rem;
   a {
     color: $petcolor03;
+    text-decoration: underline;
+    cursor: pointer;
   }
 }
 
 // 註冊 -------------------------------
+.registered {
+  @include xs {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  @include sm {
+    flex-direction: row;
+  }
+  @include md {
+    flex-direction: row;
+  }  
+}
 //取消底色圓角
 .q-card > div:first-child, .q-card > img:first-child {
   border-top-right-radius: 0;
@@ -182,6 +196,12 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   top: -30px;
   font-weight: 500;
   font-size: 17px;
+  @include sm {
+    letter-spacing: 0.5rem;
+  }
+  @include md {
+    letter-spacing: 0.8rem;
+  }  
 }
 
 #registered-logo{
@@ -189,6 +209,20 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   position: relative;
   top: 50px;
   left: -10px;
+  @include xs {
+    width: 100px;
+    top: 20px;
+    left: -10px;
+  }
+  @include sm {
+    width: 130px;
+  }
+  @include md {
+    width: 150px;
+  }
+  @include lg {
+    width: 180px;
+  }
 }
 
 .registered-font {
@@ -199,13 +233,18 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   text-align: center;
   position: relative;
   left: 15px;
+  top: 10px;  
+}
+
+.registered-form {
+  position: relative;
+  top: 20px;
+  left: 10px;
 }
 
 .registered-input {
-  font-size: 1.2rem;
   color: $petcolor03;
-  font-weight: 700;
-  margin: 1rem 3rem;
+  font-size: 1rem;
   input{
     width: 200px;
     height: 40px;
@@ -219,7 +258,24 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     height: calc(1.5em + 0.75rem + 2px);
     outline: none;
   }
+  @include xs {
+  font-weight: 500;
+  margin: 0rem 0rem;
+  }
+  @include sm {
+  font-weight: 500;
+  margin: 1rem 0rem;  
+  }
+  @include md {
+  font-weight: 500;
+  margin: 1rem 0rem;  
+  }
+  @include lg {
+  font-weight: 700;
+  margin: 1rem 3rem;
+  }
 }
+
 // index 搜尋列區-----------------------
 input.q-field__native {
   border: 1px solid $petcolor02;
@@ -341,4 +397,25 @@ q-layout-container{
   @include xl {
     padding: 0 3rem;
   }
+}
+
+// 關於我們 --------------------------------------
+#about-logo {
+  width:100px !important;
+  margin-bottom:15px;  
+}
+
+.about-title {
+  font-size: 1rem !important;
+}
+
+#about-line {
+  width: 500px;
+  height: 1px;
+  background: black;
+  margin: 1rem 0;
+}
+
+.about-des {
+  font-size: 1.2rem;
 }
