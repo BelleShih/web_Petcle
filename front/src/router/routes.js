@@ -1,10 +1,7 @@
+// import Vue from 'vue'
+// import VueRouter from 'vue-router'
 
-// import MainLayout from 'layouts/MainLayout'
-// import Index from 'pages/Index'
-// import About from 'pages/About'
-// import News from 'pages/News'
-// import Pedia from 'pages/Pedia'
-// import Questions from 'pages/Questions'
+// Vue.use(VueRouter)
 
 const routes = [
   {
@@ -58,5 +55,16 @@ const routes = [
     component: () => import('pages/Error404.vue')
   }
 ]
+
+// const router = new VueRouter({
+//   routes
+// })
+
+// routes.afterEach((to, from) => {
+//   let title = ''
+//   title = to.meta.title
+
+//   document.title = title
+// })
 
 export default routes

@@ -82,39 +82,36 @@
             <div class="registered-font">會員註冊</div>
             <div class="q-pa-md flex flex-center items-center">
               <q-form
-                @submit="onSubmit"
-                @reset="onReset"
-                class="q-gutter-md registered-form"
+                @submit="onSubmit"  @reset="onReset"  class="q-gutter-md registered-form"
               >
                 <div class="registered-input">
                   名稱
                   <input
-                    v-model="name"
+                    v-model="reg.name"
                     placeholder="請輸入名稱"
                     lazy-rules
-                    type="string"
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    type="text"
+                    :state="nameState"
                     style="position:relative;left:45px"
                   />
                 </div>
                 <div class="registered-input">
                   帳號
                   <input
-                    v-model="account"
+                    v-model="reg.account"
                     placeholder="請輸入帳號"
                     lazy-rules
-                    type="string"
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    type="text"
                     style="position:relative;left:45px"
                   />
                 </div>
                 <div class="registered-input">
                   密碼
                   <input
-                    v-model="password1"
+                    v-model="reg.password1"
                     placeholder="請輸入密碼"
                     lazy-rules
-                    type="string"
+                    type="text"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
                     style="position:relative;left:45px"
                   />
@@ -122,10 +119,10 @@
                 <div class="registered-input">
                   確認密碼
                   <input
-                    v-model="password2"
+                    v-model="reg.password2"
                     placeholder="請再次輸入密碼"
                     lazy-rules
-                    type="string"
+                    type="text"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
                     style="position:relative;left:12px"
                   />
@@ -133,18 +130,18 @@
                 <div class="registered-input">
                   E-MAIL
                   <input
-                    v-model="email"
+                    v-model="reg.email"
                     placeholder="請輸入Email"
                     lazy-rules
-                    type="string"
+                    type="text"
                     :rules="[ val => val && val.length > 0 || 'Please type something']"
                     style="position:relative;left:20px"
                   />
                 </div>
                 <div class="q-gutter-sm registered-input">
                   是否有養寵物
-                  <q-radio v-model="shape" type="radio" val="true" label="是" />
-                  <q-radio v-model="shape" type="radio" val="false" label="否" />
+                  <q-radio v-model="reg.pet" type="radio" val="true" label="是" />
+                  <q-radio v-model="reg.pet" type="radio" val="false" label="否" />
                 </div>
                 <div class="registered-btn flex flex-center">
                   <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
@@ -167,13 +164,24 @@ export default {
   name: 'MainLayout',
   data () {
     return {
+      reg: {
+        name: '',
+        account: '',
+        password1: '',
+        password2: '',
+        email: '',
+        pet: null
+      },
       login: false,
       registered: false,
-      account: null,
-      password: null,
       shape: 'line',
 
       accept: false
+    }
+  },
+  computed: {
+    user () {
+      return this.$store.state.user
     }
   },
   methods: {

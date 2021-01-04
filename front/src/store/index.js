@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import persistedstate from 'vuex-persistedstate'
 // import example from './module-example'
 
 Vue.use(Vuex)
@@ -16,9 +16,31 @@ Vue.use(Vuex)
 
 export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
-    modules: {
-      // example
+    state: {
+      user: {
+        name: '',
+        account: '',
+        password: '',
+        passwordcheck: '',
+        email: '',
+        pet: null,
+        uploadphotos: [],
+        album: [],
+        petpage: [],
+        discuss: []
+      }
     },
+    mutations: {
+      logout (state) {
+        state.user.name = ''
+        state.user.id = ''
+      }
+    },
+    actions: {
+    },
+    modules: {
+    },
+    plugins: [persistedstate()],
 
     // enable strict mode (adds overhead!)
     // for dev mode only
