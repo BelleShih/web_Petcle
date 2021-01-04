@@ -89,9 +89,7 @@
                   <input
                     v-model="reg.name"
                     placeholder="請輸入名稱"
-                    lazy-rules
                     type="text"
-                    :state="nameState"
                     style="position:relative;left:45px"
                   />
                 </div>
@@ -100,7 +98,6 @@
                   <input
                     v-model="reg.account"
                     placeholder="請輸入帳號"
-                    lazy-rules
                     type="text"
                     style="position:relative;left:45px"
                   />
@@ -110,9 +107,7 @@
                   <input
                     v-model="reg.password1"
                     placeholder="請輸入密碼"
-                    lazy-rules
-                    type="text"
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    type="password"
                     style="position:relative;left:45px"
                   />
                 </div>
@@ -121,9 +116,7 @@
                   <input
                     v-model="reg.password2"
                     placeholder="請再次輸入密碼"
-                    lazy-rules
-                    type="text"
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
+                    type="password"
                     style="position:relative;left:12px"
                   />
                 </div>
@@ -132,9 +125,7 @@
                   <input
                     v-model="reg.email"
                     placeholder="請輸入Email"
-                    lazy-rules
                     type="text"
-                    :rules="[ val => val && val.length > 0 || 'Please type something']"
                     style="position:relative;left:20px"
                   />
                 </div>
@@ -144,7 +135,7 @@
                   <q-radio v-model="reg.pet" type="radio" val="false" label="否" />
                 </div>
                 <div class="registered-btn flex flex-center">
-                  <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                  <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" @click="register($event)" style="margin-right:1rem;width:80px"/>
                   <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
                 </div>
               </q-form>
