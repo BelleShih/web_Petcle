@@ -1,5 +1,6 @@
 <template>
   <q-page>
+    <q-layout-container>
     <!-- 搜尋列 -->
     <div class="row" style="margin-bottom:1.5rem;margin-top:1.5rem">
       <div class="col-xs-1 col-md-2 col-lg-3"></div>
@@ -34,7 +35,7 @@
       <div class="col-xs-1 col-md-2 col-lg-3"></div>
     </div>
     <!-- 照片展示 -->
-    <q-layout-container class="flex flex-center">
+    <container class="flex flex-center">
       <div class="row fit wrap justify-center items-start">
         <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="n in 10" :key="`xs-${n}`">
           <q-card class="my-card">
@@ -54,6 +55,7 @@
           </div>
         </div>
       </div>
+    </container>
     </q-layout-container>
   </q-page>
 </template>
@@ -79,6 +81,12 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.$axios.post('login', {
+      username: 'username',
+      password: 'password'
+    })
   }
 }
 </script>

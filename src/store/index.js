@@ -19,21 +19,20 @@ export default function (/* { ssrContext } */) {
     state: {
       user: {
         name: '',
-        account: '',
-        password: '',
-        passwordcheck: '',
-        email: '',
-        pet: null,
-        uploadphotos: [],
-        album: [],
-        petpage: [],
-        discuss: []
+        id: ''
       }
+    },
+    computed: {
+
     },
     mutations: {
       logout (state) {
         state.user.name = ''
         state.user.id = ''
+      },
+      login (state, data) {
+        state.user.name = data.account
+        state.user.id = data._id
       }
     },
     actions: {

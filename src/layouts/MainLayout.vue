@@ -12,13 +12,19 @@
           <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.about' }" active-class="text-blue-3">關於 Petcle</q-btn></li>
           <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.news' }" active-class="text-blue-3">最新消息</q-btn></li>
           <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.questions' }">毛孩大小事</q-btn></li>
-          <li class="menu_link"><q-btn dense unelevated exact @click="login = true" active-class="text-blue-3">登入</q-btn></li>
-          <li class="menu_link"><q-btn dense unelevated exact @click="registered = true" active-class="text-blue-3">註冊</q-btn></li>
+          <li class="menu_link">
+            <q-btn v-if="user.id.length === 0" dense unelevated exact @click="loginPage = true" active-class="text-blue-3">登入</q-btn>
+            <q-btn v-if="user.id.length > 0" dense unelevated exact @click="logout" active-class="text-blue-3">登出</q-btn>
+          </li>
+          <li class="menu_link">
+            <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
+            <q-btn v-if="user.id.length > 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">使用者</q-btn>
+          </li>
         </ul>
       </div>
       <!-- 登入 -->
       <q-dialog
-        v-model="login"
+        v-model="loginPage"
       >
         <q-card style="width: 500px; max-width: 80vw; height: 600px">
           <q-card-section>
@@ -33,31 +39,29 @@
           </q-card-section>
           <div class="q-pa-md flex flex-center items-center login-input-div">
             <q-form
-              @submit="onSubmit"
-              @reset="onReset"
+              @submit="onSubmit_log"
+              @reset="onReset_log"
               class="q-gutter-md"
             >
               <div class="login-input text-center">
                 帳號
                 <input
-                  v-model="account"
+                  v-model="log.account"
                   placeholder="請輸入帳號"
-                  type="string"
-                  lazy-rules
-                  :rules="[ val => val && val.length > 0 || '請輸入帳號']"
+                  type="textg"
+                  :state="accountState"
                 />
               </div>
               <div class="login-input text-center">
                 密碼
                 <input
-                  v-model="password"
+                  v-model="log.password"
                   placeholder="請輸入密碼"
-                  type="string"
-                  lazy-rules
-                  :rules="[ val => val && val.length > 0 || '請輸入密碼']"
+                  type="password"
+                  :state="passwordState"
                 />
               </div>
-              <div id="no-member-text" class="text-center"><a @click="registered = true; login = false">還不是會員嗎?趕快按我註冊</a></div>
+              <div id="no-member-text" class="text-center"><a @click="registeredPage = true; loginPage = false">還不是會員嗎?趕快按我註冊</a></div>
               <div class="login-line"></div>
               <div class="login-btn flex flex-center">
                 <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
@@ -69,7 +73,7 @@
       </q-dialog>
       <!-- 註冊 -->
       <q-dialog
-        v-model="registered"
+        v-model="registeredPage"
       >
         <q-card class="flex row wrap registered" style="width: 800px; max-width: 80vw; height: 500px">
           <q-card-section class="col-xs-12 col-sm-12 col-md-4 col-xl-5" style="background:#C2B593">
@@ -82,7 +86,7 @@
             <div class="registered-font">會員註冊</div>
             <div class="q-pa-md flex flex-center items-center">
               <q-form
-                @submit="onSubmit"  @reset="onReset"  class="q-gutter-md registered-form"
+                @submit.prevent="onSubmit_reg" @reset="onReset_reg"  class="q-gutter-md registered-form"
               >
                 <div class="registered-input">
                   名稱
@@ -90,6 +94,7 @@
                     v-model="reg.name"
                     placeholder="請輸入名稱"
                     type="text"
+                    :state="nameState"
                     style="position:relative;left:45px"
                   />
                 </div>
@@ -99,6 +104,7 @@
                     v-model="reg.account"
                     placeholder="請輸入帳號"
                     type="text"
+                    :state="accountState_reg"
                     style="position:relative;left:45px"
                   />
                 </div>
@@ -108,6 +114,7 @@
                     v-model="reg.password1"
                     placeholder="請輸入密碼"
                     type="password"
+                    :state="passwordState_reg"
                     style="position:relative;left:45px"
                   />
                 </div>
@@ -126,16 +133,17 @@
                     v-model="reg.email"
                     placeholder="請輸入Email"
                     type="text"
+                    :state="emailState"
                     style="position:relative;left:20px"
                   />
                 </div>
                 <div class="q-gutter-sm registered-input">
                   是否有養寵物
-                  <q-radio v-model="reg.pet" type="radio" val="true" label="是" />
-                  <q-radio v-model="reg.pet" type="radio" val="false" label="否" />
+                    <q-radio v-model="reg.pet" type="radio" :val="true" label="是" />
+                    <q-radio v-model="reg.pet" type="radio" :val="false" label="否" />
                 </div>
                 <div class="registered-btn flex flex-center">
-                  <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" @click="register($event)" style="margin-right:1rem;width:80px"/>
+                  <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
                   <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
                 </div>
               </q-form>
@@ -163,28 +171,171 @@ export default {
         email: '',
         pet: null
       },
-      login: false,
-      registered: false,
-      shape: 'line',
-
-      accept: false
+      log: {
+        account: '',
+        password: ''
+      },
+      accept: false,
+      loginPage: false,
+      registeredPage: false
     }
   },
   computed: {
+    accountState () {
+      if (this.log.account.length === 0) {
+        return null
+      } else if (this.log.account.length >= 4 && this.log.account.length <= 20) {
+        return true
+      } else {
+        return false
+      }
+    },
+    passwordState () {
+      if (this.log.password.length === 0) {
+        return null
+      } else if (this.log.password.length >= 4 && this.log.password.length <= 20) {
+        return true
+      } else {
+        return false
+      }
+    },
+    nameState () {
+      if (this.reg.name.length === 0) {
+        return null
+      } else if (this.reg.name.length >= 1 && this.reg.name.length <= 20) {
+        return true
+      } else {
+        return false
+      }
+    },
+    accountState_reg () {
+      if (this.reg.account.length === 0) {
+        return null
+      } else if (this.reg.account.length >= 4 && this.reg.account.length <= 20) {
+        return true
+      } else {
+        return false
+      }
+    },
+    passwordState_reg () {
+      if (this.reg.password1.length === 0) {
+        return null
+      } else if (this.reg.password1.length >= 4 && this.reg.password1.length <= 20 && this.reg.password1 === this.reg.password2) {
+        return true
+      } else {
+        return false
+      }
+    },
+    emailState () {
+      if (this.reg.email.length === 0) {
+        return null
+      } else if (this.reg.email.length >= 1) {
+        return true
+      } else {
+        return false
+      }
+    },
     user () {
       return this.$store.state.user
     }
   },
   methods: {
-    onReset () {
-      this.name = null
-      this.account = null
-      this.password1 = null
-      this.password2 = null
-      this.email = null
-      this.shape = null
-      this.accept = false
+    onSubmit_reg () {
+      if (this.accountState_reg && this.passwordState_reg && this.nameState && this.emailState && this.reg.pet !== null) {
+        this.axios
+          .post(process.env.VUE_APP_API + '/users/', this.reg)
+          .then(res => {
+            if (res.data.success) {
+              alert('註冊成功')
+            } else {
+              alert('發生錯誤')
+            }
+          })
+          .catch(err => {
+            console.log(err.response.data.message)
+          })
+      }
+    },
+    onSubmit_log () {
+      if (this.accountState && this.passwordState) {
+        this.axios.post(process.env.VUE_APP_API + '/users/login', this.log)
+          .then(res => {
+            if (res.data.success) {
+              this.$store.commit('login', res.data.result)
+              alert('登入成功')
+              this.loginPage = false
+              this.$router.push('/index')
+            } else {
+              alert('發生錯誤')
+            }
+          })
+          .catch(err => {
+            console.log(err.response.data.message)
+          })
+      }
+    },
+    onReset_log () {
+      this.account = ''
+      this.password = ''
+    },
+    onReset_reg () {
+      this.reg.name = ''
+      this.reg.account = ''
+      this.reg.password1 = ''
+      this.reg.password2 = ''
+      this.reg.email = ''
+      this.reg.pet = null
+    },
+    logout () {
+      this.axios
+        .delete(process.env.VUE_APP_API + '/users/logout')
+        .then(res => {
+          if (res.data.success) {
+            alert('登出成功')
+            this.$store.commit('logout')
+
+            if (this.$router.path !== '/') {
+              this.$router.push('/index')
+            }
+          } else {
+            alert('錯誤')
+          }
+        })
+        .catch(error => {
+          this.$swal({
+            icon: 'error',
+            title: '錯誤',
+            text: error.response.data.message
+          })
+        })
+    },
+    heartbeat () {
+      this.axios.get(process.env.VUE_APP_API + '/users/heartbeat')
+        .then(res => {
+          if (this.user.id.length > 0) {
+            if (!res.data) {
+              alert('登入時效已過')
+              this.$store.commit('logout')
+              if (this.$route.path !== '/') {
+                this.$router.push('/index')
+              }
+            }
+          }
+        })
+        .catch(() => {
+          alert('發生錯誤')
+          this.$store.commit('logout')
+          if (this.$route.path !== '/') {
+            this.$router.push('/index')
+          }
+        })
     }
+  },
+  mounted () {
+    this.heartbeat()
+    setInterval(() => {
+      this.heartbeat()
+    }, 5000)
   }
 }
 </script>

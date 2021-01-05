@@ -47,6 +47,30 @@ const routes = [
         meta: {
           title: '關於Petcle'
         }
+      },
+      {
+        path: '/mypage',
+        name: 'front.mypage',
+        component: () => import('pages/Mypage.vue'),
+        meta: {
+          title: '我的主頁'
+        }
+      },
+      {
+        path: '/petpage',
+        name: 'front.petpage',
+        component: () => import('pages/Petpage.vue'),
+        meta: {
+          title: '我的寶貝'
+        }
+      },
+      {
+        path: '/space',
+        name: 'front.space',
+        component: () => import('pages/Space.vue'),
+        meta: {
+          title: '療癒空間'
+        }
       }
     ]
   },
@@ -55,16 +79,5 @@ const routes = [
     component: () => import('pages/Error404.vue')
   }
 ]
-
-// const router = new VueRouter({
-//   routes
-// })
-
-// routes.afterEach((to, from) => {
-//   let title = ''
-//   title = to.meta.title
-
-//   document.title = title
-// })
 
 export default routes
