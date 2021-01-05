@@ -5,8 +5,8 @@
         <img id="about-logo" src="../assets/petcle-logo.png">
         <h7>療癒力就是毛孩的超能力</h7>
       </div>
-      <div class="flex row flex-center about-title relative-position" style="margin-top:50px">
-          <div class="col-12 col-lg-5" style="height:100%">
+      <div class="flex row flex-center about-title relative-position">
+          <div class="col-12 col-lg-5" style="height:450px">
             <img class="about-img" src="~assets/aboutphoto.jpg">
           </div>
           <div class="col-12 col-lg-7 about-text" style="">
@@ -35,6 +35,17 @@
           <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque at aperiam nostrum fugit, distinctio aspernatur perferendis assumenda in, iste consectetur impedit omnis! Itaque, in eveniet laborum velit assumenda.</p>
         </div>
       </div>
+      <q-form>
+        <div class="flex">
+          <div class="col-12 col-md-2 flex column flex-center">
+          <p>聯絡我們</p>
+          <p>CONTENT US</p>
+        </div>
+        <div class="col-12 col-md-8">
+          <input v-model="sender" placeholder="寄件者" :dense="dense" />
+        </div>
+        </div>
+      </q-form>
     </q-layout-container>
   </q-page>
 </template>

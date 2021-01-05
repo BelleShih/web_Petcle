@@ -401,21 +401,74 @@ q-layout-container{
 
 // 關於我們 --------------------------------------
 #about-logo {
-  width:100px !important;
-  margin-bottom:15px;  
+  @include xs {
+    display: none;
+  }
+  @include sm {
+    display: none;
+  }
+  @include md {
+    width:100px !important;
+    margin-bottom:15px;
+    display: block;
+  }
 }
 
 .about-title {
+  margin-top:50px;
   font-size: 1rem !important;
+  border-top: 1px solid $petcolor01;
+  border-bottom: 1px solid $petcolor01;
+}
+
+.about-text {
+  @include xs {
+    padding: 30px;
+  }
+  @include sm {
+    padding: 30px;
+  }
+  @include md {
+    padding: 40px;
+  }
+  @include lg {
+    padding: 50px;
+  }
+  @include xl {
+    padding: 80px;
+  }
 }
 
 #about-line {
-  width: 500px;
+  width: 100%;
   height: 1px;
-  background: black;
+  background: $petcolor01;
   margin: 1rem 0;
 }
 
 .about-des {
   font-size: 1.2rem;
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#about-cube {
+  @include xs {
+    display: none;
+  }
+  @include sm {
+    display: none;
+  }
+  @include lg {
+    width: 7%;
+    height: 10%;
+    background: $petcolor01;
+    position: absolute;
+    top: 550px;
+    display: block;
+  }
 }
