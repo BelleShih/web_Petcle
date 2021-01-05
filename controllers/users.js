@@ -8,9 +8,9 @@ export const create = async (req, res) => {
   }
 
   try {
-    if (req.body.password.length < 5) {
-      res.status(400).send({ success: false, message: '密碼必須五個字以上' })
-    } else if (req.body.password.length > 20) {
+    if (req.body.password1.length < 4) {
+      res.status(400).send({ success: false, message: '密碼必須四個字以上' })
+    } else if (req.body.password1.length > 20) {
       res.status(400).send({ success: false, message: '密碼必須二十個字以下' })
     } else if ((req.body.email.includes('@')) === false) {
       res.status(400).send({ success: false, message: '電子信箱格式錯誤' })
@@ -18,13 +18,14 @@ export const create = async (req, res) => {
       await users.create({
         name: req.body.name,
         account: req.body.account,
-        password: md5(req.body.password),
+        password: md5(req.body.password1),
         email: req.body.email,
         pet: req.body.pet
       })
       res.status(200).send({ success: true, message: '' })
     }
   } catch (error) {
+    console.log(error)
     if (error.name === 'ValidationError') {
       const key = Object.keys(error.errors)[0]
       const message = error.errors[key].message

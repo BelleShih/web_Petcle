@@ -66,7 +66,7 @@ const userSchema = new Schema(
   {
     account: {
       type: String,
-      minlength: [5, '帳號必需五個字以上'],
+      minlength: [4, '帳號必需四個字以上'],
       maxlength: [20, '帳號必需二十個字以下'],
       unique: true,
       required: '帳號必填'
