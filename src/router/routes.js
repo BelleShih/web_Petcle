@@ -13,7 +13,8 @@ const routes = [
         name: 'front.index',
         component: () => import('pages/Index.vue'),
         meta: {
-          title: 'Petcle'
+          title: 'Petcle',
+          login: false
         }
       },
       {
@@ -21,7 +22,8 @@ const routes = [
         name: 'front.questions',
         component: () => import('pages/Questions.vue'),
         meta: {
-          title: '毛孩大小事'
+          title: '毛孩大小事',
+          login: false
         }
       },
       {
@@ -29,7 +31,8 @@ const routes = [
         name: 'front.pedia',
         component: () => import('pages/Pedia.vue'),
         meta: {
-          title: '寵物百科'
+          title: '寵物百科',
+          login: false
         }
       },
       {
@@ -37,7 +40,8 @@ const routes = [
         name: 'front.news',
         component: () => import('pages/News.vue'),
         meta: {
-          title: '最新消息'
+          title: '最新消息',
+          login: false
         }
       },
       {
@@ -45,31 +49,95 @@ const routes = [
         name: 'front.about',
         component: () => import('pages/About.vue'),
         meta: {
-          title: '關於Petcle'
+          title: '關於Petcle',
+          login: false
         }
       },
       {
-        path: '/mypage',
+        path: 'mypage',
         name: 'front.mypage',
         component: () => import('pages/Mypage.vue'),
         meta: {
-          title: '我的主頁'
+          title: '我的主頁',
+          login: true
         }
       },
       {
-        path: '/petpage',
+        path: 'petpage',
         name: 'front.petpage',
         component: () => import('pages/Petpage.vue'),
         meta: {
-          title: '我的寶貝'
+          title: '我的寶貝',
+          login: true
         }
       },
       {
-        path: '/space',
+        path: 'space',
         name: 'front.space',
         component: () => import('pages/Space.vue'),
         meta: {
-          title: '療癒空間'
+          title: '療癒空間',
+          login: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      {
+        path: '/',
+        name: 'admin.index',
+        component: () => import('pages/AdminIndex.vue'),
+        meta: {
+          title: 'Petcle 管理員系統',
+          login: true
+        }
+      },
+      {
+        path: '/discuss',
+        name: 'admin.discuss',
+        component: () => import('pages/AdminDiscuss.vue'),
+        meta: {
+          title: 'Petcle 討論區管理',
+          login: true
+        }
+      },
+      {
+        path: '/news',
+        name: 'admin.news',
+        component: () => import('pages/AdminNews.vue'),
+        meta: {
+          title: 'Petcle 最新消息管理',
+          login: true
+        }
+      },
+      {
+        path: '/about',
+        name: 'admin.about',
+        component: () => import('pages/AdminAbout.vue'),
+        meta: {
+          title: 'Petcle 關於我們管理',
+          login: true
+        }
+      },
+      {
+        path: '/mail',
+        name: 'admin.mail',
+        component: () => import('pages/AdminMail.vue'),
+        meta: {
+          title: 'Petcle 信件管理',
+          login: true
+        }
+      },
+      {
+        path: '/member',
+        name: 'admin.member',
+        component: () => import('pages/AdminMember.vue'),
+        meta: {
+          title: 'Petcle 用戶管理',
+          login: true
         }
       }
     ]

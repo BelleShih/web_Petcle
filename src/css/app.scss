@@ -97,7 +97,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
-// 登入------------------------------------
+// 登入--------------------------------------------
 // 調整登入圓角
 .q-dialog__inner > div {
   border-radius: 15px;
@@ -168,19 +168,42 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
-// 註冊 -------------------------------
-.registered {
+// 註冊 --------------------------------------------
+#reg_dialog {
   @include xs {
+    width:90%;
+    height:70%;
     flex-direction: column;
-    flex-wrap: wrap;
   }
   @include sm {
-    flex-direction: row;
+    width:90%;
+    height:80%;
+    flex-direction: column;
   }
   @include md {
+    width:90%;
+    height:80%;
+    flex-direction: column;
+  }
+  @include lg {
+    width:90%;
+    height:70%;
+    flex-direction:row;
+  }
+  @include xl {
+    width:1000px;
+    height:70%;
     flex-direction: row;
-  }  
+  }
 }
+
+// quasar SCSS檔案修改
+@media (min-width: 576px) {
+  .q-dialog__inner--minimized > div {
+      max-width: 80%;
+  }
+}
+
 //取消底色圓角
 .q-card > div:first-child, .q-card > img:first-child {
   border-top-right-radius: 0;
@@ -216,9 +239,11 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
   @include sm {
     width: 130px;
+    top: 20px;
   }
   @include md {
     width: 150px;
+    top: 20px;
   }
   @include lg {
     width: 180px;
@@ -227,13 +252,11 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 .registered-font {
   font-size: 1.5rem;
-  letter-spacing: 2rem;
+  letter-spacing: 1rem;
+  margin-bottom: 1.5rem;
   color: $petcolor01;
   font-weight: 800;
   text-align: center;
-  position: relative;
-  left: 15px;
-  top: 10px;  
 }
 
 .registered-form {
@@ -249,7 +272,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     width: 200px;
     height: 40px;
     border-radius: 50px;
-    margin-left: 1rem;
+    margin-bottom: 0.7rem;
     text-indent: 10px;
     border: none;
     background: rgb(235, 235, 235);
@@ -276,7 +299,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
-// index 搜尋列區-----------------------
+// index 搜尋列區--------------------------------------------
 input.q-field__native {
   border: 1px solid $petcolor02;
   border-radius: 100px;
@@ -343,7 +366,7 @@ input.q-field__native {
   font-size: 25px;
 }
 
-//搜尋按鈕
+//搜尋按鈕--------------------------------------------
 #search-btn{
   width: 160px;
   margin-bottom: 0.2rem;
@@ -471,4 +494,76 @@ q-layout-container{
     top: 550px;
     display: block;
   }
+}
+
+// 我的主頁--------------------------------------------
+.mypage_btnG {
+  margin-top: 50px;
+}
+
+.mypage_btn {
+  margin-bottom:1rem !important;
+  font-weight: 900;
+}
+
+// 上傳照片視窗-----------------------------
+#upload_dialog {
+  @include xs {
+    width:90%;
+    height:85%;
+  }
+  @include sm {
+    width:90%;
+    height:80%;
+  }
+  @include md {
+    width:60%;
+    height:70%;
+  }
+  @include lg {
+    width:60%;
+    height:70%;
+  }
+  @include xl {
+    width:30%;
+    height:70%;
+  }
+}
+
+.upload_title {
+  font-size: 1.5rem;
+  letter-spacing: 2rem;
+  color: white;
+  font-weight: 800;
+  text-align: center;
+  position: relative;
+  left: 15px;
+  top: 10px;
+}
+
+.uploadphoto_des {
+  width:100%;
+  font-size:1rem;
+  letter-spacing: 0.3rem !important;
+  font-weight: 600;
+  color: $petcolor03;
+}
+
+.UPanimaltype {
+  @include xs {
+    margin-top: 1rem;
+  }
+  @include sm {
+    margin-top: 1rem;
+  }
+  @include md {
+    margin-top: 0rem;
+  }
+}
+
+.UPcancel {
+  top: -10px;
+  left: 500px;
+  z-index: 1;
+  cursor: pointer;
 }

@@ -1,7 +1,7 @@
 <template>
-  <q-layout>
+  <q-layout style="width:100%">
     <!-- 導覽列 -->
-    <q-header elevated class="bg-white h-100" height-hint="98">
+    <q-header elevated class="bg-white" height-hint="98" style="width:100%">
       <div class="flex row wrap justify-between nav-padding">
         <div class="col-12 col-lg-4 row flex-left flex-logo-justify">
           <q-btn dense unelevated exact :to="{ name: 'front.index' }">
@@ -18,73 +18,26 @@
           </li>
           <li class="menu_link">
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
-            <q-btn v-if="user.id.length > 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">使用者</q-btn>
+            <q-btn v-if="user.id.length > 0" dense unelevated exact :to="{ name: 'front.mypage' }" active-class="text-blue-3">使用者</q-btn>
           </li>
         </ul>
       </div>
-      <!-- 登入 -->
-      <q-dialog
-        v-model="loginPage"
-      >
-        <q-card style="width: 500px; max-width: 80vw; height: 600px">
-          <q-card-section>
-            <div class="flex flex-center q-my-md">
-              <img id="logo-login" src="../assets/petcle-logo.png">
-            </div>
-          </q-card-section>
-          <q-card-section class="q-pt-none flex flex-center column">
-            <div class="login-line"></div>
-            <div class="login-font">會員登入</div>
-            <div class="login-line"></div>
-          </q-card-section>
-          <div class="q-pa-md flex flex-center items-center login-input-div">
-            <q-form
-              @submit="onSubmit_log"
-              @reset="onReset_log"
-              class="q-gutter-md"
-            >
-              <div class="login-input text-center">
-                帳號
-                <input
-                  v-model="log.account"
-                  placeholder="請輸入帳號"
-                  type="textg"
-                  :state="accountState"
-                />
-              </div>
-              <div class="login-input text-center">
-                密碼
-                <input
-                  v-model="log.password"
-                  placeholder="請輸入密碼"
-                  type="password"
-                  :state="passwordState"
-                />
-              </div>
-              <div id="no-member-text" class="text-center"><a @click="registeredPage = true; loginPage = false">還不是會員嗎?趕快按我註冊</a></div>
-              <div class="login-line"></div>
-              <div class="login-btn flex flex-center">
-                <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
-                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
-              </div>
-            </q-form>
-          </div>
-        </q-card>
-      </q-dialog>
+    </q-header>
       <!-- 註冊 -->
       <q-dialog
         v-model="registeredPage"
+        style="width:100%"
       >
-        <q-card class="flex row wrap registered" style="width: 800px; max-width: 80vw; height: 500px">
-          <q-card-section class="col-xs-12 col-sm-12 col-md-4 col-xl-5" style="background:#C2B593">
+        <q-card id="reg_dialog" class="flex row">
+          <q-card-section class="col-xs-12 col-sm-12 col-md-12 col-xl-5" style="background:#C2B593">
             <div class="flex flex-center q-my-md column welcome">
               WELCOME
               <img id="registered-logo" src="../assets/petcle-logo-w.png">
             </div>
           </q-card-section>
-          <q-card-section class="col-xs-12 col-sm-12 col-md-8 col-xl-7 q-pt-none flex flex-center column">
+          <q-card-section class="col-12 col-md-12 col-xl-7 flex flex-center column">
             <div class="registered-font">會員註冊</div>
-            <div class="q-pa-md flex flex-center items-center">
+            <div class="flex flex-center items-center">
               <q-form
                 @submit.prevent="onSubmit_reg" @reset="onReset_reg"  class="q-gutter-md registered-form"
               >
@@ -151,7 +104,55 @@
           </q-card-section>
         </q-card>
       </q-dialog>
-    </q-header>
+    <!-- 登入 -->
+      <q-dialog
+        v-model="loginPage"
+      >
+        <q-card style="width: 500px; max-width: 80vw; height: 600px">
+          <q-card-section>
+            <div class="flex flex-center q-my-md">
+              <img id="logo-login" src="../assets/petcle-logo.png">
+            </div>
+          </q-card-section>
+          <q-card-section class="q-pt-none flex flex-center column">
+            <div class="login-line"></div>
+            <div class="login-font">會員登入</div>
+            <div class="login-line"></div>
+          </q-card-section>
+          <div class="q-pa-md flex flex-center items-center login-input-div">
+            <q-form
+              @submit="onSubmit_log"
+              @reset="onReset_log"
+              class="q-gutter-md"
+            >
+              <div class="login-input text-center">
+                帳號
+                <input
+                  v-model="log.account"
+                  placeholder="請輸入帳號"
+                  type="text"
+                  :state="accountState"
+                />
+              </div>
+              <div class="login-input text-center">
+                密碼
+                <input
+                  v-model="log.password"
+                  placeholder="請輸入密碼"
+                  type="password"
+                  :state="passwordState"
+                />
+              </div>
+              <div id="no-member-text" class="text-center"><a @click="registeredPage = true; loginPage = false">還不是會員嗎?趕快按我註冊</a></div>
+              <div class="login-line"></div>
+              <div class="login-btn flex flex-center">
+                <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
+              </div>
+            </q-form>
+          </div>
+        </q-card>
+      </q-dialog>
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -247,6 +248,8 @@ export default {
           .then(res => {
             if (res.data.success) {
               alert('註冊成功')
+              this.registeredPage = false
+              this.loginPage = true
             } else {
               alert('發生錯誤')
             }
