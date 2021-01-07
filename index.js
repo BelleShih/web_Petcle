@@ -1,18 +1,17 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import dotenv from 'dotenv'
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 import connectMongo from 'connect-mongo'
 import cors from 'cors'
-import beautifyUnique from 'mongoose-beautiful-unique-validation'
 import session from 'express-session'
 
 import routerUser from './routes/users.js'
+import routerPhoto from './routes/photos.js'
 
 dotenv.config()
 
 mongoose.connect(process.env.DBURL, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.plugin(beautifyUnique)
 
 const app = express()
 
@@ -56,7 +55,9 @@ if (process.env.DEV === 'false') {
 app.use(session(sessionSettings))
 
 app.set('trust proxy', 1)
+
 app.use('/users', routerUser)
+app.use('/photos', routerPhoto)
 
 app.use((_, req, res, next) => {
   res.status(500).send({ success: false, message: '伺服器錯誤' })
@@ -65,3 +66,4 @@ app.use((_, req, res, next) => {
 app.listen(process.env.PORT, () => {
   console.log('http://localhost:' + process.env.PORT)
 })
+
