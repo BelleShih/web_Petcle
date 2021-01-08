@@ -30,7 +30,7 @@
               style="width:80%"
             >
                 <!-- 檔案上傳 -->
-                <q-file v-model="FormFile" filled bottom-slots label="選擇檔案" counter style="margin-bottom:1rem">
+                <q-file v-model="photoFile" filled bottom-slots label="選擇檔案" counter style="margin-bottom:1rem">
                   <template v-slot:prepend>
                     <q-icon name="cloud_upload" @click.stop />
                   </template>
@@ -43,14 +43,20 @@
                 </q-file>
                 <!-- 選擇哪種動物 & 類型 -->
                 <div class="flex row justify-between" style="margin-bottom:1rem">
-                  <q-select class="col-12 col-lg-5" clearable filled color="secondary" v-model="FormAnimal" :options="animalfunc" label="哪種動物"/>
-                  <q-select class="col-12 col-lg-6 UPanimaltype" clearable filled color="secondary" v-model="FormAnimalType" :options="animaltypefunc" label="動物種類" />
+                  <select class="col-12 col-lg-6 UPanimaltype" v-model="animalSelected" placeholder="選擇動物類型">
+                    <option value="" disabled selected>選擇你的動物種類</option>
+                    <option v-for="animal in animals" :key="animal.label" :value="animal">{{ animal.label }}</option>
+                  </select>
+                  <select class="col-12 col-lg-6 UPanimaltype" v-model="breedSelected" placeholder="選擇你的動物品種">
+                    <option value="" disabled selected>選擇你的動物品種</option>
+                    <option v-for="breed in selectedBreed" :key="breed.label" :value="breed">{{ breed.label }}</option>
+                  </select>
                 </div>
                 <!-- 部位 -->
                 <q-select class="col-12 col-lg-6" clearable filled color="secondary" v-model="model" :options="options" label="其他特徵" style="margin-bottom:1rem"/>
                 <!-- 照片說明 -->
                 <q-input
-                  v-model="FormText"
+                  v-model="textarea"
                   filled
                   clearable
                   type="textarea"
@@ -58,8 +64,6 @@
                   label="說明文字"
                   hint="*說明限50字內"
                   :shadow-text="textareaShadowText"
-                  @keydown="processTextareaFill"
-                  @focus="processTextareaFill"
                 />
               <div class="login-btn flex flex-center">
                 <q-btn rounded label="上傳" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
@@ -80,15 +84,16 @@ export default {
   data () {
     return {
       uploadphoto: false,
-      FormFile: '',
-      FormAnimal: '',
-      FormAnimalType: '',
-      FormText: '',
-      animal: [
+      photoFile: '',
+      animalSelected: [],
+      breedSelected: '',
+      textarea: '',
+      animal: '',
+      animals: [
         {
           label: '狗狗',
           value: 0,
-          animaltype: [
+          breed: [
             {
               label: '黃金獵犬',
               value: '0'
@@ -145,7 +150,17 @@ export default {
         },
         {
           label: '貓貓',
-          value: 1
+          value: 1,
+          breed: [
+            {
+              label: '短毛貓',
+              value: '0'
+            },
+            {
+              label: '橘貓',
+              value: '0'
+            }
+          ]
         }
       ]
     }
@@ -154,11 +169,15 @@ export default {
     user () {
       return this.$store.state.user
     },
-    animalfunc () {
-      return this.animal
+    selectedBreed () {
+      if (this.animalSelected === '') return []
+      return this.animalSelected.breed
     }
+    // animalfunc () {
+    //   return this.animals
+    // }
     // animaltypefunc () {
-    //   return this.animal[this.FormAnimal.value].animaltype
+    //   return this.animals[this.FormAnimal.index].animaltype
     // }
   }
 }

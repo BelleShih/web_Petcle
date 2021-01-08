@@ -559,12 +559,18 @@ q-layout-container{
   }
   @include md {
     margin-top: 0rem;
+    background: #eee;
+    height: 100px;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
   }
 }
 
 .UPcancel {
-  top: -10px;
-  left: 500px;
+  top: 100px;
+  left: 940px;
   z-index: 1;
   cursor: pointer;
 }

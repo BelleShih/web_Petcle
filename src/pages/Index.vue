@@ -39,7 +39,7 @@
       <div class="row fit wrap justify-center items-start">
         <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="n in 10" :key="`xs-${n}`">
           <q-card class="my-card">
-            <img src="~assets/04.jpg">
+            <img src="~assets/03.jpg">
             <div class="absolute-bottom-right">
               <q-btn flat round color="white" icon="star" />
             </div>
