@@ -4,6 +4,10 @@ const Schema = mongoose.Schema
 
 const photosSchema = new Schema(
   {
+    user: {
+      type: String,
+      required: [true, '缺少使用者名稱']
+    },
     file: {
       type: String,
       required: [true, '缺少檔案名稱']

@@ -67,6 +67,7 @@ export const create = async (req, res) => {
       } else if (error.code === 'LIMIT_FORMAT') {
         message = '格式不符'
       } else {
+        console.log(error)
         message = '上傳錯誤'
       }
 
@@ -85,7 +86,7 @@ export const create = async (req, res) => {
           user: req.session.user._id,
           file,
           description: req.body.description,
-          animals:req.body.animal,
+          animal:req.body.animal,
           animaltypes:req.body.animaltype,
           bodyparts:req.body.bodypart
         })
