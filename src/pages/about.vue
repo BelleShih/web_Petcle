@@ -40,44 +40,41 @@
       </div>
       <!-- 聯絡我們表單 -->
       <div id="csForm">
-        <q-form style="width:100%">
-          <div class="flex flex-center row" style="width:100%;border:1px solid white">
-            <div class="col-xs-12 col-md-2 col-lg-2 flex column" style="border-right:1px solid white;height:100%">
-              <p>聯絡我們</p>
+        <q-form style="width:100%;height:100%">
+          <div class="flex flex-center row form_border" >
+            <div class="col-xs-12 col-md-2 col-lg-2 flex column about_left" style="color:white">
+              <h6 style="margin-bottom:0.3rem">聯絡我們</h6>
               <p>CONTENT US</p>
+              <div id="form_line"></div>
             </div>
             <div class="col-xs-12 col-md-8 col-lg-8 flex column">
               <div class="col-12 col-md-8 col-lg-8 flex row flex-center">
-                <div>
-                  <div>
-                    <input v-model="sender" placeholder="寄件者" :dense="dense" class="about_input"/>
+                <div class="flex column col-12 col-lg-6">
+                  <div class="about_input_div">
+                    <input v-model="sender" placeholder="寄件者" class="about_input"/>
                   </div>
-                  <div>
-                    <input v-model="sender" placeholder="寄件者" :dense="dense" class="about_input"/>
+                  <div class="about_input_div">
+                    <input
+                    v-model="sender"
+                    placeholder="電子信箱"
+                    class="about_input"/>
                   </div>
-                  <div>
-                    <input v-model="sender" placeholder="寄件者" :dense="dense" class="about_input"/>
+                  <div class="about_input_div">
+                    <input v-model="sender" placeholder="主旨" :dense="dense" class="about_input"/>
                   </div>
                 </div>
-                <div>
-                  <q-input
+                <div class="flex col-12 col-lg-6 about_textarea ">
+                  <textarea
                       v-model="FormText"
-                      filled
-                      clearable
                       type="textarea"
                       color="secondary"
                       maxlength="50"
-                      label="說明文字"
-                      hint="*說明限50字內"
-                      class="about_textarea"
-                      :shadow-text="textareaShadowText"
-                      @keydown="processTextareaFill"
-                      @focus="processTextareaFill"
+                      placeholder="想說的話"
                     />
                 </div>
               </div>
-              <div class="col-12 col-md-2 col-lg-2">
-                <q-btn color="black" class="full-width" label="Full-width" />
+              <div class="col-12 col-md-2 col-lg-2 form_btn">
+                <q-btn color="white" class="full-width" label="送出" />
               </div>
             </div>
           </div>
