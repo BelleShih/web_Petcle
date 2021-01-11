@@ -631,7 +631,6 @@ q-layout-container{
 
 // 送出拿掉陰影
 .q-btn__wrapper:before {
-  border-radius: 0px !important;
   box-shadow: none !important;
 }
 
@@ -646,7 +645,7 @@ q-layout-container{
   font-weight: 900;
 }
 
-// 上傳照片視窗-----------------------------
+// 主頁上傳照片視窗-----------------------------
 #upload_dialog {
   @include xs {
     width:90%;
@@ -689,12 +688,24 @@ q-layout-container{
   color: $petcolor03;
 }
 
-.UPanimaltype {
+.ULanimaltype {
   @include xs {
     margin-top: 1rem;
+    background: #eee;
+    height: 100px;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
   }
   @include sm {
     margin-top: 1rem;
+    background: #eee;
+    height: 100px;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
   }
   @include md {
     margin-top: 0rem;
@@ -707,10 +718,52 @@ q-layout-container{
   }
 }
 
+.ULanimaltype_bp {
+  @include xs {
+    width: 100%;
+    margin-bottom: 1rem;
+    background: #eee;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
+  }
+  @include sm {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: #eee;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
+  }
+  @include md {
+    width: 100%;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    background: #eee;
+    font-size: 1rem;
+    color: #333;
+    padding: 10px 0;
+    outline:none;
+  }
+}
+
 .UPcancel {
-  top: 100px;
-  left: 940px;
   z-index: 1;
   cursor: pointer;
+  @include xs {
+    top: 10px;
+    left: 350px;
+  }
+  @include md {
+    top: 10px;
+    left: 450px;
+  }
+  @include lg {
+    top: 10px;
+    left: 500px;
+  }
 }
 

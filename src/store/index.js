@@ -19,7 +19,8 @@ export default function (/* { ssrContext } */) {
     state: {
       user: {
         name: '',
-        id: ''
+        id: '',
+        account: ''
       }
     },
     computed: {
@@ -27,12 +28,13 @@ export default function (/* { ssrContext } */) {
     },
     mutations: {
       logout (state) {
-        state.user.name = ''
+        state.user.account = ''
         state.user.id = ''
       },
       login (state, data) {
-        state.user.name = data.account
+        state.user.account = data.account
         state.user.id = data._id
+        state.user.name = data.name
       }
     },
     actions: {

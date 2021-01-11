@@ -6,7 +6,7 @@
           <div class="flex column flex-center">
             <img src="https://picsum.photos/200/200/?random=1">
             <h5>{{ user.name }}</h5>
-            <p>@{{ user.id }}</p>
+            <p>@{{ user.account }}</p>
           </div>
           <div class="mypage_btnG flex column">
             <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
@@ -30,7 +30,7 @@
               style="width:80%"
             >
                 <!-- 檔案上傳 -->
-                <q-file v-model="photoFile" filled bottom-slots label="選擇檔案" counter style="margin-bottom:1rem">
+                <q-file v-model="photoFile" filled bottom-slots counter label="選擇檔案" style="margin-bottom:1rem">
                   <template v-slot:prepend>
                     <q-icon name="cloud_upload" @click.stop />
                   </template>
@@ -43,17 +43,20 @@
                 </q-file>
                 <!-- 選擇哪種動物 & 類型 -->
                 <div class="flex row justify-between" style="margin-bottom:1rem">
-                  <select class="col-12 col-lg-6 UPanimaltype" v-model="animalSelected" placeholder="選擇動物類型">
+                  <select class="col-12 col-lg-6 ULanimaltype" v-model="animalSelected" placeholder="選擇動物類型">
                     <option value="" disabled selected>選擇你的動物種類</option>
-                    <option v-for="animal in animals" :key="animal.label" :value="animal">{{ animal.label }}</option>
+                    <option v-for="animal in animals" :key="animal.name" :value="animal">{{ animal.name }}</option>
                   </select>
-                  <select class="col-12 col-lg-6 UPanimaltype" v-model="breedSelected" placeholder="選擇你的動物品種">
+                  <select class="col-12 col-lg-6 ULanimaltype" v-model="breedSelected" placeholder="選擇你的動物品種">
                     <option value="" disabled selected>選擇你的動物品種</option>
-                    <option v-for="breed in selectedBreed" :key="breed.label" :value="breed">{{ breed.label }}</option>
+                    <option v-for="breed in selectedBreed" :key="breed.name" :value="breed">{{ breed.name }}</option>
                   </select>
                 </div>
                 <!-- 部位 -->
-                <q-select class="col-12 col-lg-6" clearable filled color="secondary" v-model="model" :options="options" label="其他特徵" style="margin-bottom:1rem"/>
+                <select class="col-12 ULanimaltype_bp" v-model="bodySelected" placeholder="選擇你的動物部位">
+                  <option value="" disabled selected>選擇你的動物部位</option>
+                  <option v-for="bodypart in selectedBodypart" :key="bodypart.name" :value="bodypart">{{ bodypart.name }}</option>
+                </select>
                 <!-- 照片說明 -->
                 <q-input
                   v-model="textarea"
@@ -63,7 +66,6 @@
                   color="secondary"
                   label="說明文字"
                   hint="*說明限50字內"
-                  :shadow-text="textareaShadowText"
                 />
               <div class="login-btn flex flex-center">
                 <q-btn rounded label="上傳" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px"/>
@@ -71,7 +73,7 @@
               </div>
             </q-form>
           </div>
-          <q-icon name="cancel" size="40px" class="absolute UPcancel" @click="uploadphoto = false"></q-icon>
+          <q-icon name="cancel" size="40px" color="white" class="absolute UPcancel" @click="uploadphoto = false"></q-icon>
         </q-card>
       </q-dialog>
     </q-layout-container>
@@ -85,84 +87,12 @@ export default {
     return {
       uploadphoto: false,
       photoFile: '',
-      animalSelected: [],
+      animalSelected: '',
       breedSelected: '',
+      bodySelected: '',
       textarea: '',
-      animal: '',
-      animals: [
-        {
-          label: '狗狗',
-          value: 0,
-          breed: [
-            {
-              label: '黃金獵犬',
-              value: '0'
-            },
-            {
-              label: '哈士奇',
-              value: '1'
-            },
-            {
-              label: '柯基',
-              value: '2'
-            },
-            {
-              label: '柴犬',
-              value: '3'
-            },
-            {
-              label: '貴賓犬',
-              value: '4'
-            },
-            {
-              label: '薩摩耶',
-              value: '5'
-            },
-            {
-              label: '博美',
-              value: '6'
-            },
-            {
-              label: '雪納瑞',
-              value: '7'
-            },
-            {
-              label: '西施犬',
-              value: '8'
-            },
-            {
-              label: '牧羊犬',
-              value: '9'
-            },
-            {
-              label: '吉娃娃',
-              value: '10'
-            },
-            {
-              label: '米克斯',
-              value: '11'
-            },
-            {
-              label: '拉不拉多',
-              value: '12'
-            }
-          ]
-        },
-        {
-          label: '貓貓',
-          value: 1,
-          breed: [
-            {
-              label: '短毛貓',
-              value: '0'
-            },
-            {
-              label: '橘貓',
-              value: '0'
-            }
-          ]
-        }
-      ]
+      animals: [],
+      photos: []
     }
   },
   computed: {
@@ -170,15 +100,68 @@ export default {
       return this.$store.state.user
     },
     selectedBreed () {
-      if (this.animalSelected === '') return []
-      return this.animalSelected.breed
+      return this.animalSelected.breeds
+    },
+    selectedBodypart () {
+      return this.animalSelected.bodypart
     }
-    // animalfunc () {
-    //   return this.animals
-    // }
-    // animaltypefunc () {
-    //   return this.animals[this.FormAnimal.index].animaltype
-    // }
+  },
+  methods: {
+    onSubmit_upload () {
+      if (this.photoFile.size > 1024 * 1024) {
+        alert('圖片太大')
+      } else if (!this.photoFile.type.includes('image')) {
+        alert('檔案格式錯誤')
+      } else {
+        const photo = new FormData()
+        photo.append('image', this.photoFile)
+        photo.append('animal', this.animalSelected._id)
+        photo.append('breed', this.breedSelected)
+        photo.append('bodypart', this.bodySelected)
+        photo.append('description', this.textarea)
+
+        this.axios.post(process.env.VUE_APP_API + '/photos/', photo)
+          .then(res => {
+            this.photos.push(res.data.result)
+            this.photoFile = null
+            this.animalSelected = ''
+            this.breedSelected = ''
+            this.bodySelected = ''
+            this.textarea = ''
+          })
+      }
+    },
+    onReset_upload () {}
+  },
+  // 抓全部的動物資料
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/animals/')
+      .then(res => {
+        if (res.data.success) {
+          this.animals = res.data.result
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)  
+      .then(res => {
+        if (res.data.success) {
+          this.photos = res.data.result.map(data => {
+            data.src = process.env.VUE_APP_API + 'albums/file/' + photoFile
+            data.title = photos.description
+            data.model = photos.description
+            data.edit = false
+          })
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
