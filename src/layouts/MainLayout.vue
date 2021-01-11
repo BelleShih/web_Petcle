@@ -8,15 +8,15 @@
             <img id="logo" src="../assets/petcle-logo.png" >
           </q-btn>
         </div>
-        <ul class="flex row col-12 col-md-12 col-xl-6">
-          <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.about' }" active-class="text-blue-3">關於 Petcle</q-btn></li>
-          <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.news' }" active-class="text-blue-3">最新消息</q-btn></li>
-          <li class="menu_link"><q-btn dense unelevated exact :to="{ name: 'front.questions' }">毛孩大小事</q-btn></li>
-          <li class="menu_link">
+        <ul id="nav" class="flex row col-12 col-md-12 col-xl-6">
+          <li><q-btn dense unelevated exact :to="{ name: 'front.about' }" active-class="text-blue-3">關於 Petcle</q-btn></li>
+          <li><q-btn dense unelevated exact :to="{ name: 'front.news' }" active-class="text-blue-3">最新消息</q-btn></li>
+          <li><q-btn dense unelevated exact :to="{ name: 'front.questions' }">毛孩大小事</q-btn></li>
+          <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="loginPage = true" active-class="text-blue-3">登入</q-btn>
             <q-btn v-if="user.id.length > 0" dense unelevated exact @click="logout" active-class="text-blue-3">登出</q-btn>
           </li>
-          <li class="menu_link">
+          <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
             <q-btn v-if="user.id.length > 0" dense unelevated exact :to="{ name: 'front.mypage' }" active-class="text-blue-3">使用者</q-btn>
           </li>
@@ -156,6 +156,40 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <q-footer elevated class="text-white footer">
+      <div class="flex flex-center" style="height:100%">
+        <div class="flex row justify-center footer_row" style="width:100%">
+          <div class="col-xs-10 col-sm-5 col-md-12 col-lg-2 footer_col" style="align-self:center">
+            <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
+            <p>Copyright © 2020 Petcle. All rights reserved.</p>
+          </div>
+          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column footer_col" style="margin-left:3rem">
+            <h6>Petcle</h6>
+            <ul class="footer_li">
+              <li>service@petcle.com</li>
+              <li>(270) 555-0117</li>
+              <li>3517 W. Gray St. Utica, Pennsylvania</li>
+            </ul>
+          </div>
+          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
+            <h6>毛孩大小事</h6>
+            <ul class="footer_li">
+              <li>網友疑問</li>
+              <li>我要發問</li>
+              <li>寵物百科</li>
+            </ul>
+          </div>
+          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
+            <h6>網站會員</h6>
+            <ul class="footer_li">
+              <li>登入會員</li>
+              <li>註冊會員</li>
+              <li>會員權益與條款</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </q-footer>
   </q-layout>
 </template>
 

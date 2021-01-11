@@ -13,7 +13,7 @@
   }  
 }
 
-ul {
+#nav {
   padding-left: 0;
 
   @include xs {
@@ -29,29 +29,28 @@ ul {
     justify-content: flex-end;
     padding-right: 1rem;
   }
-}
-
-li {
-  color: $petcolor01;
-  list-style:none;
-  font-size: 1rem;
-  border-bottom: 2px solid transparent;
-
-  &:hover{
-    border-bottom: 2px solid $petcolor01;
-    font-weight: 800;
-  }
-  @include xs {
-    margin-left: 1rem;
-  }
-  @include sm {
-    margin-left: 1rem;
-  }
-  @include md {
-    margin-left: 2rem;
-  }
-  @include lg {
-    margin-left: 2rem;
+  li {
+    color: $petcolor01;
+    list-style:none;
+    font-size: 1rem;
+    border-bottom: 2px solid transparent;
+  
+    &:hover{
+      border-bottom: 2px solid $petcolor01;
+      font-weight: 800;
+    }
+    @include xs {
+      margin-left: 1rem;
+    }
+    @include sm {
+      margin-left: 1rem;
+    }
+    @include md {
+      margin-left: 2rem;
+    }
+    @include lg {
+      margin-left: 2rem;
+    }
   }
 }
 
@@ -502,7 +501,7 @@ q-layout-container{
   width: 100%;
   background: $petcolor03 !important;
   padding: 5% 2%;
-  margin-top: 3%;
+  margin: 4% 0;
 }
 
 .form_border {
@@ -767,3 +766,37 @@ q-layout-container{
   }
 }
 
+// footer------------------------
+.footer {
+  height: 20%;
+  background:#56C6BF;
+  @include xs {
+    height: 26%;
+  }
+}
+
+.footer_row {
+  &:nth-child(1){
+    @include md {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  &:nth-child(3){
+    @include md {
+      width: 10%;
+    }
+  }
+}
+
+.footer_col{
+  margin: 1.2rem;
+}
+
+.footer_li{
+  list-style:none;
+  color: white;
+  position: relative;
+  line-height: 2rem;
+  padding-left: 0;
+}

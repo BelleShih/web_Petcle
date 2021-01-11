@@ -146,22 +146,22 @@ export default {
       .catch(err => {
         console.log(err)
       })
-    this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)  
-      .then(res => {
-        if (res.data.success) {
-          this.photos = res.data.result.map(data => {
-            data.src = process.env.VUE_APP_API + 'albums/file/' + photoFile
-            data.title = photos.description
-            data.model = photos.description
-            data.edit = false
-          })
-        } else {
-          alert('錯誤')
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    // this.axios.get( process.env.VUE_APP_API + '/photos/user/' + this.user.id)
+    //   .then(res => {
+    //     if (res.data.success) {
+    //       this.photos = res.data.result.map(data => {
+    //         data.src = process.env.VUE_APP_API + 'albums/file/' + photos.File
+    //         data.title = photos.description
+    //         data.model = photos.description
+    //         data.edit = false
+    //       })
+    //     } else {
+    //       alert('錯誤')
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
   }
 }
 </script>
