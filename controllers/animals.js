@@ -130,8 +130,8 @@ export const deleteBreeds = async (req, res) => {
     return
   }
   try {
-    animals.findByIdAndUpdate(
-      {'animals._id': req.params.id},
+    animals.findOneAndUpdate(
+      {'breeds._id': req.params.id},
       {
         $pull: {
           breeds: {
@@ -158,6 +158,7 @@ export const deleteBreeds = async (req, res) => {
   }
 }
 
+// 增加動物部位
 export const addBodyparts = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
@@ -192,7 +193,70 @@ export const addBodyparts = async (req, res) => {
   }
 }
 
-// export const getAnimals = async (req, res) => {
-  
-// }
+// 刪除動物部位
+export const deleteBodypart = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    animals.findOneAndUpdate(
+      {'bodypart._id': req.params.id},
+      {
+        $pull: {
+          bodypart: {
+            _id: req.params.id
+          }
+        }
+      },
+      {new: true}
+  ).then(result => {
+      res.status(200).send({ success: true, message: '', result })
+      console.log(util.inspect(result, {showHidden: true, depth: null}))
+    }).catch(error => {
+      console.log(error)
+    })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(400).send({ success: false, message })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+//抓全部animals的資料
+export const getAnimals = async (req, res) => {
+  animals.find().then(result => {
+  res.status(200).send({ success: true, message: '', result })
+  console.log(util.inspect(result, {showHidden: true, depth: null}))
+}).catch(error => {
+  console.log(error)
+})
+}
+
+//尋找指定動物
+export const getAnimal = async (req, res) => {
+  animals.findById( req.params.id ).populate('animals.name')
+.then(result => {
+  res.status(200).send({ success: true, message: '', result })
+  console.log(util.inspect(result, {showHidden: true, depth: null}))
+}).catch(error => {
+  console.log(error)
+})
+}
+
+// 尋找動物品種
+export const getBreeds = async (req, res) => {
+  animals.findById( req.params.id, 'breeds' ).populate('breeds.p_id')
+.then(result => {
+  res.status(200).send({ success: true, message: '', result })
+  console.log(util.inspect(result, {showHidden: true, depth: null}))
+}).catch(error => {
+  console.log(error)
+})
+}
 
