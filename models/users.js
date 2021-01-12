@@ -29,11 +29,11 @@ const petSchema = new Schema(
       type: mongoose.ObjectId,
       ref: 'animals'
     },
-    animaltype: {
+    breeds: {
       type: mongoose.ObjectId,
-      ref: 'animaltypes'
+      ref: 'breedstypes'
     },
-    bodypart: {
+    bodyparts: {
       type: mongoose.ObjectId,
       ref: 'bodyparts'
     }

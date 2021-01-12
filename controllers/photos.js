@@ -4,6 +4,7 @@ import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 import dotenv from 'dotenv'
+import util from 'util'
 
 import photos from '../models/photos.js'
 
@@ -87,7 +88,7 @@ export const create = async (req, res) => {
           file,
           description: req.body.description,
           animal:req.body.animal,
-          animaltypes:req.body.animaltype,
+          breeds:req.body.breed,
           bodyparts:req.body.bodypart
         })
         res.status(200).send({ success: true, message: '', result })
@@ -147,7 +148,7 @@ export const deletee = async (req, res) => {
     let result = await photos.findById(req.params.id)
     if (result === null) {
       res.status(404).send({ success: false, message: '找不到資料' })
-    } else if (result.user !== req.session.user._id) {
+    } else if (result.user.toString() !== req.session.user._id.toString()) {
       res.status(403).send({ success: false, message: '沒有權限' })
     } else {
       result = await photos.findByIdAndDelete(req.params.id)

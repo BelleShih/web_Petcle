@@ -5,8 +5,8 @@ const Schema = mongoose.Schema
 const photosSchema = new Schema(
   {
     user: {
-      type: String,
-      required: [true, '缺少使用者名稱']
+      type: mongoose.ObjectId,
+      ref: 'users'
     },
     file: {
       type: String,
@@ -20,13 +20,13 @@ const photosSchema = new Schema(
       type: mongoose.ObjectId,
       ref: 'animals'
     },
-    animaltype: {
+    breeds: {
       type: mongoose.ObjectId,
-      ref: 'animaltypes'
+      ref: 'animals.breeds'
     },
-    bodypart: {
+    bodyparts: {
       type: mongoose.ObjectId,
-      ref: 'bodyparts'
+      ref: 'animals.bodypart'
     }
   }
 )
