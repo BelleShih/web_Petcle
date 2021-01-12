@@ -174,16 +174,16 @@
           <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
             <h6>毛孩大小事</h6>
             <ul class="footer_li">
-              <li>網友疑問</li>
-              <li>我要發問</li>
-              <li>寵物百科</li>
+              <li><q-btn :to="{ name: 'front.questions' }">網友疑問</q-btn></li>
+              <li><q-btn :to="{ name: 'front.questions' }">我要發問</q-btn></li>
+              <li><q-btn :to="{ name: 'front.pedia' }">寵物百科</q-btn></li>
             </ul>
           </div>
           <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
             <h6>網站會員</h6>
             <ul class="footer_li">
-              <li>登入會員</li>
-              <li>註冊會員</li>
+              <li><q-btn :to="{ name: 'front.index' }" @click="loginPage = true">登入會員</q-btn></li>
+              <li><q-btn :to="{ name: 'front.index' }" @click="registeredPage = true">註冊會員</q-btn></li>
               <li>會員權益與條款</li>
             </ul>
           </div>
