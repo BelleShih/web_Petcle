@@ -1,21 +1,43 @@
 <template>
   <q-page>
     <q-layout-container>
-      <div class="flex row flex-center" style="padding-top:100px">
-        <div class="col-12 col-md-3 flex column flex-center" style="border-right:1px solid #333">
+      <div class="flex row justify-around" style="padding:50px 0">
+        <div class="col-12 col-md-3 flex column mypage_line">
           <div class="flex column flex-center">
             <img src="https://picsum.photos/200/200/?random=1">
             <h5>{{ user.name }}</h5>
             <p>@{{ user.account }}</p>
           </div>
-          <div class="mypage_btnG flex column">
+          <div class="mypage_btnG flex column flex-center">
             <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="settings" label="編輯照片" @click="editphoto" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="star" label="療癒空間" @click="space" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="pets" label="我的寶貝" @click="petpage" size="16px" class="mypage_btn"/>
           </div>
         </div>
-        <div class="col-12 col-md-8"></div>
+        <div class="col-12 col-md-8">
+          <container class="flex flex-center">
+            <div class="row fit wrap justify-center items-start">
+              <div class="col-6 col-md-6 col-lg-6 col-xl-3 q-pa-sm" v-for="(photo, index) in photos" :key="photo.file" :value="photo">
+                <q-card class="my-card" style="height:17rem">
+                  <img :src="photo.src">
+                </q-card>
+                <div class="q-pa-md" style="max-width: 300px">
+                  <q-input
+                    v-if="photo.edit"
+                    v-model="photo_text"
+                    filled
+                    type="textarea"
+                  />
+                </div>
+                <q-icon v-if="!photo.edit" name="create" color="primary" size="2rem" @click="edit(photo)"></q-icon>
+                <q-icon v-if="!photo.edit" name="delete_forever" color="negative" size="2rem" @click="del(photo, index)"></q-icon>
+                <q-icon v-if="photo.edit" name="save" color="secondary" size="2rem" @click="save(photo)"></q-icon>
+                <q-icon v-if="photo.edit" name="cancel" color="accent" size="2rem"  @click="cancel(photo)"></q-icon>
+              </div>
+            </div>
+    </container>
+        </div>
       </div>
       <!-- 上傳照片彈出視窗 -->
       <q-dialog v-model="uploadphoto">
@@ -116,22 +138,77 @@ export default {
         const photo = new FormData()
         photo.append('image', this.photoFile)
         photo.append('animal', this.animalSelected._id)
-        photo.append('breed', this.breedSelected)
-        photo.append('bodypart', this.bodySelected)
+        photo.append('breed', this.breedSelected._id)
+        photo.append('bodypart', this.bodySelected._id)
         photo.append('description', this.textarea)
 
         this.axios.post(process.env.VUE_APP_API + '/photos/', photo)
           .then(res => {
-            this.photos.push(res.data.result)
-            this.photoFile = null
-            this.animalSelected = ''
-            this.breedSelected = ''
-            this.bodySelected = ''
-            this.textarea = ''
+            console.log(res.data)
+            if (res.data.success) {
+              res.data.result.src = process.env.VUE_APP_API + '/photos/file/' + res.data.result.file
+              res.data.result.title = res.data.result.description
+              res.data.result.model = res.data.result.description
+              res.data.result.animal01 = res.data.result.animal
+              res.data.result.breeds01 = res.data.result.breeds
+              res.data.result.bodyparts01 = res.data.result.bodyparts
+              res.data.result.edit = false
+              this.photos.push(res.data.result)
+              // 清空
+              this.photoFile = null
+              this.animalSelected = ''
+              this.breedSelected = ''
+              this.bodySelected = ''
+              this.textarea = ''
+              alert('上傳成功')
+            } else {
+              alert('上傳錯誤')
+            }
           })
       }
     },
-    onReset_upload () {}
+    onReset_upload () {
+      this.photoFile = null
+      this.animalSelected = ''
+      this.breedSelected = ''
+      this.bodySelected = ''
+      this.textarea = ''
+    },
+    cancel (photo) {
+      photo.edit = false
+      photo.model = photo.des
+    },
+    save (photo) {
+      this.axios.patch(process.env.VUE_APP_API + '/photos/' + photo._id, { description: photo.model })
+        .then(res => {
+          if (res.data.scuuess) {
+            photo.edit = false
+            photo.des = photo.model
+          } else {
+            alert('更新錯誤')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    edit (photo) {
+      photo.edit = true
+      photo.model = photo.des
+    },
+    del (photo, index) {
+      this.axios.delete(process.env.VUE_APP_API + '/photos/' + photo._id)
+        .then(res => {
+          if (res.data.success) {
+            this.photos.splice(index, 1)
+          } else {
+            alert('刪除失敗')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   },
   // 抓全部的動物資料
   mounted () {
@@ -146,22 +223,24 @@ export default {
       .catch(err => {
         console.log(err)
       })
-    // this.axios.get( process.env.VUE_APP_API + '/photos/user/' + this.user.id)
-    //   .then(res => {
-    //     if (res.data.success) {
-    //       this.photos = res.data.result.map(data => {
-    //         data.src = process.env.VUE_APP_API + 'albums/file/' + photos.File
-    //         data.title = photos.description
-    //         data.model = photos.description
-    //         data.edit = false
-    //       })
-    //     } else {
-    //       alert('錯誤')
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
+    // 抓使用者的圖片資料
+    this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)
+      .then(res => {
+        if (res.data.success) {
+          this.photos = res.data.result.map(photo => {
+            photo.src = process.env.VUE_APP_API + '/photos/file/' + photo.file
+            photo.des = photo.description
+            photo.model = photo.description
+            photo.edit = false
+            return photo
+          })
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

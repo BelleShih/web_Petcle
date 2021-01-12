@@ -644,6 +644,13 @@ q-layout-container{
   font-weight: 900;
 }
 
+.mypage_line {
+  border-right:1px solid black;
+  @include xs {
+    border-right:none;
+  }
+}
+
 // 主頁上傳照片視窗-----------------------------
 #upload_dialog {
   @include xs {
@@ -768,10 +775,10 @@ q-layout-container{
 
 // footer------------------------
 .footer {
-  height: 20%;
+  height: 25%;
   background:#56C6BF;
   @include xs {
-    height: 26%;
+    height: 28%;
   }
 }
 
