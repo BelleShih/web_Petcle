@@ -63,10 +63,6 @@ const userSchema = new Schema(
     },
     pet: Boolean,
     userophoto: String,
-    uploadphotos: {
-      type: mongoose.ObjectId,
-      ref: 'photos'
-    },
     album: [albumnSchema],
     petpage: [petSchema],
     discuss: {

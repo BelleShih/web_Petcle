@@ -38,7 +38,6 @@ if(process.env.DEV === 'true') {
 const upload = multer({
   storage,
   fileFilter (req, file, callback) {
-    console.log(file)
     if (!file.mimetype.includes('image')) {
       callback(new multer.MulterError('LIMIT_FORMAT'), false)
     } else {
@@ -119,7 +118,7 @@ export const edit = async (req, res) => {
     let result = await photos.findById(req.params.id)
     if (result === null) {
       res.status(404).send({ success: false, message: '找不到資料' })
-    } else if (result.user !== req.session.user._id) {
+    } else if (result.user.toString() !== req.session.user._id.toString()) {
       res.status(403).send({ success: false, message: '沒有權限' })
     } else {
       result = await photos.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -187,10 +186,10 @@ export const user = async (req, res) => {
 }
 
 export const file = async (req, res) => {
-  if (req.session.user === undefined) {
-    res.status(401).send({ success: false, message: '未登入' })
-    return
-  }
+  // if (req.session.user === undefined) {
+  //   res.status(401).send({ success: false, message: '未登入' })
+  //   return
+  // }
 
   // 開發環境回傳本機圖片
   if (process.env.DEV === 'true') {
@@ -212,5 +211,32 @@ export const file = async (req, res) => {
     }).catch(error => {
       res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
     })
+  }
+}
+
+// 取得所有圖片資料
+export const getAll = async (req, res) => {
+  try {
+    const result = await photos.find()
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
+// 將動物ID轉換為name
+export const animalsfunc = async (req, res) => {
+  try {
+    const reuslt = await photos.findById(req.params._id).populate('user').populate('animal')
+    // .populate('bodyparts')
+    const b = reuslt.animal.breeds.filter(breed => {
+      return `${breed._id}` === `${reuslt.breeds}`
+    })[0]
+    const body = reuslt.animal.bodypart.filter(bodypart => {
+      return `${bodypart._id}` === `${reuslt.bodyparts}`
+    })[0]
+    console.log(b, body);
+  } catch (error) {
+    console.log(error)
   }
 }
