@@ -10,7 +10,7 @@
           </div>
           <div class="mypage_btnG flex column flex-center">
             <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
-            <q-btn outline rounded color="primary" icon="settings" label="編輯照片" @click="editphoto" size="16px" class="mypage_btn"/>
+            <q-btn outline rounded color="primary" icon="settings" label="編輯照片" size="16px" @click="editMenu = !editMenu" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="star" label="療癒空間" @click="space" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="pets" label="我的寶貝" @click="petpage" size="16px" class="mypage_btn"/>
           </div>
@@ -25,15 +25,17 @@
                 <div class="q-pa-md" style="max-width: 300px">
                   <q-input
                     v-if="photo.edit"
-                    v-model="photo_text"
+                    v-model="photo.model"
                     filled
                     type="textarea"
                   />
                 </div>
-                <q-icon v-if="!photo.edit" name="create" color="primary" size="2rem" @click="edit(photo)"></q-icon>
-                <q-icon v-if="!photo.edit" name="delete_forever" color="negative" size="2rem" @click="del(photo, index)"></q-icon>
-                <q-icon v-if="photo.edit" name="save" color="secondary" size="2rem" @click="save(photo)"></q-icon>
-                <q-icon v-if="photo.edit" name="cancel" color="accent" size="2rem"  @click="cancel(photo)"></q-icon>
+                <div v-if="editMenu" style="cursor:pointer">
+                  <q-icon v-if="!photo.edit" name="create" color="primary" size="2rem" @click="edit(photo)"></q-icon>
+                  <q-icon v-if="!photo.edit" name="delete_forever" color="negative" size="2rem" @click="del(photo, index)"></q-icon>
+                  <q-icon v-if="photo.edit" name="save" color="secondary" size="2rem" @click="save(photo)"></q-icon>
+                  <q-icon v-if="photo.edit" name="cancel" color="accent" size="2rem"  @click="cancel(photo)"></q-icon>
+                </div>
               </div>
             </div>
     </container>
@@ -65,7 +67,7 @@
                 </q-file>
                 <!-- 選擇哪種動物 & 類型 -->
                 <div class="flex row justify-between" style="margin-bottom:1rem">
-                  <select class="col-12 col-lg-6 ULanimaltype" v-model="animalSelected" placeholder="選擇動物類型">
+                  <select class="col-12 col-lg-5 ULanimaltype" v-model="animalSelected" placeholder="選擇動物類型">
                     <option value="" disabled selected>選擇你的動物種類</option>
                     <option v-for="animal in animals" :key="animal.name" :value="animal">{{ animal.name }}</option>
                   </select>
@@ -98,6 +100,38 @@
           <q-icon name="cancel" size="40px" color="white" class="absolute UPcancel" @click="uploadphoto = false"></q-icon>
         </q-card>
       </q-dialog>
+      <!-- 上傳成功視窗 -->
+      <q-dialog v-model="uploadSuccess" persistent  transition-show="scale" transition-hide="scale">
+        <q-card class="bg-teal text-white text-center" style="width: 300px">
+          <q-card-section>
+            <q-icon name="check_circle_outline" size="5rem" color="white"></q-icon>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            上傳成功
+          </q-card-section>
+
+          <q-card-actions align="center" class="bg-white text-teal">
+            <q-btn flat label="OK" v-close-popup @click="uploadSuccess = false"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+      <!-- 更新成功彈出視窗 -->
+      <q-dialog v-model="updateSuccess" persistent  transition-show="scale" transition-hide="scale">
+        <q-card class="bg-teal text-white text-center" style="width: 300px">
+          <q-card-section>
+            <q-icon name="check_circle_outline" size="5rem" color="white"></q-icon>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            更新成功
+          </q-card-section>
+
+          <q-card-actions align="center" class="bg-white text-teal">
+            <q-btn flat label="OK" v-close-popup @click="updateSuccess = false"/>
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </q-layout-container>
   </q-page>
 </template>
@@ -114,7 +148,10 @@ export default {
       bodySelected: '',
       textarea: '',
       animals: [],
-      photos: []
+      photos: [],
+      updateSuccess: false,
+      editMenu: false,
+      uploadSuccess: false
     }
   },
   computed: {
@@ -160,7 +197,7 @@ export default {
               this.breedSelected = ''
               this.bodySelected = ''
               this.textarea = ''
-              alert('上傳成功')
+              this.uploadSuccess = true
             } else {
               alert('上傳錯誤')
             }
@@ -181,11 +218,12 @@ export default {
     save (photo) {
       this.axios.patch(process.env.VUE_APP_API + '/photos/' + photo._id, { description: photo.model })
         .then(res => {
-          if (res.data.scuuess) {
+          if (res.data.success) {
             photo.edit = false
             photo.des = photo.model
+            this.updateSuccess = true
           } else {
-            alert('更新錯誤')
+            alert('更新失敗')
           }
         })
         .catch(err => {

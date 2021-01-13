@@ -96,7 +96,7 @@ const routes = [
         }
       },
       {
-        path: '/discuss',
+        path: 'discuss',
         name: 'admin.discuss',
         component: () => import('pages/AdminDiscuss.vue'),
         meta: {
@@ -105,7 +105,7 @@ const routes = [
         }
       },
       {
-        path: '/news',
+        path: 'news',
         name: 'admin.news',
         component: () => import('pages/AdminNews.vue'),
         meta: {
@@ -114,7 +114,7 @@ const routes = [
         }
       },
       {
-        path: '/about',
+        path: 'about',
         name: 'admin.about',
         component: () => import('pages/AdminAbout.vue'),
         meta: {
@@ -123,7 +123,7 @@ const routes = [
         }
       },
       {
-        path: '/mail',
+        path: 'mail',
         name: 'admin.mail',
         component: () => import('pages/AdminMail.vue'),
         meta: {
@@ -132,7 +132,7 @@ const routes = [
         }
       },
       {
-        path: '/member',
+        path: 'member',
         name: 'admin.member',
         component: () => import('pages/AdminMember.vue'),
         meta: {

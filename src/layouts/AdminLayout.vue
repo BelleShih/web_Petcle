@@ -18,16 +18,23 @@
     :width="300"
     :breakpoint="600"
     content-class="bg-grey-8"
-    class="flex column flex-center"
     style="width:100%"
     >
-      <div class="flex flex-center">
-        <img id="admin_img" src="../assets/petcle-logo-w.png">
-      </div>
-      <ul class="admin_menu flex flex-center">
+      <q-btn class="flex flex-center justify-start" :to="{ name: 'admin.index' }">
+        <img id="admin_img" src="../assets/petcle-logo-w.png" >
+      </q-btn>
+      <ul class="admin_menu flex justify-start">
         <li>
-          <q-icon name="forum" size="1.2rem"></q-icon>
-          <q-btn style="font-size: 1.2rem;letter-spacing:0.2rem;">討論區管理</q-btn>
+          <q-btn icon="forum" size="0.5rem" label="討論區管理" :to="{ name: 'admin.discuss' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+        </li>
+        <li>
+          <q-btn icon="fiber_new" size="0.5rem" label="最新消息管理" :to="{ name: 'admin.news' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+        </li>
+        <li>
+          <q-btn icon="article" size="0.5rem" label="關於我們管理" :to="{ name: 'admin.about' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+        </li>
+        <li>
+          <q-btn icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.member' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
       </ul>
     </q-drawer>

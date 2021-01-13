@@ -158,34 +158,39 @@
     </q-page-container>
     <q-footer elevated class="text-white footer">
       <div class="flex flex-center" style="height:100%">
-        <div class="flex row justify-center footer_row" style="width:100%">
-          <div class="col-xs-10 col-sm-5 col-md-12 col-lg-2 footer_col" style="align-self:center">
+        <div class="flex row justify-end footer_row" style="width:100%;height:100%">
+          <div class="col-xs-10 col-sm-10 col-md-12 col-lg-2 flex row  footer_coll" >
             <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
             <p>Copyright © 2020 Petcle. All rights reserved.</p>
           </div>
-          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column footer_col" style="margin-left:3rem">
-            <h6>Petcle</h6>
-            <ul class="footer_li">
-              <li>service@petcle.com</li>
-              <li>(270) 555-0117</li>
-              <li>3517 W. Gray St. Utica, Pennsylvania</li>
-            </ul>
+          <div class="col-xs-10 col-sm-10 col-md-12 col-lg-9 flex row justify-end footer_col02">
+            <div class="col-xs-10 col-sm-5 col-md-3 col-lg-3 flex column ">
+              <div class="footer_col">
+                <p style="font-weight:800;font-size:1.2rem;">Petcle</p>
+                <ul class="footer_li">
+                  <li>service@petcle.com</li>
+                  <li>(270) 555-0117</li>
+                  <li>3517 W. Gray St. Utica, Pennsylvania</li>
+                </ul>
+              </div>
           </div>
-          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
-            <h6>毛孩大小事</h6>
-            <ul class="footer_li">
-              <li><q-btn :to="{ name: 'front.questions' }">網友疑問</q-btn></li>
-              <li><q-btn :to="{ name: 'front.questions' }">我要發問</q-btn></li>
-              <li><q-btn :to="{ name: 'front.pedia' }">寵物百科</q-btn></li>
-            </ul>
+          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column">
+            <div class="flex column justify-start align-start footer_col">
+              <p class="footer_h6">毛孩大小事</p>
+              <q-btn :to="{ name: 'front.questions' }" align="left">網友疑問</q-btn>
+              <q-btn :to="{ name: 'front.questions' }" align="left">我要發問</q-btn>
+              <q-btn :to="{ name: 'front.pedia' }" align="left">寵物百科</q-btn>
+            </div>
           </div>
-          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column  footer_col">
-            <h6>網站會員</h6>
-            <ul class="footer_li">
-              <li><q-btn :to="{ name: 'front.index' }" @click="loginPage = true">登入會員</q-btn></li>
-              <li><q-btn :to="{ name: 'front.index' }" @click="registeredPage = true">註冊會員</q-btn></li>
-              <li>會員權益與條款</li>
-            </ul>
+          <div class="col-xs-10 col-sm-5 col-md-3 col-lg-3 flex column ">
+            <div class="flex column justify-start align-start footer_col">
+              <p class="footer_h6">網站會員</p>
+              <q-btn @click="loginPage = true" align="left">登入會員</q-btn>
+              <q-btn @click="registeredPage = true" align="left">註冊會員</q-btn>
+              <q-btn :to="{ name: 'front.pedia' }" align="left">會員權益與條款</q-btn>
+            </div>
+          </div>
+
           </div>
         </div>
       </div>
