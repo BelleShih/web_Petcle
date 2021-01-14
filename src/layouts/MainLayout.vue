@@ -20,7 +20,7 @@
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
             <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" label="使用者" flat="false">
               <q-list style="background: #C2B593;color:white">
-                <q-item clickable v-close-popup @click="onItemClick" style="padding-">
+                <q-item clickable v-close-popup @click="onItemClick" style="padding-top:1rem">
                   <q-item-section avatar>
                     <q-icon name="account_box" color="white" text-color="white" size="2rem"/>
                   </q-item-section>
@@ -28,13 +28,20 @@
                     <q-item-label>我的主頁</q-item-label>
                   </q-item-section>
                 </q-item>
-
                 <q-item clickable v-close-popup @click="onItemClick">
                   <q-item-section avatar>
-                    <q-avatar icon="assignment" color="secondary" text-color="white" />
+                    <q-icon name="star_rate" color="white" text-color="white" size="2rem"/>
                   </q-item-section>
                   <q-item-section>
                     <q-item-label>療癒空間</q-item-label>
+                  </q-item-section>
+                </q-item>
+                <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section avatar>
+                    <q-icon name="pets" color="white" text-color="white" size="2rem"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>我的寶貝</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -176,6 +183,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+    <!-- footer -->
     <q-footer elevated class="text-white footer">
       <div class="flex flex-center" style="height:100%">
         <div class="flex row justify-end footer_row" style="width:100%;height:100%">
@@ -397,7 +405,7 @@ export default {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()
-    }, 5000)
+    }, 5000000000)
   }
 }
 </script>
