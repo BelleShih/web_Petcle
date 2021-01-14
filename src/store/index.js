@@ -21,7 +21,8 @@ export default function (/* { ssrContext } */) {
         name: '',
         id: '',
         account: ''
-      }
+      },
+      like: []
     },
     computed: {
 
@@ -35,6 +36,12 @@ export default function (/* { ssrContext } */) {
         state.user.account = data.account
         state.user.id = data._id
         state.user.name = data.name
+      },
+      like (state, photo) {
+        state.like.push(photo)
+      },
+      delPhoto (state, index) {
+        state.like.splice(index, 1)
       }
     },
     actions: {
@@ -42,6 +49,11 @@ export default function (/* { ssrContext } */) {
     modules: {
     },
     plugins: [persistedstate()],
+    getters: {
+      stars (state) {
+        return state.like
+      }
+    },
 
     // enable strict mode (adds overhead!)
     // for dev mode only

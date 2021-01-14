@@ -518,6 +518,7 @@ q-layout-container{
   }
 }
 
+
 .about_input_div input{
     -webkit-writing-mode: horizontal-tb !important;
     text-rendering: auto;
@@ -536,6 +537,10 @@ q-layout-container{
     border-width: 2px;
     border:1px solid white !important;
     text-indent: 20px;
+    &:focus{
+        outline: none;
+        background: rgba(255,255,255,0.5);
+    }
 }
 
 .about_input {
@@ -543,6 +548,7 @@ q-layout-container{
   height: 50px;
   background: transparent;
   &::placeholder {
+    font-size: 1rem;
     color: white;
     font-weight: 800;
     letter-spacing: 0.2rem;
@@ -616,17 +622,22 @@ q-layout-container{
   overflow-wrap: break-word;
   margin: 0em;
   font: 400 13.3333px Arial;
+  font-size:1.3rem;
   border: 1px solid white;
-  padding: 2px;
-  text-indent: 10px;
+  padding: 1rem;
   &::placeholder {
     color: white;
     font-weight: 800;
     letter-spacing: 0.2rem;
-    padding-left: 10px;
-    padding-top: 10px;
+    font-size:1rem;
+    // padding-left: 10px;
+    // padding-top: 10px;
     opacity: 1; /* Firefox */
 
+  }
+  &:focus{
+    outline: none;
+    background: rgba(255,255,255,0.5);
   }
 }
 

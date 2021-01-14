@@ -18,7 +18,27 @@
           </li>
           <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
-            <q-btn v-if="user.id.length > 0" dense unelevated exact :to="{ name: 'front.mypage' }" active-class="text-blue-3">使用者</q-btn>
+            <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" label="使用者" flat="false">
+              <q-list style="background: #C2B593;color:white">
+                <q-item clickable v-close-popup @click="onItemClick" style="padding-">
+                  <q-item-section avatar>
+                    <q-icon name="account_box" color="white" text-color="white" size="2rem"/>
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>我的主頁</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item clickable v-close-popup @click="onItemClick">
+                  <q-item-section avatar>
+                    <q-avatar icon="assignment" color="secondary" text-color="white" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>療癒空間</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-btn-dropdown>
           </li>
         </ul>
       </div>
@@ -377,7 +397,7 @@ export default {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()
-    }, 500000000000)
+    }, 5000)
   }
 }
 </script>

@@ -17,7 +17,7 @@
         </div>
         <div class="col-12 col-md-8">
           <container class="flex flex-center">
-            <div class="row fit wrap justify-center items-start">
+            <div class="row fit wrap items-start">
               <div class="col-6 col-md-6 col-lg-6 col-xl-3 q-pa-sm" v-for="(photo, index) in photos" :key="photo.file" :value="photo">
                 <q-card class="my-card" style="height:17rem">
                   <img :src="photo.src">
@@ -38,7 +38,7 @@
                 </div>
               </div>
             </div>
-    </container>
+          </container>
         </div>
       </div>
       <!-- 上傳照片彈出視窗 -->
