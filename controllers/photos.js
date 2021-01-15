@@ -224,18 +224,43 @@ export const getAll = async (req, res) => {
   }
 }
 
-// 將動物ID轉換為name
+// 用動物ID抓動物name
 export const animalsfunc = async (req, res) => {
   try {
     const reuslt = await photos.findById(req.params._id).populate('user').populate('animal')
+    const animal = reuslt.animal.name
+    res.status(200).send({ success: true, message: '', animal })
+    console.log(animal);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// 用動物ID抓品種name
+export const breedsfunc = async (req, res) => {
+  try {
+    const reuslt = await photos.findById(req.params._id).populate('user').populate('animal')
     // .populate('bodyparts')
-    const b = reuslt.animal.breeds.filter(breed => {
+    const breed = reuslt.animal.breeds.filter(breed => {
       return `${breed._id}` === `${reuslt.breeds}`
     })[0]
+    res.status(200).send({ success: true, message: '', breed })
+    console.log(breed);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// 用動物ID抓部位name
+export const bodypartsfunc = async (req, res) => {
+  try {
+    const reuslt = await photos.findById(req.params._id).populate('user').populate('animal')
+    // .populate('bodyparts')
     const body = reuslt.animal.bodypart.filter(bodypart => {
       return `${bodypart._id}` === `${reuslt.bodyparts}`
     })[0]
-    console.log(b, body);
+    res.status(200).send({ success: true, message: '', body })
+    console.log(body);
   } catch (error) {
     console.log(error)
   }
