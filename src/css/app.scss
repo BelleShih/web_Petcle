@@ -379,6 +379,28 @@ input.q-field__native {
   font-weight: 900;
 }
 
+//使用者下拉頁面------------------------------------------
+.q-item__section--side {
+  padding-right: 10px !important;
+}
+
+.q-item__section--avatar {
+  min-width: 30px;
+}
+
+//點擊後的顏色
+.q-item.q-router-link--active, .q-item--active {
+  color: white;
+}
+
+.user_row:hover {
+  background: #d6c8a4;
+}
+
+.user_menu {
+  font-weight: 800;
+}
+
 // index 首頁照片區------------------------------------------
 .my-card {
   img {
@@ -808,6 +830,11 @@ q-layout-container{
   font-size:1rem;
   letter-spacing:0.3rem;
   font-weight:800
+}
+
+.spaceMenu-background {
+  background: #C2B593;
+  color: white;
 }
 
 

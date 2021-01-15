@@ -18,30 +18,30 @@
           </li>
           <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
-            <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" label="使用者" flat="false">
+            <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" label="使用者" flat="true">
               <q-list style="background: #C2B593;color:white">
-                <q-item clickable v-close-popup @click="onItemClick" style="padding-top:1rem">
+                <q-item clickable v-close-popup @click="onItemClick" style="padding-top:1rem" class="user_row" :to="{ name: 'front.mypage' }">
                   <q-item-section avatar>
-                    <q-icon name="account_box" color="white" text-color="white" size="2rem"/>
+                    <q-icon name="account_box" color="white" text-color="white" size="1.5rem"/>
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>我的主頁</q-item-label>
+                    <q-item-label class="user_menu" >我的主頁</q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item clickable v-close-popup @click="onItemClick">
+                <q-item clickable v-close-popup @click="onItemClick" class="user_row" :to="{ name: 'front.space' }">
                   <q-item-section avatar>
-                    <q-icon name="star_rate" color="white" text-color="white" size="2rem"/>
+                    <q-icon name="star_rate" color="white" text-color="white" size="1.5rem"/>
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>療癒空間</q-item-label>
+                    <q-item-label class="user_menu">療癒空間</q-item-label>
                   </q-item-section>
                 </q-item>
-                <q-item clickable v-close-popup @click="onItemClick">
+                <q-item clickable v-close-popup @click="onItemClick" class="user_row" :to="{ name: 'front.petpage' }">
                   <q-item-section avatar>
-                    <q-icon name="pets" color="white" text-color="white" size="2rem"/>
+                    <q-icon name="pets" color="white" text-color="white" size="1.5rem"/>
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>我的寶貝</q-item-label>
+                    <q-item-label class="user_menu">我的寶貝</q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>

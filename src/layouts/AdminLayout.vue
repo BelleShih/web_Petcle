@@ -3,9 +3,9 @@
 
     <q-header class="bg-grey-4 text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
+        <q-btn dense flat round icon="menu" @click="left = !left" color="dark" />
 
-        <q-toolbar-title>
+        <q-toolbar-title class="text-dark">
           Petcle 後台管理系統
         </q-toolbar-title>
       </q-toolbar>
@@ -25,13 +25,13 @@
       </q-btn>
       <ul class="admin_menu flex justify-start">
         <li>
-          <q-btn icon="forum" size="0.5rem" label="討論區管理" :to="{ name: 'admin.discuss' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+          <q-btn icon="forum" size="0.5rem" label="留言管理" :to="{ name: 'admin.discuss' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
         <li>
-          <q-btn icon="fiber_new" size="0.5rem" label="最新消息管理" :to="{ name: 'admin.news' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+          <q-btn icon="fiber_new" size="0.5rem" label="最新消息" :to="{ name: 'admin.news' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
         <li>
-          <q-btn icon="article" size="0.5rem" label="關於我們管理" :to="{ name: 'admin.about' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+          <q-btn icon="article" size="0.5rem" label="關於我們" :to="{ name: 'admin.about' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
         <li>
           <q-btn icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.member' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>

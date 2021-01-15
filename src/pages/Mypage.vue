@@ -11,7 +11,7 @@
           <div class="mypage_btnG flex column flex-center">
             <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="settings" label="編輯照片" size="16px" @click="editMenu = !editMenu" class="mypage_btn"/>
-            <q-btn outline rounded color="primary" icon="star" label="療癒空間" @click="space" size="16px" class="mypage_btn"/>
+            <q-btn outline rounded color="primary" icon="star" label="療癒空間" @click="space" size="16px" class="mypage_btn" :to="{ name: 'front.space' }"/>
             <q-btn outline rounded color="primary" icon="pets" label="我的寶貝" @click="petpage" size="16px" class="mypage_btn"/>
           </div>
         </div>

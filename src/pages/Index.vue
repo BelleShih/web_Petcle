@@ -41,8 +41,8 @@
           <q-card class="my-card">
             <img :src="photo.src">
             <div class="absolute-bottom-right">
-              <q-btn flat round color="white" icon="star" @click="like(photo)"/>
-              <q-btn flat round color="red-9" icon="star" @click="del(index)"/>
+              <q-btn v-if="photo.star === false" flat round color="white" icon="star" @click="like(photo)"/>
+              <q-btn v-else flat round color="red-9" icon="star" @click="del(index)"/>
             </div>
           </q-card>
           <div class="flex justify-end" style="padding-top:5px">
@@ -83,12 +83,16 @@ export default {
   },
   methods: {
     like (photo) {
-      this.photo.star = true
+      photo.star = true
       this.$store.commit('like', photo)
     },
     del (index) {
-      this.photo.star = false
       this.$store.commit('delPhoto', index)
+    }
+  },
+  computed: {
+    redStar () {
+      return this.$store.getters.stars
     }
   },
   async mounted () {
@@ -100,14 +104,16 @@ export default {
     // 抓資料庫photos的所有圖
     await this.axios.get(process.env.VUE_APP_API + '/photos/')
       .then(res => {
+        console.log(res)
         if (res.data.success) {
           this.photos = res.data.result.map(photo => {
             photo.src = process.env.VUE_APP_API + '/photos/file/' + photo.file
             photo.des = photo.description
-            photo.animals = photo.animal
             photo.breed = photo.breeds
             photo.bodypart = photo.bodyparts
             photo.star = false
+            delete photo.breeds
+            delete photo.bodyparts
             return photo
           })
         } else {
@@ -136,7 +142,12 @@ export default {
         console.log(err)
       })
     })
-
+    this.redStar.forEach(item => {
+      const p = this.photos.find(photo => {
+        return item._id === photo._id
+      })
+      p.star = true
+    })
     // 抓取動物資料
     this.axios.get(process.env.VUE_APP_API + '/animals/')
       .then(res => {
