@@ -1,51 +1,76 @@
 <template>
   <q-page>
-    <!-- <div class="flex">
-      <div class="row fit wrap items-start">
-        <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(item, index) in photo" :key="item.file" :value="item">
-          <q-card class="my-card">
-            <img :src="item.src">
-            <div class="absolute-bottom-right">
-              <q-btn v-if="item.star = true" flat round color="red-9" icon="star" @click="del(index)"/>
+    <div class="q-pa-md">
+      <q-toolbar class="bg-white rounded-borders" style="color:#56C6BF">
+        <q-btn flat label="療癒空間" />
+        <q-space />
+        <q-tabs v-model="tab" shrink stretch>
+          <q-tab name="tab1" icon="play_circle" label="隨機播放"/>
+          <q-tab name="tab2" icon="photo" label="圖片展示" />
+        </q-tabs>
+      </q-toolbar>
+      <q-separator />
+
+        <q-tab-panels v-model="tab" animated>
+          <q-tab-panel name="tab1">
+            <q-carousel
+              v-model="slide"
+              swipeable
+              animated
+              :autoplay="autoplay"
+              infinite
+              height="1000px"
+              :fullscreen.sync="fullscreen"
+              class=" text-white rounded-borders"
+            >
+              <q-carousel-slide :name="1" img-src="~assets/01.jpg" class="space_carousel"/>
+              <q-carousel-slide :name="2" img-src="~assets/02.jpg"/>
+              <q-carousel-slide :name="3" img-src="~assets/03.jpg"/>
+              <template v-slot:control>
+                <q-carousel-control
+                  position="bottom-right"
+                  :offset="[18, 18]"
+                >
+                  <q-btn
+                    push round dense color="white" text-color="primary"
+                    :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                    @click="fullscreen = !fullscreen"
+                  />
+                </q-carousel-control>
+              </template>
+            </q-carousel>
+          </q-tab-panel>
+
+          <q-tab-panel name="tab2">
+            <div class="flex">
+              <div class="row fit wrap items-start">
+                <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm">
+                  <q-card class="my-card">
+                    <img src="~assets/01.jpg">
+                    <div class="absolute-bottom-right">
+                    </div>
+                  </q-card>
+                </div>
+                <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm">
+                  <q-card class="my-card">
+                    <img src="~assets/02.jpg">
+                    <div class="absolute-bottom-right">
+                    </div>
+                  </q-card>
+                </div>
+              </div>
             </div>
-          </q-card>
-        </div>
-      </div>
-    </div> -->
-      <div class="q-pa-md">
-        <q-layout view="hHh Lpr lff" container style="height:100vh">
-          <q-header elevated class="bg-white">
-            <q-toolbar>
-              <q-btn flat @click="drawer = !drawer" round dense icon="menu" color="primary"/>
-              <q-toolbar-title class="title">療癒空間</q-toolbar-title>
-            </q-toolbar>
-          </q-header>
-          <!-- 左側選單 -->
-          <q-drawer
-            v-model="drawer"
-            :width="150"
-            :breakpoint="500"
-            overlay
-            content-class="spaceMenu-background"
-          >
-            <template >
+          </q-tab-panel>
+        </q-tab-panels>
+    </div>
+            <!-- <template >
               <q-tabs v-model="tab" vertical class="spaceMenu-background">
                 <q-tab name="play" icon="play_circle" label="隨機撥放" />
                 <q-tab name="photo" icon="photo" label="最愛展示" />
               </q-tabs>
-            </template>
-          </q-drawer>
-          <template>
-            <q-tab-panels
-              v-model="tab"
-              animated
-              swipeable
-              vertical
-              transition-prev="jump-up"
-              transition-next="jump-up"
-            >
+            </template> -->
             <!-- 隨機撥放 -->
-              <q-tab-panel name="play">
+              <!-- <q-tab-panel name="play">
                 <q-carousel
                   v-model="slide"
                   swipeable
@@ -57,9 +82,9 @@
                 >
                 <q-carousel-slide v-for="(item, index) in photo" :key="item.file" :value="item" :name="index" :img-src="item.src"/>
                 </q-carousel>
-              </q-tab-panel>
+              </q-tab-panel> -->
               <!-- 最愛展示 -->
-              <q-tab-panel name="photo" style="padding:1rem">
+              <!-- <q-tab-panel name="photo" style="padding:1rem">
                 <div class="flex">
                   <div class="row fit wrap items-start">
                     <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(item, index) in photo" :key="item.file" :value="item">
@@ -72,11 +97,7 @@
                     </div>
                   </div>
                 </div>
-              </q-tab-panel>
-            </q-tab-panels>
-          </template>
-        </q-layout>
-      </div>
+              </q-tab-panel> -->
   </q-page>
 </template>
 
@@ -85,9 +106,10 @@ export default {
   data () {
     return {
       drawer: false,
-      tab: 'play',
-      slide: 'style',
-      autoplay: true
+      tab: 'tab1',
+      slide: 1,
+      autoplay: true,
+      fullscreen: false
     }
   },
   computed: {

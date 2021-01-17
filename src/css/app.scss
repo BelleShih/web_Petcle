@@ -837,7 +837,105 @@ q-layout-container{
   color: white;
 }
 
+.space_carousel {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+}
 
+//最新消息-------------------
+.news_table {
+  .q-table__card {
+    color: #000;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: none;
+}
+}
+
+.news_row {
+  padding: 2rem 0;
+  border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+.type_cube {
+  width: 50px !important;
+  height: 50px !important;
+  background: $petcolor01;
+  color: white;
+  display: block;
+  font-size: 1rem;
+  padding: 0.4rem 0.2rem 0.2rem 0.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  font-weight: 800;
+}
+
+.table_title {
+  padding-left: 1.2rem;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  text-align: center;
+}
+
+.table_date {
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.tab_border {
+  border-left:2px solid #56C6BF !important;
+  font-size: 2rem;
+}
+
+// 寵物百科 ----------------------------
+.pedia-card {
+  border: 1px solid rgb(180, 180, 180);
+  height: 300px !important;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @include xs {
+    height: 150px;
+  }
+  @include sm {
+    height: 200px;
+  }
+  @include md {
+    height: 200px;
+  }
+  @include lg {
+    height: 200px;
+  }
+  @include xl {
+    height: 200px;
+    margin: 0 0.5rem;
+  }
+}
+
+#pedia {
+  height: 300px;
+  margin: 1rem;
+  .q-card {
+    box-shadow: none;
+    border-radius: 4px 4px 0px 0px;
+}
+}
+
+// 設定卡片說明文字為2行
+.pedia_des {
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
 // footer------------------------
 .footer {
   height: 300px;
