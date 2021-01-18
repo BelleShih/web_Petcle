@@ -20,7 +20,6 @@ export const create = async(req, res) => {
     } else if (req.body.breeds === null) {
       res.status(400).send({ success: false, message: '請輸入動物品種' })
     }
-    console.log(req.body)
     const result = await animals.create({
       name: req.body.animals,
       breeds: [
