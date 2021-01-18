@@ -8,6 +8,7 @@
             <h5>{{ user.name }}</h5>
             <p>@{{ user.account }}</p>
           </div>
+          <!-- 按鈕區 -->
           <div class="mypage_btnG flex column flex-center">
             <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
             <q-btn outline rounded color="primary" icon="settings" label="編輯照片" size="16px" @click="editMenu = !editMenu" class="mypage_btn"/>
@@ -15,6 +16,7 @@
             <q-btn outline rounded color="primary" icon="pets" label="我的寶貝" @click="petpage" size="16px" class="mypage_btn"/>
           </div>
         </div>
+        <!-- 相片簿 -->
         <div class="col-12 col-md-8">
           <container class="flex flex-center">
             <div class="row fit wrap items-start">

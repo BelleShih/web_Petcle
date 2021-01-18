@@ -42,18 +42,16 @@ const routes = [
         meta: {
           title: '最新消息',
           login: false
-        },
-        children: [
-          {
-            path: ':id',
-            name: 'front.news.:id',
-            component: () => import('pages/NewsContent.vue'),
-            meta: {
-              title: '最新消息',
-              login: false
-            }
-          }
-        ]
+        }
+      },
+      {
+        path: 'news/:id',
+        name: 'front.newsContent',
+        component: () => import('pages/NewsContent.vue'),
+        meta: {
+          title: '最新消息',
+          login: false
+        }
       },
       {
         path: 'about',

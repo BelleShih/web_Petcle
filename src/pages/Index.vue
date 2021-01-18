@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page id="index">
     <q-layout-container>
     <!-- 搜尋列 -->
     <div class="row" style="margin-bottom:1.5rem;margin-top:1.5rem">
@@ -104,7 +104,6 @@ export default {
     // 抓資料庫photos的所有圖
     await this.axios.get(process.env.VUE_APP_API + '/photos/')
       .then(res => {
-        console.log(res)
         if (res.data.success) {
           this.photos = res.data.result.map(photo => {
             photo.src = process.env.VUE_APP_API + '/photos/file/' + photo.file
@@ -123,6 +122,7 @@ export default {
       .catch(err => {
         console.log(err)
       })
+      // 抓動物品種、類型、部位的name出來
     await this.photos.map(item => {
       this.axios.get(process.env.VUE_APP_API + '/photos/breeds/' + item._id).then(res => {
         item.breed = res.data.breed.name

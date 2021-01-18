@@ -19,13 +19,10 @@
               animated
               :autoplay="autoplay"
               infinite
-              height="1000px"
-              :fullscreen.sync="fullscreen"
+              height="1200px"
               class=" text-white rounded-borders"
             >
-              <q-carousel-slide :name="1" img-src="~assets/01.jpg" class="space_carousel"/>
-              <q-carousel-slide :name="2" img-src="~assets/02.jpg"/>
-              <q-carousel-slide :name="3" img-src="~assets/03.jpg"/>
+            <q-carousel-slide v-for="(item, index) in photo" :key="item.file" :value="item" :name="index" :img-src="item.src"/>
               <template v-slot:control>
                 <q-carousel-control
                   position="bottom-right"
@@ -44,20 +41,14 @@
           <q-tab-panel name="tab2">
             <div class="flex">
               <div class="row fit wrap items-start">
-                <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm">
-                  <q-card class="my-card">
-                    <img src="~assets/01.jpg">
-                    <div class="absolute-bottom-right">
-                    </div>
-                  </q-card>
-                </div>
-                <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm">
-                  <q-card class="my-card">
-                    <img src="~assets/02.jpg">
-                    <div class="absolute-bottom-right">
-                    </div>
-                  </q-card>
-                </div>
+                <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(item, index) in photo" :key="item.file" :value="item">
+                    <q-card class="my-card">
+                      <img :src="item.src">
+                      <div class="absolute-bottom-right">
+                        <q-btn v-if="item.star = true" flat round color="red-9" icon="star" @click="del(index)"/>
+                      </div>
+                    </q-card>
+                  </div>
               </div>
             </div>
           </q-tab-panel>

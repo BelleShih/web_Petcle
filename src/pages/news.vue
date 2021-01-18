@@ -4,7 +4,6 @@
       <q-tabs
           v-model="tab"
           inline-label
-          switch-indicator
           indicator-color="secondary"
           active-color="secondary"
           class="bg-white"
@@ -18,7 +17,7 @@
           <q-tab v-if="$q.screen.gt.sm" name="adopt" label="領養" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="lost" label="走失" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="stray" label="浪浪" class="tab_border"/>
-          <q-tab v-if="$q.screen.gt.sm" name="all" label="全部" class="tab_border" style="border-right:2px solid #56C6BF"/>
+          <q-tab v-if="$q.screen.gt.sm" name="all" label="全部" class="tab_border"/>
           <!-- 小尺寸時拉霸 -->
           <q-btn-dropdown v-if="$q.screen.lt.md" auto-close stretch flat label="More...">
             <q-list>

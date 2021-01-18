@@ -300,71 +300,73 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 // index 搜尋列區--------------------------------------------
-input.q-field__native {
-  border: 1px solid $petcolor02;
-  border-radius: 100px;
-  text-indent: 40px;
-  margin-bottom: 0.2rem;
-
-  &:focus {
-    border: 2px solid $petcolor02;
+#index {
+  input.q-field__native {
+    border: 1px solid $petcolor02;
+    border-radius: 100px;
+    text-indent: 40px;
+    margin-bottom: 0.2rem;
+  
+    &:focus {
+      border: 2px solid $petcolor02;
+    }
+  }
+  // 放大鏡 icon
+  #search-icon{
+    position: absolute;
+    left: 10px;
+    top: 6px;
+    color: $petcolor02;
+  }
+  
+  #search-select-out {
+    @include xs {
+      display: none;
+    }
+  }
+  //搜尋條件
+  #search-select{
+    width: 130px;
+    height: 30px;
+    margin: 0 0rem;
+    position: relative;
+    top: 9px;
+    color: $petcolor02;
+    border-radius: 100px;
+    text-indent: 28px;
+  }
+  
+  // 消除搜尋條件預設效果
+  .q-field--auto-height.q-field--labeled .q-field__control-container {
+    padding-top: 0px;
+  }
+  
+  .q-field--standard .q-field__control:before {
+    border: 1px solid $petcolor02;
+    border-radius: 100px;
+    height: 38px;
+    margin: 0px 1px 0 5px;
+  }
+  
+  .q-field--standard .q-field__control:hover:before {
+    border: 1px solid $petcolor02;
+  }
+  
+  .q-field__control {
+    color: transparent;
+    height: 40px;
+    max-width: 100%;
+    outline: none;
+  }
+  
+  .q-field__marginal {
+    height: 56px;
+    color:$petcolor02;
+    font-size: 25px;
   }
 }
 
-// 放大鏡 icon
-#search-icon{
-  position: absolute;
-  left: 10px;
-  top: 6px;
-  color: $petcolor02;
-}
 
-#search-select-out {
-  @include xs {
-    display: none;
-  }
-}
-
-//搜尋條件
-#search-select{
-  width: 130px;
-  height: 30px;
-  margin: 0 0rem;
-  position: relative;
-  top: 9px;
-  color: $petcolor02;
-  border-radius: 100px;
-  text-indent: 28px;
-}
-
-// 消除搜尋條件預設效果
-.q-field--auto-height.q-field--labeled .q-field__control-container {
-  padding-top: 0px;
-}
-
-.q-field--standard .q-field__control:before {
-  border: 1px solid $petcolor02;
-  border-radius: 100px;
-  height: 38px;
-  margin: 0px 1px 0 5px;
-}
-
-.q-field--standard .q-field__control:hover:before {
-  border: 1px solid $petcolor02;
-}
-
-.q-field__control {
-  color: transparent;
-  height: 56px;
-  max-width: 100%;
-  outline: none;
-}
-
-.q-field__marginal {
-  height: 56px;
-  color:$petcolor02;
-  font-size: 25px;
-}
 
 //搜尋按鈕--------------------------------------------
 #search-btn{
@@ -886,7 +888,6 @@ q-layout-container{
 }
 
 .tab_border {
-  border-left:2px solid #56C6BF !important;
   font-size: 2rem;
 }
 
@@ -1034,3 +1035,13 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
   opacity: 0;
 }
 
+// admin最新消息-----------------------
+#admin_new {
+  .q-table--no-wrap th,
+  .q-table--no-wrap td {
+    white-space:normal;
+  }
+  .q-table {
+    table-layout: fixed;
+  }
+}
