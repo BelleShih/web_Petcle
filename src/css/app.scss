@@ -700,8 +700,8 @@ q-layout-container{
     height:80%;
   }
   @include md {
-    width:60%;
-    height:70%;
+    width:70%;
+    height:80%;
   }
   @include lg {
     width:60%;
@@ -827,12 +827,6 @@ q-layout-container{
 }
 
 // 療癒空間------------------------
-.title {
-  color:#C2B593;
-  font-size:1rem;
-  letter-spacing:0.3rem;
-  font-weight:800
-}
 
 .spaceMenu-background {
   background: #C2B593;
@@ -889,6 +883,37 @@ q-layout-container{
 
 .tab_border {
   font-size: 2rem;
+}
+
+// 最新消息文章頁------------------------
+#newsContent {
+  .title {
+    color:$petcolor02;
+    letter-spacing:0.4rem;
+    font-size: 2rem;
+    font-weight:800;
+    margin-top: 1.5rem;
+  }  
+  .line {
+    width: 80% !important;
+    height: 1px !important;
+    background: rgb(189, 189, 189) !important;
+  }
+  .box {
+    width: 80%;
+    height: 350px;
+    margin-top: 2rem;
+  }
+  .object-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text {
+    margin-top: 2rem;
+    width: 100%;
+    line-height: 1.7rem;
+  }
 }
 
 // 寵物百科 ----------------------------
@@ -1043,5 +1068,28 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
   }
   .q-table {
     table-layout: fixed;
+  }
+}
+
+#adminnew_dialog {
+  @include xs {
+    width:90%;
+    height:85%;
+  }
+  @include sm {
+    width:90%;
+    height:80%;
+  }
+  @include md {
+    width:80%;
+    height:80%;
+  }
+  @include lg {
+    width:70%;
+    height:90%;
+  }
+  @include xl {
+    width:40%;
+    height:90%;
   }
 }

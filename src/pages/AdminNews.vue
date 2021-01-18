@@ -55,7 +55,7 @@
         </template>
         <!-- 增加消息 -->
         <template v-slot:top-left>
-          <q-btn icon="add" color="primary" @click="addNew()">新增消息</q-btn>
+          <q-btn icon="add" color="primary" @click="uploadNew = true">新增消息</q-btn>
         </template>
         <!-- 搜尋框 -->
         <template v-slot:top-right>
@@ -67,6 +67,56 @@
         </template>
       </q-table>
     </q-layout-container>
+    <!-- 新增消息＿彈出視窗 -->
+    <q-dialog v-model="uploadNew">
+        <q-card id="adminnew_dialog" class="flex row">
+          <div class="col-12 flex flex-center bg-grey-8" style="height:15%">
+            <p class="upload_title">新增消息</p>
+          </div>
+          <div class="col-12 flex flex-center cloumn" style="height:80%">
+            <q-form
+              @submit="addNew"
+              @reset="restNew"
+              style="width:80%"
+            >
+              <!-- 檔案上傳 -->
+              <q-file v-model="photoFile" filled bottom-slots counter label="選擇檔案" style="margin-bottom:1rem">
+                <template v-slot:prepend>
+                  <q-icon name="cloud_upload" @click.stop />
+                </template>
+                <template v-slot:append>
+                  <q-icon name="close" @click.stop="model = null" class="cursor-pointer" />
+                </template>
+                <template v-slot:hint>
+                  *僅接受jpeg、png格式，且檔案不超過1KB
+                </template>
+              </q-file>
+              <!-- 標題 -->
+              <div class="flex row justify-between" style="margin-bottom:1rem">
+                <q-input class="col-12" filled v-model="d_title" label="標題" />
+              </div>
+              <!-- 分類 -->
+              <select class="col-12 ULanimaltype_bp" v-model="modelType" placeholder="請選擇分類">
+                <option value="" disabled selected>請選擇分類</option>
+                <option v-for="item in types" :key="item" :value="item">{{ item }}</option>
+              </select>
+              <!-- 活動說明 -->
+              <q-input
+                v-model="textarea"
+                filled
+                clearable
+                type="textarea"
+                label="活動說明文字"
+              />
+              <div class="login-btn flex flex-center">
+                <q-btn rounded label="上傳" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
+              </div>
+            </q-form>
+          </div>
+          <q-icon name="cancel" size="40px" color="white" class="absolute UPcancel" @click="uploadNew = false"></q-icon>
+        </q-card>
+      </q-dialog>
   </q-page>
 </template>
 
@@ -76,6 +126,11 @@ export default {
     return {
       filter: '',
       news: [],
+      newFile: null,
+      modelTitle: '',
+      modelDescription: '',
+      modelType: '',
+      // 表格標題
       titles: [
         {
           name: 'type',
@@ -112,7 +167,9 @@ export default {
           align: 'left'
         }
         // { name: 'time', align: 'left', label: '操作', field: 'date' }
-      ]
+      ],
+      uploadNew: false,
+      types: ['新聞', '活動', '展覽', '領養', '走失', '浪浪', '全部']
     }
   },
   methods: {
@@ -159,17 +216,18 @@ export default {
           console.log(err)
         })
     },
+    // 新增消息
     addNew () {
-      if (this.photoFile.size > 1024 * 1024) {
+      if (this.newFile.size > 1024 * 1024) {
         alert('圖片太大')
-      } else if (!this.photoFile.type.includes('image')) {
+      } else if (!this.newFile.type.includes('image')) {
         alert('檔案格式錯誤')
       } else {
         const newss = new FormData()
         newss.append('file', this.newFile)
-        newss.append('title', this.modelTitle._id)
-        newss.append('description', this.modelDescription._id)
-        newss.append('typet', this.modelType._id)
+        newss.append('title', this.modelTitle)
+        newss.append('description', this.modelDescription)
+        newss.append('typet', this.modelType)
 
         this.axios.post(process.env.VUE_APP_API + '/news/', newss)
           .then(res => {
@@ -190,6 +248,12 @@ export default {
             }
           })
       }
+    },
+    restNew () {
+      this.newFile = null
+      this.modelTitle = ''
+      this.modelDescription = ''
+      this.modelType = ''
     }
   },
   mounted () {

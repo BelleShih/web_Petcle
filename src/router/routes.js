@@ -45,7 +45,7 @@ const routes = [
         }
       },
       {
-        path: 'news/:id',
+        path: 'news/id',
         name: 'front.newsContent',
         component: () => import('pages/NewsContent.vue'),
         meta: {

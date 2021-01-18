@@ -11,7 +11,7 @@
               <div class="flex col-4" style="padding:1rem">
                 <p class="text-h6 q-mt-sm q-mb-xs">Title</p>
                 <p class="text-caption text-black pedia_des">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquallllllllllllllll.
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
               </div>
               <div class="flex col-2 justify-end">
