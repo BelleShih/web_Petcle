@@ -167,7 +167,7 @@
 export default {
   data () {
     return {
-      tab: 'new',
+      tab: 'all',
       key: false,
       news: [],
       newNews: [],

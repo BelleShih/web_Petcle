@@ -817,13 +817,160 @@ q-layout-container{
 }
 
 //毛孩大小事---------------------
-#pedia_enter {
-  width: 170px;
-  background: $petcolor02;
-  color: white;
-  letter-spacing: 0.2rem;
-  font-size: 1rem;
-  font-weight: 900;
+#question {
+  margin-top: 2rem;
+  #pedia_enter {
+    width: auto;
+    height: 40px;
+    background: $petcolor02;
+    color: white;
+    letter-spacing: 0.2rem;
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  q-input {
+    border: 1px solid $petcolor02;
+  }
+
+  input.q-field__native {
+    border: 1px solid $petcolor01;
+    border-radius: 100px;
+    text-indent: 40px;
+    margin-bottom: 0.2rem;
+  
+    &:focus {
+      border: 2px solid $petcolor01;
+    }
+  }
+  // 放大鏡 icon
+  #search-icon{
+    position: absolute;
+    left: 10px;
+    top: 6px;
+    color: $petcolor01;
+  }
+  
+  #search-select-out {
+    @include xs {
+      display: none;
+    }
+  }
+  //搜尋條件
+  #search-select{
+    width: 130px;
+    height: 30px;
+    margin: 0 0rem;
+    position: relative;
+    top: 9px;
+    color: $petcolor01;
+    border-radius: 100px;
+    text-indent: 28px;
+  }
+    
+  .q-field--standard .q-field__control:before {
+    border: 1px solid $petcolor01;
+    border-radius: 100px;
+    height: 38px;
+    margin: 0px 1px 0 5px;
+  }
+  
+  .q-field--standard .q-field__control:hover:before {
+    border: 1px solid $petcolor01;
+  }
+  
+  .q-field__control {
+    color: transparent;
+    height: 40px;
+    max-width: 100%;
+    outline: none;
+  }
+  
+  .q-field__marginal {
+    height: 56px;
+    color:$petcolor01;
+    font-size: 25px;
+  }
+
+  .btn {
+    width: 160px;
+    margin-bottom: 0.2rem;
+    margin-left: 0.3rem;
+    padding-bottom: 1rem;
+    background: $petcolor01;
+    color: white;
+    letter-spacing: 0.2rem;
+    font-size: 1rem;
+    font-weight: 900;
+  }
+
+  .search {
+    @include xs {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
+    @include lg {
+      display: block;
+      height: 49px;
+      padding: 0 1rem;
+      padding-top: 0.4rem;
+      border-left: 1px solid $petcolor01;
+      border-right: 1px solid $petcolor01;
+    }
+  }
+
+  .tab {
+    @include xs {
+      border-left: 1px solid transparent;
+    }
+    @include sm {
+      border-left: 1px solid transparent;
+    }
+    @include lg {
+      border-left: 1px solid $petcolor01;
+    }
+  }
+
+  .tab-panels {
+    margin-top:2rem;
+    width: 80%;
+  }
+
+  .qus_card {
+    border: 1px solid $petcolor01;
+    padding: 1rem;
+    border-radius: 7px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+  }
+
+  .qus_card_top {
+    border-bottom: 1px solid $petcolor01;
+    margin-bottom: 1rem;
+    width: 100% !important;
+  }
+
+  .des {
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal
+  }
+
+  .name {
+    padding-left: 1rem;
+    padding-top: 0.1rem;
+    font-weight: 400;
+
+  }
 }
 
 // 療癒空間------------------------
@@ -880,10 +1027,6 @@ q-layout-container{
 .table_date {
   font-size: 0.8rem;
   color: #333;
-}
-
-.tab_border {
-  font-size: 2rem;
 }
 
 // 最新消息文章頁------------------------
@@ -1005,6 +1148,7 @@ q-layout-container{
   -webkit-box-orient: vertical;
   white-space: normal;
 }
+
 // footer------------------------
 .footer {
   height: 300px;
