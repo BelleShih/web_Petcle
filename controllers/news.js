@@ -166,11 +166,6 @@ export const delNew = async (req, res) => {
 
 // 抓全部消息
 export const getNews = async (req, res) => {
-  if (req.session.user === undefined) {
-    res.status(401).send({ success: false, message: '未登入' })
-    return
-  }
-
   try {
     const result = await news.find()
     res.status(200).send({ success: true, message: '', result })
@@ -195,5 +190,29 @@ export const getNew = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
+// 抓指定消息圖片
+export const file = async (req, res) => {
+  if (process.env.DEV === 'true') {
+    const path = process.cwd() + '/images/' + req.params.file
+    const exists = fs.existsSync(path)
+
+    if (exists) {
+      res.status(200).sendFile(path)
+    } else {
+      res.status(404).send({ success: false, message: '找不到圖片' })
+    }
+  } else {
+    axios({
+      method: 'GET',
+      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
+      responseType: 'stream'
+    }).then(ress => {
+      ress.data.pipe(res)
+    }).catch(error => {
+      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
+    })
   }
 }

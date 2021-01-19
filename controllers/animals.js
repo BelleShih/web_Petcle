@@ -106,7 +106,7 @@ export const addBreeds = async (req, res) => {
       {new: true}
     ).then(result => {
       res.status(200).send({ success: true, message: '', result })
-      console.log(util.inspect(result, {showHidden: true, depth: null}))
+      // console.log(util.inspect(result, {showHidden: true, depth: null}))
     }).catch(error => {
       console.log(error)
     })
@@ -141,7 +141,7 @@ export const deleteBreeds = async (req, res) => {
       {new: true}
   ).then(result => {
       res.status(200).send({ success: true, message: '', result })
-      console.log(util.inspect(result, {showHidden: true, depth: null}))
+      // console.log(util.inspect(result, {showHidden: true, depth: null}))
     }).catch(error => {
       console.log(error)
     })
@@ -176,7 +176,7 @@ export const addBodyparts = async (req, res) => {
       {new: true}
     ).then(result => {
       res.status(200).send({ success: true, message: '', result })
-      console.log(util.inspect(result, {showHidden: true, depth: null}))
+      // console.log(util.inspect(result, {showHidden: true, depth: null}))
     }).catch(error => {
       console.log(error)
     })
@@ -211,7 +211,7 @@ export const deleteBodypart = async (req, res) => {
       {new: true}
   ).then(result => {
       res.status(200).send({ success: true, message: '', result })
-      console.log(util.inspect(result, {showHidden: true, depth: null}))
+      // console.log(util.inspect(result, {showHidden: true, depth: null}))
     }).catch(error => {
       console.log(error)
     })
@@ -231,7 +231,7 @@ export const deleteBodypart = async (req, res) => {
 export const getAnimals = async (req, res) => {
   animals.find().then(result => {
   res.status(200).send({ success: true, message: '', result })
-  console.log(util.inspect(result, {showHidden: true, depth: null}))
+  // console.log(util.inspect(result, {showHidden: true, depth: null}))
 }).catch(error => {
   console.log(error)
 })
@@ -242,7 +242,7 @@ export const getAnimal = async (req, res) => {
   animals.findById( req.params.id ).populate('animals.name')
 .then(result => {
   res.status(200).send({ success: true, message: '', result })
-  console.log(util.inspect(result, {showHidden: true, depth: null}))
+  // console.log(util.inspect(result, {showHidden: true, depth: null}))
 }).catch(error => {
   console.log(error)
 })
@@ -253,7 +253,7 @@ export const getBreeds = async (req, res) => {
   animals.findById( req.params.id, 'breeds' ).populate('breeds.p_id')
 .then(result => {
   res.status(200).send({ success: true, message: '', result })
-  console.log(util.inspect(result, {showHidden: true, depth: null}))
+  // console.log(util.inspect(result, {showHidden: true, depth: null}))
 }).catch(error => {
   console.log(error)
 })

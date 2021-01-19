@@ -8,14 +8,13 @@ const pediaSchema = new Schema(
       type: String,
       required: [true, '缺少標題']
     },
-    descripition: {
-      type: String,
-      maxlength: [20, '描述必需二十個字以上']
+    description: {
+      type: String
     },
     type: {
       type: String
     },
-    image: {
+    file: {
       type: String
     },
     date: {

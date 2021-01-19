@@ -1,5 +1,5 @@
 import express from 'express'
-import { create, getNews, getNew, delNew, editNew } from '../controllers/news.js'
+import { create, getNews, getNew, delNew, editNew, file } from '../controllers/news.js'
 
 const router = express.Router()
 
@@ -13,5 +13,7 @@ router.get('/:id', getNew)
 router.delete('/:id', delNew)
 // // 編輯指定消息
 router.patch('/:id', editNew)
+// 抓指定消息圖片
+router.get('/file/:file', file)
 
 export default router
