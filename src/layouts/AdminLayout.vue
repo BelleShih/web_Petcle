@@ -31,6 +31,9 @@
           <q-btn icon="fiber_new" size="0.5rem" label="最新消息" :to="{ name: 'admin.news' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
         <li>
+          <q-btn icon="emoji_objects" size="0.5rem" label="寵物百科" :to="{ name: 'admin.pedia' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
+        </li>
+        <li>
           <q-btn icon="article" size="0.5rem" label="關於我們" :to="{ name: 'admin.about' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
         <li>

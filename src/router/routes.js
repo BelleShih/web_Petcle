@@ -36,6 +36,15 @@ const routes = [
         }
       },
       {
+        path: 'pedia/:id',
+        name: 'front.pediaContent',
+        component: () => import('pages/PediaContent.vue'),
+        meta: {
+          title: '寵物百科',
+          login: false
+        }
+      },
+      {
         path: 'news',
         name: 'front.news',
         component: () => import('pages/News.vue'),
@@ -45,7 +54,7 @@ const routes = [
         }
       },
       {
-        path: 'news/id',
+        path: 'news/:id',
         name: 'front.newsContent',
         component: () => import('pages/NewsContent.vue'),
         meta: {
@@ -128,6 +137,15 @@ const routes = [
         component: () => import('pages/AdminAbout.vue'),
         meta: {
           title: 'Petcle 關於我們管理',
+          login: true
+        }
+      },
+      {
+        path: 'pedia',
+        name: 'admin.pedia',
+        component: () => import('pages/AdminPedia.vue'),
+        meta: {
+          title: 'Petcle 寵物百科管理',
           login: true
         }
       },

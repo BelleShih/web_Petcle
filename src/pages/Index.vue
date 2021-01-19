@@ -5,11 +5,11 @@
     <div class="row" style="margin-bottom:1.5rem;margin-top:1.5rem">
       <div class="col-xs-1 col-md-2 col-lg-3"></div>
       <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
-        <q-input borderless dense debounce="300" v-model="filter" >
+        <q-input borderless dense debounce="300" v-model="filtermodel" >
           <template v-slot:append id="search">
             <q-icon id="search-icon" name="search" />
           </template>
-          <div id="search-select-out">
+          <!-- <div id="search-select-out">
             <q-select
               id="search-select"
               v-model="model"
@@ -28,16 +28,16 @@
                 </q-item>
               </template>
             </q-select>
-          </div>
-          <q-btn unelevated rounded id="search-btn" label="搜尋" type="submit" />
+          </div> -->
+          <q-btn unelevated rounded id="search-btn" label="搜尋" type="submit" @click="filterPhoto()"/>
         </q-input>
       </div>
       <div class="col-xs-1 col-md-2 col-lg-3"></div>
     </div>
     <!-- 照片展示 -->
-    <container class="flex flex-center">
+    <q-page-container class="flex flex-center">
       <div class="row fit wrap items-start">
-        <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in photos" :key="photo.file" :value="photo">
+        <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo.file" :value="photo">
           <q-card class="my-card">
             <img :src="photo.src">
             <div class="absolute-bottom-right">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-    </container>
+    </q-page-container>
     </q-layout-container>
   </q-page>
 </template>
@@ -78,7 +78,9 @@ export default {
       ],
       photos: [],
       animals: [],
-      newPhotos: []
+      newPhotos: [],
+      filter: '',
+      filtermodel: ''
     }
   },
   methods: {
@@ -88,11 +90,30 @@ export default {
     },
     del (index) {
       this.$store.commit('delPhoto', index)
+    },
+    filterPhoto (filter) {
+      // 搜尋功能
+      this.filter = this.filtermodel
     }
   },
   computed: {
     redStar () {
       return this.$store.getters.stars
+    },
+    filteredphoto () {
+      return this.photos.filter(photo => {
+        const keyword = this.filter.toUpperCase()
+        if (photo.animal.toString().toUpperCase().includes(keyword)) {
+          return true
+        }
+        if (photo.breed.toString().toUpperCase().includes(keyword)) {
+          return true
+        }
+        if (photo.bodypart.toString().toUpperCase().includes(keyword)) {
+          return true
+        }
+        return false
+      })
     }
   },
   async mounted () {
@@ -136,7 +157,6 @@ export default {
         console.log(err)
       })
       this.axios.get(process.env.VUE_APP_API + '/photos/animals/' + item._id).then(res => {
-        console.log(res)
         item.animal = res.data.animal
       }).catch(err => {
         console.log(err)

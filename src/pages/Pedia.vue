@@ -1,21 +1,21 @@
 <template>
-  <q-page>
+  <q-page id="pedia">
     <q-layout-container style="height:100vh">
       <container class="flex flex-center" style="height:100%;margin-top:2rem">
         <div class="row fit wrap items-start justify-center" >
-          <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" id="pedia">
+          <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
             <q-card class="pedia-card flex column">
               <div class="flex col-6">
-                <img src="https://images.unsplash.com/photo-1501820488136-72669149e0d4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80">
+                <img :src="pedia.src">
               </div>
               <div class="flex col-4" style="padding:1rem">
-                <p class="text-h6 q-mt-sm q-mb-xs">Title</p>
+                <p class="text-h6 q-mt-sm q-mb-xs">{{ pedia.title }}</p>
                 <p class="text-caption text-black pedia_des">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  {{ pedia.description }}
                 </p>
               </div>
               <div class="flex col-2 justify-end">
-                <q-btn flat color="dark" label="繼續閱讀"/>
+                <q-btn flat color="dark" label="繼續閱讀" :to=" '/pedia/' + pedia._id "/>
               </div>
             </q-card>
           </div>
@@ -27,7 +27,26 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      pedias: []
+    }
+  },
+  // 抓全部文章
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/pedias/')
+      .then(res => {
+        if (res.data.success) {
+          this.pedias = res.data.result.map(pedia => {
+            pedia.src = process.env.VUE_APP_API + '/pedias/file/' + pedia.file
+            return pedia
+          })
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

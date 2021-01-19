@@ -11,16 +11,22 @@
           align="justify"
           style="color:#56C6BF"
         >
-          <q-tab name="new" label="新聞" class="tab_border"/>
-          <q-tab name="even" label="活動" class="tab_border"/>
+          <q-tab name="all" label="全部" class="tab_border"/>
+          <q-tab v-if="$q.screen.gt.sm" name="new" label="新聞" class="tab_border"/>
+          <q-tab v-if="$q.screen.gt.sm" name="even" label="活動" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="exhibition" label="展覽" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="adopt" label="領養" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="lost" label="走失" class="tab_border"/>
           <q-tab v-if="$q.screen.gt.sm" name="stray" label="浪浪" class="tab_border"/>
-          <q-tab v-if="$q.screen.gt.sm" name="all" label="全部" class="tab_border"/>
           <!-- 小尺寸時拉霸 -->
-          <q-btn-dropdown v-if="$q.screen.lt.md" auto-close stretch flat label="More...">
+          <q-btn-dropdown v-if="$q.screen.lt.md" auto-close stretch label="更多分類">
             <q-list>
+              <q-item clickable @click="tab = 'new'">
+                <q-item-section>新聞</q-item-section>
+              </q-item>
+              <q-item clickable @click="tab = 'even'">
+                <q-item-section>活動</q-item-section>
+              </q-item>
               <q-item clickable @click="tab = 'exhibition'">
                 <q-item-section>展覽</q-item-section>
               </q-item>
@@ -41,67 +47,119 @@
       </q-tabs>
       <!-- 新聞快訊內容頁 -->
       <q-tab-panels v-model="tab" animated>
-          <q-tab-panel name="new" class="news_table">
+          <q-tab-panel name="all" class="news_table">
             <div class="flex flex-center">
-              <div class="flex row q-layout-container flex-center news_row" v-for="item in data" :key="item.title" :value="item">
-                <div class="col-2 type_cube">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in news" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
                   <div>{{ item.type }}</div>
                 </div>
                 <div class="col-7 table_title">
-                  <q-item :to="{ name: 'front.space' }">{{ item.title }}</q-item>
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
                 </div>
                 <div class="col-2 table_date">
-                  {{ item.date }}
+                  {{ new Date( item.date ).toLocaleString()}}
                 </div>
               </div>
             </div>
           </q-tab-panel>
-
+          <!-- 新聞快訊分頁 -->
+          <q-tab-panel name="new">
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in newNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
+          </q-tab-panel>
+          <!-- 活動消息分頁 -->
           <q-tab-panel name="even">
-            <div class="text-h6">Alarms</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in evenNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
           </q-tab-panel>
-
+          <!-- 展覽資訊分頁 -->
           <q-tab-panel name="exhibition">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in exhibitionNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
           </q-tab-panel>
-
+          <!-- 愛心領養分頁 -->
           <q-tab-panel name="adopt">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in adoptNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
           </q-tab-panel>
-
+          <!-- 走失情報分頁 -->
           <q-tab-panel name="lost">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in lostNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
           </q-tab-panel>
-
+          <!-- 流浪動物分頁 -->
           <q-tab-panel name="stray">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </q-tab-panel>
-
-          <q-tab-panel name="all">
-            <div class="text-h6">Movies</div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            <div class="flex flex-center">
+              <div class="flex row q-layout-container flex-center news_row" v-for="item in strayNews" :key="item._id" :value="item">
+                <div class="col-2 type_cube" :style="getCubeBG(item.type)">
+                  <div>{{ item.type }}</div>
+                </div>
+                <div class="col-7 table_title">
+                  <q-item :to=" '/news/' + item._id ">{{ item.title }}</q-item>
+                </div>
+                <div class="col-2 table_date">
+                  {{ new Date( item.date ).toLocaleString()}}
+                </div>
+              </div>
+            </div>
           </q-tab-panel>
         </q-tab-panels>
     </div>
-    <q-dialog v-model="key" v-for="d in data" :key="d.title" :value="d">
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">Alert</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn flat label="OK" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 
@@ -111,51 +169,82 @@ export default {
     return {
       tab: 'new',
       key: false,
-      data: [
-        {
-          title: '知名老牌寵物飼料傳出使用過期原料',
-          description: '內容1',
-          type: '新聞快訊',
-          date: '2021.01.16',
-          photo: 2222
-        },
-        {
-          title: '標題2',
-          description: '內容2',
-          type: '新聞快訊',
-          date: '2021.01.16',
-          photo: 2222
-        },
-        {
-          title: '標題3',
-          description: '內容3',
-          type: '新聞快訊',
-          date: '2021.01.16',
-          photo: 2222
-        },
-        {
-          title: '標題3',
-          description: '內容3',
-          type: '新聞快訊',
-          date: 2021,
-          photo: 2222
-        },
-        {
-          title: '標題3',
-          description: '內容3',
-          type: '新聞快訊',
-          date: 2021,
-          photo: 2222
-        },
-        {
-          title: '標題3',
-          description: '內容3',
-          type: '新聞快訊',
-          date: 2021,
-          photo: 2222
-        }
-      ]
+      news: [],
+      newNews: [],
+      evenNews: [],
+      exhibitionNews: [],
+      adoptNews: [],
+      lostNews: [],
+      strayNews: []
     }
+  },
+  methods: {
+    // 不同分類給他的cube不同背景色
+    getCubeBG (type) {
+      let background = ''
+      switch (type) {
+        case '新聞快訊':
+          background = '#C2B593'
+          break
+        case '活動消息':
+          background = '#56C6BF'
+          break
+        case '展覽資訊':
+          background = '#548E9B'
+          break
+        case '愛心領養':
+          background = '#A9486B'
+          break
+        case '走失情報':
+          background = '#E8D38B'
+          break
+        case '流浪動物':
+          background = '#B4B4B4'
+          break
+      }
+      return { background }
+    }
+  },
+  async mounted () {
+    // 抓全部的消息
+    await this.axios.get(process.env.VUE_APP_API + '/news/')
+      .then(res => {
+        if (res.data.success) {
+          this.news = res.data.result.map(item => {
+            item.src = process.env.VUE_APP_API + '/news/file/' + item.file
+            return item
+          })
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    // 過濾活動消息
+    this.newNews = this.news.filter(item => {
+      return item.type === '新聞快訊'
+    })
+    // 過濾活動消息
+    this.evenNews = this.news.filter(item => {
+      return item.type === '活動消息'
+    })
+    // 過濾展覽資訊
+    this.exhibitionNews = this.news.filter(item => {
+      return item.type === '展覽資訊'
+    })
+    // 過濾愛心領養
+    this.adoptNews = this.news.filter(item => {
+      return item.type === '愛心領養'
+    })
+    // 過濾走失情報
+    this.lostNews = this.news.filter(item => {
+      return item.type === '走失情報'
+    })
+    // 過濾流浪動物
+    this.strayNews = this.news.filter(item => {
+      return item.type === '流浪動物'
+    })
   }
 }
 </script>

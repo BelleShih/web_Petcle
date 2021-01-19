@@ -7,25 +7,25 @@
         <!-- 標題文字區 -->
         <div class="width">
           <div class="type">
-            <p >{{ news.type }}</p>
+            <p >{{ pedias.type }}</p>
           </div>
-          <p class="title">{{ news.title }}</p>
-          <p>{{ new Date( news.date ).toDateString()}}</p>
+          <p class="title">{{ pedias.title }}</p>
+          <p>{{ new Date( pedias.date ).toDateString()}}</p>
         </div>
         <!-- 線 -->
         <div class="line" style="margin-top:1rem"></div>
         <!-- 圖片 -->
         <div class="box">
-          <img :src="news.src" class="object-fit">
+          <img :src="pedias.src" class="object-fit">
         </div>
         <!-- 內容 -->
         <div class="flex flex-center width">
-          <p class="text" v-html="html(news.description)">
+          <p class="text" v-html="html(pedias.description)">
           </p>
         </div>
         <!-- 線 -->
         <div class="line" style="margin-bottom:2rem"></div>
-        <q-btn icon="expand_less" color="primary" :to="{ name:'front.news'}">回到最新消息</q-btn>
+        <q-btn icon="expand_less" color="primary" :to="{ name:'front.pedias'}">回到寵物百科</q-btn>
       </div>
     </q-layout-container>
   </q-page>
@@ -34,16 +34,16 @@
 export default {
   data () {
     return {
-      news: []
+      pedias: []
     }
   },
   mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/news/' + this.$route.params.id)
+    this.axios.get(process.env.VUE_APP_API + '/pedias/' + this.$route.params.id)
       .then(res => {
         console.log(this.$route.params.id)
         if (res.data.success) {
-          this.news = res.data.result
-          this.news.src = process.env.VUE_APP_API + '/news/file/' + this.news.file
+          this.pedias = res.data.result
+          this.pedias.src = process.env.VUE_APP_API + '/pedias/file/' + this.pedias.file
         } else {
           alert(res.data.message)
         }

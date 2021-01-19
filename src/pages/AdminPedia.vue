@@ -3,32 +3,32 @@
     <q-layout-container>
       <q-table
         :grid="$q.screen.xs"
-        :data="news"
+        :data="pedias"
         :columns="titles"
         row-key="name"
         :rows-per-page-option="[5, 7, 10]"
         :filter="filter"
       >
-        <template v-slot:body="newss">
-          <q-tr :props="newss">
+        <template v-slot:body="pedia">
+          <q-tr :props="pedia">
             <q-td key="type">
               <q-input
                 outlined
                 filled
-                v-if="newss.row.edit"
-                v-model="newss.row.modelType"
+                v-if="pedia.row.edit"
+                v-model="pedia.row.modelType"
               />
-              <p v-else>{{ newss.row.type }}</p>
+              <p v-else>{{ pedia.row.type }}</p>
             </q-td>
 
             <q-td key="title">
               <q-input
                 outlined
                 filled
-                v-if="newss.row.edit"
-                v-model="newss.row.modelTitle"
+                v-if="pedia.row.edit"
+                v-model="pedia.row.modelTitle"
               />
-              <p v-else>{{ newss.row.title }}</p>
+              <p v-else>{{ pedia.row.title }}</p>
             </q-td>
 
             <q-td key="description">
@@ -36,28 +36,28 @@
                 outlined
                 filled
                 type="textarea"
-                v-if="newss.row.edit"
-                v-model="newss.row.modelDescription"
+                v-if="pedia.row.edit"
+                v-model="pedia.row.modelDescription"
               />
-              <p v-else>{{ newss.row.description }}</p>
+              <p v-else>{{ pedia.row.description }}</p>
             </q-td>
             <q-td key="date">
-              {{ new Date(newss.row.date).toLocaleString() }}
+              {{ new Date(pedia.row.date).toLocaleString() }}
             </q-td>
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
-              <q-icon v-if="!newss.row.edit" name="edit" color="primary" size="2rem" @click="edit(newss)"/>
-              <q-icon v-if="!newss.row.edit" name="delete_forever" color="negative" size="2rem" @click="del(newss, index)"/>
-              <q-icon v-if="newss.row.edit" name="save" color="secondary" size="2rem" @click="save(newss)"/>
-              <q-icon v-if="newss.row.edit" name="cancel" color="accent" size="2rem"  @click="cancel(newss)"/>
+              <q-icon v-if="!pedia.row.edit" name="edit" color="primary" size="2rem" @click="edit(pedia)"/>
+              <q-icon v-if="!pedia.row.edit" name="delete_forever" color="negative" size="2rem" @click="del(pedia, index)"/>
+              <q-icon v-if="pedia.row.edit" name="save" color="secondary" size="2rem" @click="save(pedia)"/>
+              <q-icon v-if="pedia.row.edit" name="cancel" color="accent" size="2rem"  @click="cancel(pedia)"/>
             </q-td>
           </q-tr>
         </template>
-        <!-- 增加消息 -->
+        <!-- 增加文章 -->
         <template v-slot:top-left>
-          <h6>最新消息</h6>
-          <q-btn icon="add" color="primary" @click="uploadNew = true">新增消息</q-btn>
+          <h6>寵物百科</h6>
+          <q-btn icon="add" color="primary" @click="uploadPedia = true">新增文章</q-btn>
         </template>
         <!-- 搜尋框 -->
         <template v-slot:top-right>
@@ -70,19 +70,19 @@
       </q-table>
     </q-layout-container>
     <!-- 新增消息＿彈出視窗 -->
-    <q-dialog v-model="uploadNew">
+    <q-dialog v-model="uploadPedia">
         <q-card id="adminnew_dialog" class="flex row">
           <div class="col-12 flex flex-center bg-grey-8" style="height:15%">
-            <p class="upload_title">新增消息</p>
+            <p class="upload_title">新增文章</p>
           </div>
           <div class="col-12 flex flex-center cloumn" style="height:80%">
             <q-form
-              @submit="addNew"
-              @reset="restNew"
+              @submit="addPedia"
+              @reset="restPedia"
               style="width:80%"
             >
               <!-- 檔案上傳 -->
-              <q-file v-model="newFile" filled bottom-slots counter label="選擇檔案" style="margin-bottom:1rem">
+              <q-file v-model="pediaFile" filled bottom-slots counter label="選擇檔案" style="margin-bottom:1rem">
                 <template v-slot:prepend>
                   <q-icon name="cloud_upload" @click.stop />
                 </template>
@@ -116,7 +116,7 @@
               </div>
             </q-form>
           </div>
-          <q-icon name="cancel" size="40px" color="white" class="absolute" @click="uploadNew = false"></q-icon>
+          <q-icon name="cancel" size="40px" color="white" class="absolute" @click="uploadPedia = false"></q-icon>
         </q-card>
       </q-dialog>
   </q-page>
@@ -127,8 +127,8 @@ export default {
   data () {
     return {
       filter: '',
-      news: [],
-      newFile: null,
+      pedias: [],
+      pediaFile: null,
       modelTitle: '',
       modelDescription: '',
       modelType: '',
@@ -170,30 +170,30 @@ export default {
         }
         // { name: 'time', align: 'left', label: '操作', field: 'date' }
       ],
-      uploadNew: false,
-      types: ['新聞快訊', '活動消息', '展覽資訊', '愛心領養', '走失情報', '流浪動物']
+      uploadPedia: false,
+      types: ['健康知識', '寵物飲食', '生活觀察', '美容保養']
     }
   },
   methods: {
-    edit (newss) {
-      newss.row.edit = true
+    edit (pedia) {
+      pedia.row.edit = true
 
-      newss.row.modelType = newss.row.type
-      newss.row.modelTitle = newss.row.title
-      newss.row.modelDescription = newss.row.description
+      pedia.row.modelType = pedia.row.type
+      pedia.row.modelTitle = pedia.row.title
+      pedia.row.modelDescription = pedia.row.description
     },
-    save (newss) {
-      this.axios.patch(process.env.VUE_APP_API + '/news/' + newss.row._id, {
-        title: newss.row.modelTitle,
-        description: newss.row.modelDescription,
-        type: newss.row.modelType
+    save (pedia) {
+      this.axios.patch(process.env.VUE_APP_API + '/pedias/' + pedia.row._id, {
+        title: pedia.row.modelTitle,
+        description: pedia.row.modelDescription,
+        type: pedia.row.modelType
       })
         .then(res => {
           if (res.data.success) {
-            newss.row.edit = false
-            newss.row.title = newss.row.modelTitle
-            newss.row.description = newss.row.modelDescription
-            newss.row.type = newss.row.modelType
+            pedia.row.edit = false
+            pedia.row.title = pedia.row.modelTitle
+            pedia.row.description = pedia.row.modelDescription
+            pedia.row.type = pedia.row.modelType
 
             alert('保存成功')
           } else {
@@ -204,11 +204,11 @@ export default {
           console.log(err)
         })
     },
-    del (newss) {
-      this.axios.delete(process.env.VUE_APP_API + '/news/' + newss.row._id)
+    del (pedia) {
+      this.axios.delete(process.env.VUE_APP_API + '/pedias/' + pedia.row._id)
         .then(res => {
           if (res.data.success) {
-            this.news.splice(newss.rowIndex, 1)
+            this.pedias.splice(pedia.rowIndex, 1)
             alert('刪除成功')
           } else {
             alert(res.data.message)
@@ -218,33 +218,33 @@ export default {
           console.log(err)
         })
     },
-    cancel (newss) {
-      newss.row.edit = false
-      newss.row.model = newss.row.description
+    cancel (pedia) {
+      pedia.row.edit = false
+      pedia.row.model = pedia.row.description
     },
     // 新增消息
-    addNew () {
-      if (this.newFile.size > 1024 * 1024) {
+    addPedia () {
+      if (this.pediaFile.size > 1024 * 1024) {
         alert('圖片太大')
-      } else if (!this.newFile.type.includes('image')) {
+      } else if (!this.pediaFile.type.includes('image')) {
         alert('檔案格式錯誤')
       } else {
-        const newss = new FormData()
-        newss.append('file', this.newFile)
-        newss.append('title', this.modelTitle)
-        newss.append('description', this.modelDescription)
-        newss.append('type', this.modelType)
+        const pedia = new FormData()
+        pedia.append('file', this.pediaFile)
+        pedia.append('title', this.modelTitle)
+        pedia.append('description', this.modelDescription)
+        pedia.append('type', this.modelType)
 
-        this.axios.post(process.env.VUE_APP_API + '/news/', newss)
+        this.axios.post(process.env.VUE_APP_API + '/pedias/', pedia)
           .then(res => {
             console.log(res.data)
             if (res.data.success) {
               res.data.result.file = process.env.VUE_APP_API + '/photos/file/' + res.data.result.file
               res.data.result.model = res.data.result.description
               res.data.result.edit = false
-              this.news.push(res.data.result)
+              this.pedias.push(res.data.result)
               // 清空
-              this.newFile = null
+              this.pediaFile = null
               this.modelTitle = ''
               this.modelDescription = ''
               this.modelType = ''
@@ -254,23 +254,23 @@ export default {
           })
       }
     },
-    restNew () {
-      this.newFile = null
+    restPedia () {
+      this.pediaFile = null
       this.modelTitle = ''
       this.modelDescription = ''
       this.modelType = ''
     }
   },
   mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/news/')
+    this.axios.get(process.env.VUE_APP_API + '/pedias/')
       .then(res => {
         if (res.data.success) {
-          this.news = res.data.result.map(newss => {
-            newss.src = process.env.VUE_APP_API + '/news/' + newss.file
-            newss.modelT = newss.title
-            newss.modelD = newss.description
-            newss.edit = false
-            return newss
+          this.pedias = res.data.result.map(pedia => {
+            pedia.src = process.env.VUE_APP_API + '/pedias/' + pedia.file
+            pedia.modelT = pedia.title
+            pedia.modelD = pedia.description
+            pedia.edit = false
+            return pedia
           })
         } else {
           alert('錯誤')

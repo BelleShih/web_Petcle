@@ -18,7 +18,7 @@
           </q-input>
         </div>
         <div>
-          <q-btn id="pedia_enter" rounded icon="emoji_objects" label="寵物百科" />
+          <q-btn id="pedia_enter" rounded icon="emoji_objects"  :to="{ name: 'front.pedia'}" label="寵物百科" />
         </div>
       </div>
     </q-layout-container>
