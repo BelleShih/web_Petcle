@@ -8,16 +8,19 @@ const disscussfeedbackSchema = new Schema(
       type: mongoose.ObjectId,
       ref: 'users'
     },
+    user: String,
+    userophoto: String,
     description: String
   }
 )
 
 const DiscussSchema = new Schema(
   {
+    user: String,
     title: String,
     description: String,
     // 0飲食 1生活 2交友 3生病 4其他
-    questiontype: Number,
+    questiontype: String,
     feedback: [disscussfeedbackSchema]
   },
   {

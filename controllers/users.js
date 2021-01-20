@@ -26,7 +26,8 @@ export const create = async (req, res) => {
         account: req.body.account,
         password: md5(req.body.password1),
         email: req.body.email,
-        pet: req.body.pet
+        pet: req.body.pet,
+        userophoto: ''
       })
       res.status(200).send({ success: true, message: '' })
     }
@@ -91,3 +92,16 @@ export const heartbeat = async (req, res) => {
   }
   res.status(200).send(isLogin)
 }
+
+// export const userphoto = async (req, res) => {
+//   if (req.session.user === undefined) {
+//     res.status(401).send({ success: false, message: '未登入' })
+//     return
+//   }
+// }
+// export const editphoto = async (req, res) => {
+// }
+// export const findphoto = async (req, res) => {
+// }
+// export const delphoto = async (req, res) => {
+// }
