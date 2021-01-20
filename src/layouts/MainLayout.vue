@@ -1,5 +1,5 @@
 <template>
-  <q-layout style="width:100%">
+  <q-layout id="mainLayout" style="width:100%">
     <!-- 導覽列 -->
     <q-header elevated class="bg-white" height-hint="98" style="width:100%">
       <div class="flex row wrap justify-between nav-padding">
@@ -12,6 +12,7 @@
           <li><q-btn dense unelevated exact :to="{ name: 'front.about' }" active-class="text-blue-3">關於 Petcle</q-btn></li>
           <li><q-btn dense unelevated exact :to="{ name: 'front.news' }" active-class="text-blue-3">最新消息</q-btn></li>
           <li><q-btn dense unelevated exact :to="{ name: 'front.questions' }">毛孩大小事</q-btn></li>
+          <li dense unelevated exact class="nav_line"></li>
           <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="loginPage = true" active-class="text-blue-3">登入</q-btn>
             <q-btn v-if="user.id.length > 0" dense unelevated exact @click="logout" active-class="text-blue-3">登出</q-btn>

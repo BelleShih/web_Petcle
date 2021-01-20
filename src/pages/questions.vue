@@ -86,23 +86,65 @@
       <q-tab-panel name="other" class="news_table">
       </q-tab-panel>
     </q-tab-panels>
+    <q-btn @click="qes = true">a</q-btn>
     <!-- 網友問題視窗 -->
-    <q-dialog v-model="qes" v-for="item in discuss" :key="item._id" :value="item">
+    <q-dialog v-model="qes">
       <q-card id="qes_dialog" style="width:50%">
         <q-card-section class="row items-center q-pb-none">
           <q-space />
           <q-btn icon="close" flat round dense v-close-popup />
         </q-card-section>
         <q-card-section>
-          <div class="text-h6 flex row">
-            <p class="mr-auto">{{ item.title }}</p>
-            <p>user</p>
+          <div class="text-h6 flex row justify-between">
+            <p>標題</p>
+            <div class="flex row align-center">
+              <q-avatar size="1.9rem">
+                <img src="../assets/userphoto-01.jpg">
+              </q-avatar>
+              <p style="margin-left:0.5rem">user</p>
+            </div>
           </div>
         </q-card-section>
         <q-card-section>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.
+          內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文內文
+        </q-card-section>
+        <!-- 線 -->
+        <q-card-section style="border-bottom:1px solid #B4B4B4">
+        </q-card-section>
+        <!-- 網友回覆區 -->
+        <q-card-section>
+          <div style="border-bottom:1px solid #eee;padding:1rem 0">
+            <div class="flex row align-center h-auto">
+              <q-avatar size="30px">
+                <img class="col-1" src="../assets/userphoto-01.jpg" >
+              </q-avatar>
+              <div class="col-9" style="margin-top:0.3rem; margin-left:1rem">回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容</div>
+            </div>
+          </div>
+          <div style="border-bottom:1px solid #eee;padding:1rem 0">
+            <div class="flex row align-center h-auto">
+              <q-avatar size="30px">
+                <img class="col-1" src="../assets/userphoto-01.jpg" >
+              </q-avatar>
+              <div class="col-9" style="margin-top:0.3rem; margin-left:1rem">回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容回覆內容</div>
+            </div>
+          </div>
+        </q-card-section>
+        <!-- 使用者回覆區 -->
+        <q-card-section>
+          <div style="width:100%">
+            <div class="flex row align-center h-auto">
+              <q-avatar size="30px">
+                <img class="col-1" src="../assets/userphoto-01.jpg" >
+              </q-avatar>
+              <form>
+                <div class="flex justify-between" style="max-width: 100%">
+                  <q-input clearable v-model="modelFeedback" style="width:auto"/>
+                </div>
+                <q-btn color="primary" label="送出"/>
+              </form>
+            </div>
+          </div>
         </q-card-section>
       </q-card>
     </q-dialog>

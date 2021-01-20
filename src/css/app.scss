@@ -1,5 +1,15 @@
 // app global css in SCSS form
 
+// 前台公版
+#mainLayout {
+  .nav_line {
+    width:1px;
+    height:25px;
+    background:#C2B593;
+    margin-top:0.2rem
+  }
+}
+
 // navbar--------------------------------------
 .nav-padding {
   @include xs {
@@ -1045,8 +1055,18 @@ q-layout-container{
     height: 600px !important;
   }
 
-  .mr-auto {
-    margin-right: auto;
+  .ml-auto {
+    margin-left: auto;
+  }
+
+  .fb_line {
+    height: 1px !important;
+    padding: 0px !important;
+    border-bottom: 1px solid rgb(138, 138, 138) !important;
+  }
+
+  .h-auto {
+    height: auto;
   }
 }
 
