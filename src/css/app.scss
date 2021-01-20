@@ -672,19 +672,26 @@ q-layout-container{
 
 
 // 我的主頁--------------------------------------------
-.mypage_btnG {
-  margin-top: 50px;
-}
+#mypage {
+  .mypage_btnG {
+    margin-top: 50px;
+  }
+  
+  .mypage_btn {
+    margin-bottom:1rem !important;
+    font-weight: 900;
+  }
+  
+  .mypage_line {
+    border-right:1px solid black;
+    @include xs {
+      border-right:none;
+    }
+  }
 
-.mypage_btn {
-  margin-bottom:1rem !important;
-  font-weight: 900;
-}
-
-.mypage_line {
-  border-right:1px solid black;
-  @include xs {
-    border-right:none;
+  .title {
+    font-size: 1.8rem;
+    margin-top: 1.5rem;
   }
 }
 
@@ -722,6 +729,12 @@ q-layout-container{
   position: relative;
   left: 15px;
   top: 10px;
+}
+
+.upload_close {
+  position: relative;
+  top: -25%;
+  left: 25%;
 }
 
 .uploadphoto_des {
@@ -818,7 +831,9 @@ q-layout-container{
 
 //毛孩大小事---------------------
 #question {
+  overflow-x: hidden;
   margin-top: 2rem;
+  width: 100%;
   #pedia_enter {
     width: auto;
     height: 40px;
@@ -828,7 +843,6 @@ q-layout-container{
     font-size: 1rem;
     font-weight: 900;
   }
-
   q-input {
     border: 1px solid $petcolor02;
   }
@@ -935,13 +949,17 @@ q-layout-container{
 
   .tab-panels {
     margin-top:2rem;
-    width: 80%;
   }
 
-  .qus_card {
-    border: 1px solid $petcolor01;
-    padding: 1rem;
+  .qus_btn {
+    padding: 0.5rem;
     border-radius: 7px;
+  }
+
+  .border {
+    border: 2px solid $petcolor01;
+    border-radius: 8px;
+    padding: 1rem;
   }
 
   .title {
@@ -953,6 +971,7 @@ q-layout-container{
     border-bottom: 1px solid $petcolor01;
     margin-bottom: 1rem;
     width: 100% !important;
+    padding-top: 1rem;
   }
 
   .des {
@@ -969,7 +988,65 @@ q-layout-container{
     padding-left: 1rem;
     padding-top: 0.1rem;
     font-weight: 400;
+  }
 
+  .qus_card_bottom {
+    padding-top: 1rem;
+  }
+
+  .space {
+    @include xs {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
+    @include lg {
+      display: block;
+    }
+  }
+
+  .m-auto {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .w-85 {
+    width:85%;
+  }
+
+  // 我要發問按鈕
+  .que-btn {
+    z-index: 9999; 
+    position: fixed !important;
+    right: 20px;
+    top: 80%;
+    font-size:1rem;
+    
+    q-btn {
+      box-shadow: 0 0 15px #ffffff;
+    }
+
+    p {
+      width: 55px;
+      color: white;
+      position: relative;
+      top: -104px;
+      left: 27px;
+      font-size: 1.5rem;
+      line-height: 1.7rem;
+      letter-spacing: 0.2rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  }
+
+  #qes_dialog {
+    height: 600px !important;
+  }
+
+  .mr-auto {
+    margin-right: auto;
   }
 }
 
@@ -1279,4 +1356,52 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
     width:35%;
     height:70%;
   }
+}
+
+// container 區
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  width: 90%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container, .container-sm {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container, .container-sm, .container-md {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container, .container-sm, .container-md, .container-lg {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 1200px;
+  }
+}
+
+// row
+.row-1 {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -10px;
+  margin-left: -10px;
 }

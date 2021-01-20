@@ -1,11 +1,13 @@
 <template>
-  <q-page>
+  <q-page id="mypage">
     <q-layout-container>
       <div class="flex row justify-around" style="padding:50px 0">
         <div class="col-12 col-md-3 flex column mypage_line">
           <div class="flex column flex-center">
-            <img src="https://picsum.photos/200/200/?random=1">
-            <h5>{{ user.name }}</h5>
+            <q-avatar size="120px">
+              <img src="../assets/userphoto-01.jpg">
+            </q-avatar>
+            <p class="title">{{ user.name }}</p>
             <p>@{{ user.account }}</p>
           </div>
           <!-- 按鈕區 -->
@@ -32,6 +34,7 @@
                     type="textarea"
                   />
                 </div>
+                <!-- 照片增改刪查 -->
                 <div v-if="editMenu" style="cursor:pointer">
                   <q-icon v-if="!photo.edit" name="create" color="primary" size="2rem" @click="edit(photo)"></q-icon>
                   <q-icon v-if="!photo.edit" name="delete_forever" color="negative" size="2rem" @click="del(photo, index)"></q-icon>
