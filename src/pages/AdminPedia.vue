@@ -47,10 +47,10 @@
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
-              <q-icon v-if="!pedia.row.edit" name="edit" color="primary" size="2rem" @click="edit(pedia)"/>
-              <q-icon v-if="!pedia.row.edit" name="delete_forever" color="negative" size="2rem" @click="del(pedia, index)"/>
-              <q-icon v-if="pedia.row.edit" name="save" color="secondary" size="2rem" @click="save(pedia)"/>
-              <q-icon v-if="pedia.row.edit" name="cancel" color="accent" size="2rem"  @click="cancel(pedia)"/>
+              <q-btn v-if="!pedia.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(pedia)" class="mr-1"/>
+              <q-btn v-if="!pedia.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pedia, index)"/>
+              <q-btn v-if="pedia.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(pedia)" class="mr-1"/>
+              <q-btn v-if="pedia.row.edit" round icon="cancel" color="accent" size="0.7rem"  @click="cancel(pedia)"/>
             </q-td>
           </q-tr>
         </template>

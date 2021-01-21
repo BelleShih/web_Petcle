@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lhh lpR lFf" class="bg-grey-4">
+  <q-layout view="lhh lpR lFf" class="bg-grey-4" id="adminLayout">
 
     <q-header class="bg-grey-4 text-white">
       <q-toolbar>

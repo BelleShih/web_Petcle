@@ -47,10 +47,10 @@
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
-              <q-icon v-if="!newss.row.edit" name="edit" color="primary" size="2rem" @click="edit(newss)"/>
-              <q-icon v-if="!newss.row.edit" name="delete_forever" color="negative" size="2rem" @click="del(newss, index)"/>
-              <q-icon v-if="newss.row.edit" name="save" color="secondary" size="2rem" @click="save(newss)"/>
-              <q-icon v-if="newss.row.edit" name="cancel" color="accent" size="2rem"  @click="cancel(newss)"/>
+              <q-btn v-if="!newss.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(newss)" class="mr-1"/>
+              <q-btn v-if="!newss.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(newss, index)"/>
+              <q-btn v-if="newss.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(newss)" class="mr-1"/>
+              <q-btn v-if="newss.row.edit" round icon="cancel" color="accent" size="0.7rem"  @click="cancel(newss)"/>
             </q-td>
           </q-tr>
         </template>

@@ -975,13 +975,24 @@ q-layout-container{
   .title {
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
+    font-weight: 800;
+    text-align: left;
+  }
+
+  .chip {
+    margin-left: auto;
   }
 
   .qus_card_top {
     border-bottom: 1px solid $petcolor01;
     margin-bottom: 1rem;
     width: 100% !important;
-    padding-top: 1rem;
+  }
+
+  .dis_date {
+    margin-left: auto;
+    color:$petcolor03;
+    font-size: 0.5rem;
   }
 
   .des {
@@ -991,13 +1002,23 @@ q-layout-container{
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    white-space: normal
+    white-space: normal;
+    text-align:left;
+    font-size: 1rem;
+    letter-spacing: 0.05rem;
   }
 
   .name {
     padding-left: 1rem;
     padding-top: 0.1rem;
     font-weight: 400;
+    font-size: 1rem;
+  }
+
+  .fb_length {
+    font-size: 2rem;
+    color: $petcolor02;
+    padding-right: 0.5rem;
   }
 
   .qus_card_bottom {
@@ -1064,16 +1085,176 @@ q-layout-container{
     padding: 0px !important;
     border-bottom: 1px solid rgb(138, 138, 138) !important;
   }
+}
 
-  .h-auto {
-    height: auto;
+.fb_btn {
+  width:90%;
+  resize:none;
+  outline:none;
+  border:none;
+  background:#F3F3F3;
+  margin-right:10px
+}
+
+.dis_title {
+  margin-left:0.5rem;
+  font-weight: 800 !important;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+}
+
+.qes_date {
+  margin: 0.5rem 0 0 1rem;
+  color: $petcolor03;
+}
+
+.dis_des {
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+}
+
+// 網友回覆區
+.fb {
+  border-bottom:1px solid #eee;
+  padding:1rem 0
+}
+
+//發問跳出視窗，抓回應者與內容的排版
+.fb-1 {
+  margin-top:0.3rem !important; 
+  margin-left:1rem;
+  font-weight: 800;
+  color: $petcolor02;
+}
+
+.fb-2 {
+  margin-top:0.3rem !important;
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+}
+
+.fb-3 {
+  margin-top:0.3rem !important;
+  font-size: 0.5rem;
+  color: $petcolor03;
+}
+
+// 我要發問-彈出視窗
+#quedialog {
+  @include xs {
+    width:90%;
+    height:60%;
+  }
+  @include sm {
+    width:90%;
+    height:60%;
+  }
+  @include md {
+    width:70%;
+    height:60%;
+  }
+  @include lg {
+    width:60%;
+    height:60%;
+  }
+  @include xl {
+    width:40%;
+    height:60%;
+  }
+  .top {
+    background:$petcolor01
+  }
+
+  .title {
+    font-size: 1.5rem;
+    letter-spacing: 2rem;
+    color: white;
+    font-weight: 800;
+    position: relative;
+    left: 15px;
+  }
+
+  .qes_div {
+    height:80%;
+  }
+
+  .q-form {
+    width:80%;
+    margin-top: 2rem;
+  }
+
+  .input_title {
+    margin-bottom: 1rem;
+  }
+
+  .select {
+    border:none !important;
+    border-radius: 2px;
+    @include xs {
+      width: 100%;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include sm {
+      width: 100%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include md {
+      width: 100%;
+      margin-top: 0rem;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+  }
+  
+  .btn {
+    margin-top: 3rem;
+  }
+
+  .textarea {
+    resize:none;
   }
 }
+
+// 設定discuss彈出視窗寬度
+.w-RWD {
+  width:50%;
+  @include xs {
+    width:90% !important
+  }
+  @include sm {
+    widows: 90% !important;
+  }
+  @include md {
+    width:60% !important
+  }
+  @include lg {
+    width:50% !important
+  }
+  @include xl {
+    width:50% !important
+  }
+}
+
 
 // 療癒空間------------------------
 
 .spaceMenu-background {
-  background: #C2B593;
+  background: #464544;
   color: white;
 }
 
@@ -1377,6 +1558,13 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
     height:70%;
   }
 }
+
+// 留言管理
+.mr-1 {
+  margin-right:1rem;
+}
+
+// boostrap-----------------------------------------------------------
 
 // container 區
 .container,

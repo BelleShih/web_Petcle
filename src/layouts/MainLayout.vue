@@ -317,6 +317,8 @@ export default {
             if (res.data.success) {
               alert('註冊成功')
               this.registeredPage = false
+              this.log.account = ''
+              this.log.password = ''
               this.loginPage = true
             } else {
               alert('發生錯誤')
