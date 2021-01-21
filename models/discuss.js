@@ -10,7 +10,8 @@ const disscussfeedbackSchema = new Schema(
     },
     user: String,
     userophoto: String,
-    description: String
+    description: String,
+    date: Date
   }
 )
 
@@ -21,6 +22,7 @@ const DiscussSchema = new Schema(
     description: String,
     // 0飲食 1生活 2交友 3生病 4其他
     questiontype: String,
+    date: Date,
     feedback: [disscussfeedbackSchema]
   },
   {

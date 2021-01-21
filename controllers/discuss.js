@@ -1,5 +1,4 @@
 import multer from 'multer'
-import FTPStorage from 'multer-ftp'
 import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
@@ -7,8 +6,6 @@ import dotenv from 'dotenv'
 import util from 'util'
 
 import discuss from '../models/discuss.js'
-
-let storage
 
 dotenv.config()
 
@@ -31,6 +28,7 @@ export const create = async(req, res) => {
       title: req.body.title,
       description:req.body.description,
       questiontype:req.body.questiontype,
+      date: Date.now(),
       feedback: []
     })
       res.status(200).send({ success: true, message: '', result })
@@ -123,7 +121,8 @@ export const addFeedback = async(req, res) => {
             uid: req.session.user._id,
             user:req.session.user.name,
             userphoto:req.session.user.userphoto,
-            description: req.body.description
+            description: req.body.description,
+            date: Date.now()
           }
         }
       },
