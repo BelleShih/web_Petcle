@@ -6,7 +6,7 @@ import fs from 'fs'
 import dotenv from 'dotenv'
 import util from 'util'
 
-import pedias from '../models/pedias.js'
+import pets from '../models/pets.js'
 
 let storage
 
@@ -49,7 +49,6 @@ const upload = multer({
   }
 })
 
-// 建立文章
 export const create = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
@@ -82,13 +81,14 @@ export const create = async (req, res) => {
         } else {
           file = path.basename(req.file.path)
         }
-        const result = await pedias.create({
-          title: req.body.title,
-          description: req.body.description,
-          type:req.body.type,
+        const result = await pets.create({
           file,
-          date:Date.now(),
-          update:req.body.update
+          user: req.session.user._id,
+          name:req.body.name,
+          animal:req.body.animal,
+          breed:req.body.breed,
+          description: req.body.description,
+          mails:[]
         })
         res.status(200).send({ success: true, message: '', result })
       } catch (error) {
@@ -97,6 +97,7 @@ export const create = async (req, res) => {
           const message = error.errors[key].message
           res.status(400).send({ success: false, message })
         } else {
+          console.log(error)
           res.status(500).send({ success: false, message: '伺服器錯誤' })
         }
       }
@@ -104,23 +105,20 @@ export const create = async (req, res) => {
   })
 }
 
-// 編輯文章
-export const editPedia = async (req, res) => {
+// 編輯寵物
+export const editPet = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
-  if (!req.headers['content-type'] || !req.headers['content-type'].includes('application/json')) {
-    res.status(400).send({ success: false, message: '資料格式不符' })
-    return
-  }
-
   try {
-    let result = await pedias.findById(req.params.id)
+    let result = await pets.findById(req.params.id)
     if (result === null) {
       res.status(404).send({ success: false, message: '找不到資料' })
+    } else if (result.user.toString() !== req.session.user._id.toString()) {
+      res.status(403).send({ success: false, message: '沒有權限' })
     } else {
-      result = await pedias.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      result = await pets.findByIdAndUpdate(req.params.id, req.body, { new: true })
       res.status(200).send({ success: true, message: '', result })
     }
   } catch (error) {
@@ -131,25 +129,25 @@ export const editPedia = async (req, res) => {
     } else if (error.name === 'CastError') {
       res.status(400).send({ success: false, message: 'ID 格式錯誤' })
     } else {
-      console.log(error)
       res.status(500).send({ success: false, message: '伺服器錯誤' })
     }
   }
 }
 
-// 刪除文章
-export const delPedia = async (req, res) => {
+// 刪除寵物
+export const delPet = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
-
   try {
-    let result = await pedias.findById(req.params.id)
+    let result = await pets.findById(req.params.id)
     if (result === null) {
       res.status(404).send({ success: false, message: '找不到資料' })
+    } else if (result.user.toString() !== req.session.user._id.toString()) {
+      res.status(403).send({ success: false, message: '沒有權限' })
     } else {
-      result = await pedias.findByIdAndDelete(req.params.id)
+      result = await pets.findByIdAndDelete(req.params.id)
       res.status(200).send({ success: true, message: '', result })
 
       // 刪除本機圖片檔
@@ -166,51 +164,48 @@ export const delPedia = async (req, res) => {
   }
 }
 
-// 抓全部文章
-export const getPedias = async (req, res) => {
+// 取得所有寵物
+export const getPets = async (req, res) => {
   try {
-    const result = await pedias.find()
+    const result = await pets.find()
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
 
-// 抓指定文章
-export const getPedia = async (req, res) => {
+// 取得使用者的寵物
+export const getUserPet = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  if (req.session.user._id !== req.params.id) {
+    console.log(req.params)
+    res.status(403).send({ success: false, message: '沒有權限' })
+    return
+  }
+
   try {
-    const result = await pedias.findById(req.params.id)
-    if (result === null) {
-      res.status(404).send({ success: false, message: '找不到資料' })
-      console.log(error)
-    } else {
-      res.status(200).send({ success: true, message: '', result })
-    }
+    const result = await pets.find({ user: req.params.id })
+    res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
 
-// 抓指定文章圖片
-export const file = async (req, res) => {
-  if (process.env.DEV === 'true') {
-    const path = process.cwd() + '/images/' + req.params.file
-    const exists = fs.existsSync(path)
-
-    if (exists) {
-      res.status(200).sendFile(path)
-    } else {
-      res.status(404).send({ success: false, message: '找不到圖片' })
-    }
-  } else {
-    axios({
-      method: 'GET',
-      url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
-      responseType: 'stream'
-    }).then(ress => {
-      ress.data.pipe(res)
-    }).catch(error => {
-      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
-    })
+// 取得指定寵物
+export const getPet = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    const result = await pets.findById(req.params.id)
+    console.log(req.params)
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }

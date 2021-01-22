@@ -12,34 +12,6 @@ const albumnSchema = new Schema(
   }
 )
 
-const mailSchema = new Schema(
-  {
-    title: String,
-    description: String
-  }
-)
-
-const petSchema = new Schema(
-  {
-    name: {
-      type: String
-    },
-    mail: [mailSchema],
-    animal: {
-      type: mongoose.ObjectId,
-      ref: 'animals'
-    },
-    breeds: {
-      type: mongoose.ObjectId,
-      ref: 'breedstypes'
-    },
-    bodyparts: {
-      type: mongoose.ObjectId,
-      ref: 'bodyparts'
-    }
-  }
-)
-
 const userSchema = new Schema(
   {
     account: {
@@ -64,7 +36,10 @@ const userSchema = new Schema(
     pet: Boolean,
     userophoto: String,
     album: [albumnSchema],
-    petpage: [petSchema],
+    petpage: {
+      type: mongoose.ObjectId,
+      ref: 'pets'
+    },
     discuss: {
       type: mongoose.ObjectId,
       ref: 'discuss'

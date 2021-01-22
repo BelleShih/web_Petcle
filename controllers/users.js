@@ -93,6 +93,35 @@ export const heartbeat = async (req, res) => {
   res.status(200).send(isLogin)
 }
 
+export const delUser = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+
+  try {
+    let result = await users.findById(req.params.id)
+    if (result === null) {
+      res.status(404).send({ success: false, message: '找不到資料' })
+    } else {
+      result = await users.findByIdAndDelete(req.params.id)
+      res.status(200).send({ success: true, message: '', result })
+    }
+  } catch (error) {
+    if (error.name === 'CastError') {
+      res.status(400).send({ success: false, message: 'ID 格式錯誤' })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+export const editUser = async (req, res) => {
+}
+
+export const getUser = async (req, res) => {
+}
 // export const userphoto = async (req, res) => {
 //   if (req.session.user === undefined) {
 //     res.status(401).send({ success: false, message: '未登入' })

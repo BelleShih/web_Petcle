@@ -176,10 +176,6 @@ export const getNews = async (req, res) => {
 
 // 抓指定消息
 export const getNew = async (req, res) => {
-  if (req.session.user === undefined) {
-    res.status(401).send({ success: false, message: '未登入' })
-    return
-  }
   try {
     const result = await news.findById(req.params.id)
     if (result === null) {
