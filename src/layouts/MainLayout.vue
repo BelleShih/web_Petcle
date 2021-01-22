@@ -77,6 +77,7 @@
                     type="text"
                     :state="nameState"
                     style="position:relative;left:45px"
+                    required
                   />
                 </div>
                 <div class="registered-input">
@@ -87,6 +88,7 @@
                     type="text"
                     :state="accountState_reg"
                     style="position:relative;left:45px"
+                    required
                   />
                 </div>
                 <div class="registered-input">
@@ -97,6 +99,7 @@
                     type="password"
                     :state="passwordState_reg"
                     style="position:relative;left:45px"
+                    required
                   />
                 </div>
                 <div class="registered-input">
@@ -106,6 +109,7 @@
                     placeholder="請再次輸入密碼"
                     type="password"
                     style="position:relative;left:12px"
+                    required
                   />
                 </div>
                 <div class="registered-input">
@@ -113,9 +117,10 @@
                   <input
                     v-model="reg.email"
                     placeholder="請輸入Email"
-                    type="text"
+                    type="email"
                     :state="emailState"
                     style="position:relative;left:20px"
+                    required
                   />
                 </div>
                 <div class="q-gutter-sm registered-input">
@@ -160,6 +165,7 @@
                   placeholder="請輸入帳號"
                   type="text"
                   :state="accountState"
+                  required
                 />
               </div>
               <div class="login-input text-center">
@@ -169,6 +175,7 @@
                   placeholder="請輸入密碼"
                   type="password"
                   :state="passwordState"
+                  required
                 />
               </div>
               <div id="no-member-text" class="text-center"><a @click="registeredPage = true; loginPage = false">還不是會員嗎?趕快按我註冊</a></div>

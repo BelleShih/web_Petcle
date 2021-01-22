@@ -1266,6 +1266,23 @@ q-layout-container{
 }
 
 //最新消息-------------------
+#news {
+  margin-top:2rem;
+  .width {
+    @include xs {
+      width: 90%;
+    }
+    @include sm {
+      width: 90%;
+    }
+    @include md {
+      width: 80%;
+    }
+    @include lg {
+      width: 70%;
+    }
+  }
+}
 .news_table {
   .q-table__card {
     color: #000;
@@ -1299,7 +1316,6 @@ q-layout-container{
   font-weight: 800;
   font-size: 1rem;
   letter-spacing: 0.1rem;
-  text-align: center;
 }
 
 .table_date {
@@ -1355,7 +1371,7 @@ q-layout-container{
   }
 
   .box {
-    height: 400px;
+    height: 100%;
     margin-top: 2rem;
     @include md {
       width: 60% !important;
@@ -1413,7 +1429,15 @@ q-layout-container{
   .q-card {
     box-shadow: none;
     border-radius: 4px 4px 0px 0px;
-}
+  }
+
+  .title {
+    font-weight: 800;
+  }
+
+  q-btn:hover {
+    border-bottom: 2px solid #333;
+  }
 }
 
 // 設定卡片說明文字為2行
@@ -1426,6 +1450,146 @@ q-layout-container{
   -webkit-box-orient: vertical;
   white-space: normal;
 }
+
+// 百科 PediaContent
+#pediaContent {
+  .box {
+    height: 100%;
+    width: 100%;
+    margin-top: 2rem;
+  }
+  .title {
+    color:#333;
+    letter-spacing:0.1rem;
+    font-size: 3rem;
+    font-weight:800;
+    margin-top: 1.5rem;
+    border-left: 10px solid #C2B593;
+    padding-left: 1rem;
+  }
+
+  .line {
+    height: 1px !important;
+    background: rgb(189, 189, 189) !important;
+    @include md {
+      width: 100% !important;
+    }
+    @include xs {
+      width: 100%;
+    }
+    @include sm {
+      width: 100%;
+    }
+  }
+
+  .date {
+    margin-right: auto;
+  }
+
+  .type {
+    color: $petcolor01;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.2rem;
+    line-height: 1rem;
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .width {
+    @include md {
+      width: 85% !important;
+    }
+    @include xs {
+      width: 90%;
+    }
+    @include sm {
+      width: 90%;
+    }
+  }
+
+  .object-fit {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text {
+    margin-top: 2rem;
+    width: 100%;
+    line-height: 1.7rem;
+  }
+}
+
+// 寵物頁面----------------------
+// petpage-----------------------
+#petpage {
+  margin-top:3rem !important;
+  .h-100 {
+    height: 100%;
+  }
+
+  .box {
+    width: 500px;
+    height: 500px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .right {
+    padding: 0 2rem;
+    @include xs {
+      padding: 0;
+      padding-bottom: 2rem;
+    }
+  }
+
+  .edit_icon {
+    position: relative;
+    top: 10%;
+    left: 100%;
+    @include xs {
+      margin-top: 1rem;
+    }
+    @include sm {
+      margin-top: 1rem;
+    }
+    @include md {
+      margin-top: 1rem;
+    }
+    @include lg {
+      margin-top: 1rem;
+    }
+    @include xl {
+      margin-top: 0rem;
+    }
+  }
+
+  .name {
+    font-size: 2.2rem;
+    
+  }
+  .mail_btn {
+    width: 160px;
+    letter-spacing: 0.1rem;
+  }
+
+  .type {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+  }
+
+  .about_title {
+    font-size: 1.2rem;
+    letter-spacing: 0.2rem;
+    font-weight: 800;
+    color: $petcolor02;
+    margin-bottom: 0.5rem;
+  }
+}
+
 
 // footer------------------------
 .footer {

@@ -24,6 +24,7 @@
     "vue-core-image-upload": "^2.4.13",
     "vue-i18n": "^8.0.0",
     "vue-sweetalert2": "^4.1.1",
+    "vuelidate": "^0.7.6",
     "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {

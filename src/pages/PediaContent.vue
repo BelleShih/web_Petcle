@@ -1,22 +1,20 @@
 <template>
-  <q-page id="newsContent">
-    <q-layout-container>
-      <div class="flex flex-center column" style="margin-top:3rem">
-        <!-- 線 -->
-        <div class="line"></div>
+  <q-page id="pediaContent">
+    <div class="container flex-center">
+      <div class="column flex-center" style="margin-top:3rem">
+        <!-- 圖片 -->
+        <div class="flex flex-center box">
+          <img :src="pedias.src" class="object-fit">
+        </div>
         <!-- 標題文字區 -->
         <div class="width">
-          <div class="type">
-            <p >{{ pedias.type }}</p>
-          </div>
           <p class="title">{{ pedias.title }}</p>
-          <p>{{ new Date( pedias.date ).toDateString()}}</p>
-        </div>
-        <!-- 線 -->
-        <div class="line" style="margin-top:1rem"></div>
-        <!-- 圖片 -->
-        <div class="box">
-          <img :src="pedias.src" class="object-fit">
+          <div class="row" style="padding-top:1rem">
+            <div class="col-5 date">{{ new Date( pedias.date ).toDateString()}}</div>
+            <div class="col-3 type">{{ pedias.type }}</div>
+          </div>
+            <!-- 線 -->
+          <div class="col-8 line" style="margin-top:1rem"></div>
         </div>
         <!-- 內容 -->
         <div class="flex flex-center width">
@@ -27,7 +25,7 @@
         <div class="line" style="margin-bottom:2rem"></div>
         <q-btn icon="expand_less" color="primary" :to="{ name:'front.pedias'}">回到寵物百科</q-btn>
       </div>
-    </q-layout-container>
+    </div>
   </q-page>
 </template>
 <script>

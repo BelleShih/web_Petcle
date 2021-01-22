@@ -234,7 +234,11 @@ export default {
     // 使用者送出留言
     addfb () {
       if (this.user.account === '') {
-        alert('請先登入會員')
+        this.$swal.fire({
+          icon: 'error',
+          title: '上傳錯誤',
+          text: '請先登入會員'
+        })
       } else {
         const reply = { description: this.modelFeedback }
         this.axios.patch(process.env.VUE_APP_API + '/discuss/fb/' + this.discussmodel._id, reply)

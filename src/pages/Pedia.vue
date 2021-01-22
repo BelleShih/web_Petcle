@@ -1,15 +1,15 @@
 <template>
-  <q-page id="pedia">
-    <q-layout-container style="height:100vh">
-      <container class="flex flex-center" style="height:100%;margin-top:2rem">
-        <div class="row fit wrap items-start justify-center" >
+  <q-page id="pedia" style="height:100%">
+    <q-layout-container style="height:100%">
+      <div class="flex flex-center" style="height:100%;margin-top:2rem">
+        <div class="row fit wrap items-start flex-center" >
           <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
             <q-card class="pedia-card flex column">
               <div class="flex col-6">
                 <img :src="pedia.src">
               </div>
               <div class="flex col-4" style="padding:1rem">
-                <p class="text-h6 q-mt-sm q-mb-xs">{{ pedia.title }}</p>
+                <p class="text-h6 q-mt-sm q-mb-xs title">{{ pedia.title }}</p>
                 <p class="text-caption text-black pedia_des">
                   {{ pedia.description }}
                 </p>
@@ -20,7 +20,7 @@
             </q-card>
           </div>
         </div>
-      </container>
+      </div>
     </q-layout-container>
   </q-page>
 </template>

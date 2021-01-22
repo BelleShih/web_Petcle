@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md flex justify-center" style="width:100%">
-    <div class="q-gutter-y-md" style="width: 70%;margin-top:2rem">
+  <div id="news" class="q-pa-md flex justify-center" style="width:100%">
+    <div class="q-gutter-y-md width">
       <q-tabs
           v-model="tab"
           inline-label

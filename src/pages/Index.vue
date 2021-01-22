@@ -2,7 +2,7 @@
   <q-page id="index">
     <q-layout-container>
     <!-- 搜尋列 -->
-    <div class="row" style="margin-bottom:1.5rem;margin-top:1.5rem">
+    <div class="row" style="margin-bottom:0.5rem;margin-top:1.5rem">
       <div class="col-xs-1 col-md-2 col-lg-3"></div>
       <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
         <q-input borderless dense debounce="300" v-model="filtermodel" >
