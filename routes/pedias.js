@@ -11,7 +11,7 @@ router.get('/', getPedias)
 router.get('/:id', getPedia)
 // 刪除指定文章
 router.delete('/:id', delPedia)
-// // 編輯指定文章
+// 編輯指定文章
 router.patch('/:id', editPedia)
 // 抓指定文章圖片
 router.get('/file/:file', file)

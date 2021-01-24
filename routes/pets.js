@@ -1,5 +1,5 @@
 import express from 'express'
-import { create, editPet, delPet, getPets, getUserPet, getPet } from '../controllers/pets.js'
+import { create, editPet, delPet, getPets, getUserPet, getPet, getPetFile, changePetFile } from '../controllers/pets.js'
 // 
 
 const router = express.Router()
@@ -16,5 +16,9 @@ router.get('/', getPets)
 router.get('/user/:id', getUserPet)
 // 取得指定寵物
 router.get('/:id', getPet)
+// 取得寵物圖片
+router.get('/file/:file', getPetFile)
+// 更換寵物圖片
+router.patch('/file/:id', changePetFile)
 
 export default router
