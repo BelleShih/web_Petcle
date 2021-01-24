@@ -19,7 +19,7 @@
           </li>
           <li>
             <q-btn v-if="user.id.length === 0" dense unelevated exact @click="registeredPage = true" active-class="text-blue-3">註冊</q-btn>
-            <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" label="使用者" flat="true">
+            <q-btn-dropdown v-if="user.id.length > 0" dense unelevated exact active-class="text-blue-3" flat="true" :label="user.name">
               <q-list style="background: #C2B593;color:white">
                 <q-item clickable v-close-popup @click="onItemClick" style="padding-top:1rem" class="user_row" :to="{ name: 'front.mypage' }">
                   <q-item-section avatar>
@@ -47,6 +47,9 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
+          </li>
+          <li v-if="user.id.length > 0 && admin === true">
+            <q-btn dense unelevated exact  active-class="text-blue-3" :to="{ name: 'admin.index' }">管理後台</q-btn>
           </li>
         </ul>
       </div>
@@ -313,6 +316,14 @@ export default {
     },
     user () {
       return this.$store.state.user
+    },
+    // 判斷是否為管理員
+    admin () {
+      if (this.user.account === 'admin') {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
@@ -343,6 +354,8 @@ export default {
             if (res.data.success) {
               this.$store.commit('login', res.data.result)
               alert('登入成功')
+              this.log.account = ''
+              this.log.password = ''
               this.loginPage = false
               this.$router.push('/index')
             } else {
@@ -373,7 +386,6 @@ export default {
           if (res.data.success) {
             alert('登出成功')
             this.$store.commit('logout')
-
             if (this.$router.path !== '/') {
               this.$router.push('/index')
             }

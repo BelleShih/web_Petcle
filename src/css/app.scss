@@ -683,25 +683,95 @@ q-layout-container{
 
 // 我的主頁--------------------------------------------
 #mypage {
+  .user_des {
+    @include xs {
+      flex-direction: row;
+    }
+    @include sm {
+      flex-direction: row;
+    }
+    @include md {
+      flex-direction: column;
+    }
+    @include lg {
+      flex-direction: column;
+    }
+  }
+
+  .user {
+    @include xs {
+      margin-left: 2rem;
+      flex-direction: column;
+    }
+    @include sm {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
   .mypage_btnG {
-    margin-top: 50px;
+    margin-top:1rem;
+    @include xs {
+      flex-direction: row;
+      border-top: 1px solid rgb(199, 199, 199);
+      padding-top: 1rem;
+    }
+    @include sm {
+      flex-direction: row;
+    }
+    @include lg {
+      flex-direction: column;
+    }
   }
   
   .mypage_btn {
     margin-bottom:1rem !important;
     font-weight: 900;
+    @include xs {
+      flex-direction: row;
+      border: none;
+    }
+    @include sm {
+      flex-direction: row;
+      border: none;
+    }
+    @include lg {
+      flex-direction: column;
+      border: 1.5px solid $petcolor01 !important;
+    }
+  }
+
+  .btn_title {
+    margin-left: 0.5rem;
+    @include xs {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
+    @include md {
+      display: block;
+    }
+    @include lg {
+      display: block;
+    }
   }
   
   .mypage_line {
-    border-right:1px solid black;
+    border-right:1px solid rgb(199, 199, 199);
     @include xs {
       border-right:none;
     }
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     margin-top: 1.5rem;
+  }
+
+  .account {
+    font-size: 1rem;
+    color: $petcolor03;
   }
 }
 
@@ -1523,19 +1593,52 @@ q-layout-container{
 // 寵物頁面----------------------
 // petpage-----------------------
 #petpage {
-  margin-top:3rem !important;
+  margin-top:5rem !important;
+
+  .nopet_Page {
+    width:800px;
+    height:500px;
+    background:rgb(243, 243, 243);
+    border:2px dotted rgb(189, 189, 189);
+    border-radius: 20px;
+    padding:50px;
+    margin-bottom: 5rem
+  }
+
+  .uploadPet_btn:hover {
+    background: $petcolor01;
+    color: white !important;
+  }
+
   .h-100 {
     height: 100%;
   }
 
+  .petpage_row {
+    margin-bottom:5rem;
+    background:#eee;
+    padding: 2rem 0;
+    border-radius: 10px;
+  }
+
   .box {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+  }
+
+  .petFile_Change {
+    width: 180px;
+    height: 50px;
+    background:white;
+    position: relative;
+    top: 160px;
+    left: -280px;
+    border-radius: 10px;
   }
 
   .right {
@@ -1567,29 +1670,145 @@ q-layout-container{
     }
   }
 
+  .pet_icon {
+    margin-right:1rem
+  }
+
   .name {
     font-size: 2.2rem;
-    
   }
+
+  .name_edit {
+    margin: 1rem 0;
+    height:50px
+  }
+
+  .master {
+    margin-right:auto;
+    color: #666;
+    padding-top:1rem
+  }
+
   .mail_btn {
-    width: 160px;
+    width: 130px;
     letter-spacing: 0.1rem;
   }
 
   .type {
     margin-top: 2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    color: $petcolor01;
+    font-weight: 800;
   }
 
-  .about_title {
-    font-size: 1.2rem;
-    letter-spacing: 0.2rem;
-    font-weight: 800;
-    color: $petcolor02;
-    margin-bottom: 0.5rem;
+  .line {
+    width: 100%;
+    height: 1px;
+    background: rgb(172, 172, 172);
+  }
+
+  .animal {
+    height: 22px;
+    text-align:right;
+    border-right: 1px solid $petcolor01;
+    padding-right:1rem
+  }
+
+  .breed {
+    padding-left:1rem
+  }
+
+  .edit_animal {
+    border:none !important;
+    border-radius: 2px;
+    margin-top: 1rem;
+    background: #E0E0E0;
+    height: 50px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: black;
+    padding: 10px 0;
+    text-indent: 10px;
+  }
+
+  .edit_breed {
+    border:none !important;
+    border-radius: 2px;
+    margin-top: 1rem;
+    background: #E0E0E0;
+    height: 50px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: black;
+    padding: 10px 0;
+    text-indent: 10px;
+    @include md {
+      margin-left:1rem
+    }
+  }
+
+  .pet_des {
+    letter-spacing: 0.05rem;
   }
 }
 
+// 上傳寵物------------------------
+#uploadPet {
+  .top {
+    background:$petcolor01;
+  }
+
+  .bottom {
+    height:80%;
+    margin-top: 1rem;
+    margin-bottom:1rem
+  }
+
+  .title {
+    font-size: 1.5rem;
+    letter-spacing: 1.5rem;
+    color: white;
+    font-weight: 800;
+    position: relative;
+    left: 15px;
+  }
+
+  .ULanimaltype {
+    border:none !important;
+    border-radius: 2px;
+    @include xs {
+      margin-top: 1rem;
+      background: #eee;
+      height: 50px;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include sm {
+      margin-top: 1rem;
+      background: #eee;
+      height: 50px;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include md {
+      margin-top: 0rem;
+      background: #eee;
+      height: 50px;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+  }
+
+  .pet-btn {
+    padding-top: 2rem;
+  }
+}
 
 // footer------------------------
 .footer {

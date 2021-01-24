@@ -3,19 +3,21 @@
     <q-layout-container>
       <div class="flex row justify-around" style="padding:50px 0">
         <div class="col-12 col-md-3 flex column mypage_line">
-          <div class="flex column flex-center">
-            <q-avatar size="120px">
+          <div class="flex flex-center user_des">
+            <q-avatar class="img" size="120px">
               <img src="../assets/userphoto-01.jpg">
             </q-avatar>
-            <p class="title">{{ user.name }}</p>
-            <p>@{{ user.account }}</p>
+            <div class="flex user">
+              <p class="title">{{ user.name }}</p>
+              <p class="account">@{{ user.account }}</p>
+            </div>
           </div>
           <!-- 按鈕區 -->
-          <div class="mypage_btnG flex column flex-center">
-            <q-btn outline rounded color="primary" icon="add_circle_outline" label="上傳照片" @click="uploadphoto = true" size="16px" class="mypage_btn"/>
-            <q-btn outline rounded color="primary" icon="settings" label="編輯照片" size="16px" @click="editMenu = !editMenu" class="mypage_btn"/>
-            <q-btn outline rounded color="primary" icon="star" label="療癒空間" @click="space" size="16px" class="mypage_btn" :to="{ name: 'front.space' }"/>
-            <q-btn outline rounded color="primary" icon="pets" label="我的寶貝" @click="petpage" size="16px" class="mypage_btn"/>
+          <div class="flex flex-center mypage_btnG">
+            <q-btn flat rounded color="primary" icon="add_circle_outline"  @click="uploadphoto = true" size="16px" class="mypage_btn"><div class="btn_title">上傳照片</div></q-btn>
+            <q-btn flat rounded color="primary" icon="settings" size="16px" @click="editMenu = !editMenu" class="mypage_btn"><div class="btn_title">編輯照片</div></q-btn>
+            <q-btn flat rounded color="primary" icon="star" @click="space" size="16px" class="mypage_btn" :to="{ name: 'front.space' }"><div class="btn_title">療癒空間</div></q-btn>
+            <q-btn flat rounded color="primary" icon="pets" @click="petpage" size="16px" class="mypage_btn" :to="{ name: 'front.petpage' }"><div class="btn_title">我的寶貝</div></q-btn>
           </div>
         </div>
         <!-- 相片簿 -->
@@ -204,7 +206,7 @@ export default {
               this.textarea = ''
               this.uploadSuccess = true
             } else {
-              alert('上傳錯誤')
+              alert('上傳失敗')
             }
           })
       }

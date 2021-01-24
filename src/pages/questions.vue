@@ -201,7 +201,7 @@
           </div>
         </q-card>
       </q-dialog>
-  </q-page>
+    </q-page>
 </template>
 
 <script>

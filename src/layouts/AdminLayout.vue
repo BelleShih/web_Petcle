@@ -20,8 +20,8 @@
     content-class="bg-grey-8"
     style="width:100%"
     >
-      <q-btn class="flex flex-center justify-start" :to="{ name: 'admin.index' }">
-        <img id="admin_img" src="../assets/petcle-logo-w.png" >
+      <q-btn class="flex flex-center justify-start" :to="{ name: 'front.index' }">
+        <img id="admin_img" src="../assets/petcle-logo-w.png">
       </q-btn>
       <ul class="admin_menu flex justify-start">
         <li>
@@ -40,6 +40,9 @@
           <q-btn icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.member' }" style="font-size:1rem;letter-spacing:0.2rem;"></q-btn>
         </li>
       </ul>
+      <div class="flex flex-center">
+        <q-btn flat icon="login" @click="logout" color="white">登出</q-btn>
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -54,6 +57,30 @@ export default {
   data () {
     return {
       left: false
+    }
+  },
+  methods: {
+    logout () {
+      this.axios
+        .delete(process.env.VUE_APP_API + '/users/logout')
+        .then(res => {
+          if (res.data.success) {
+            alert('登出成功')
+            this.$store.commit('logout')
+            if (this.$router.path !== '/') {
+              this.$router.push('/index')
+            }
+          } else {
+            alert('錯誤')
+          }
+        })
+        .catch(error => {
+          this.$swal({
+            icon: 'error',
+            title: '錯誤',
+            text: error.response.data.message
+          })
+        })
     }
   }
 }
