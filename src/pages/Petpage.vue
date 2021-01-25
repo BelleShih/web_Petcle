@@ -5,7 +5,7 @@
       <!-- 寵物照片 -->
       <div class="flex-center column col-10 col-lg-6 box h-100 ">
         <img class="col-10" :src="petpage[0].src">
-        <q-file v-if="petpage[0].edit" v-model="petFile_Change" filled label="更換寶貝大頭照" class="petFile_Change" style="margin-bottom:1rem">
+        <q-file v-if="petpage[0].edit" v-model="modelfile" filled label="更換寶貝大頭照" class="petFile_Change" style="margin-bottom:1rem">
           <template v-slot:prepend>
             <q-icon name="cloud_upload" @click.stop />
           </template>
@@ -47,11 +47,11 @@
           <div v-if="!petpage[0].edit" class="breed">{{ petpage[0].breed }}</div>
           <select v-if="petpage[0].edit" class="col-12 col-lg-5 edit_animal" v-model="animalSelected" placeholder="選擇寶貝的動物類型">
             <option value="" disabled selected>選擇寶貝的動物類型</option>
-            <option v-for="animal in animals" :key="animal.name" :value="animal">{{ animal.name }}</option>
+            <option v-for="animal in animals" :key="animal.name" :value="animal.name">{{ animal.name }}</option>
           </select>
           <select v-if="petpage[0].edit" class="col-12 col-lg-6 edit_breed" v-model="breedSelected" placeholder="選擇寶貝的品種類型">
             <option value="" disabled selected>選擇寶貝的品種類型</option>
-            <option v-for="breed in selectedBreed" :key="breed.name" :value="breed">{{ breed.name }}</option>
+            <option v-for="breed in selectedBreed.breeds" :key="breed.name" :value="breed.name">{{ breed.name }}</option>
           </select>
         </div>
         <!-- 修改、刪除、取消 按鈕 -->
@@ -147,7 +147,8 @@ export default {
       animalSelected: '',
       breedSelected: '',
       textarea: '',
-      animals: []
+      animals: [],
+      modelfile: null
     }
   },
   computed: {
@@ -165,7 +166,8 @@ export default {
       return pageOpen
     },
     selectedBreed () {
-      return this.animalSelected.breeds
+      // return this.animalSelected.breeds
+      return this.animals.find(item => item.name === this.animalSelected)
     },
     // 編輯時，儲存後 維持選項的值
     animalSelected_edit () {
@@ -227,6 +229,8 @@ export default {
         .replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     },
     edit () {
+      this.animalSelected = this.petpage[0].animal
+      this.breedSelected = this.petpage[0].breed
       this.petpage[0].edit = true
     },
     del () {
@@ -246,25 +250,36 @@ export default {
       this.petpage[0].edit = false
       this.petpage[0].modelDes = this.petpage[0].description
       this.petpage[0].modelName = this.petpage[0].name
-      this.petpage[0].modelAnimal = this.petpage[0].animal
-      this.petpage[0].modelBreed = this.petpage[0].breed
+      this.animalSelected = this.petpage[0].animal
+      this.breedSelected = this.petpage[0].breed
     },
     save () {
       if (this.animalSelected === '' || this.breedSelected === '') {
         alert('請輸入動物種類 或 品種種類')
       } else {
-        this.axios.patch(process.env.VUE_APP_API + '/pets/' + this.petpage[0]._id, {
-          name: this.petpage[0].modelName,
-          description: this.petpage[0].modelDes,
-          animal: this.animalSelected.name,
-          breed: this.breedSelected.name
-        })
+        if (this.modelfile) {
+          if (this.modelfile.size > 1024 * 1024) {
+            alert('圖片太大')
+          } else if (!this.modelfile.type.includes('image')) {
+            alert('檔案格式錯誤')
+          }
+        }
+        const petNew = new FormData()
+        petNew.append('file', this.modelfile)
+        petNew.append('name', this.petpage[0].modelName)
+        petNew.append('animal', this.animalSelected)
+        petNew.append('breed', this.breedSelected)
+        petNew.append('description', this.petpage[0].modelDes)
+        this.axios.patch(process.env.VUE_APP_API + '/pets/' + this.petpage[0]._id, petNew)
           .then(res => {
             if (res.data.success) {
+              console.log(res.data.result.file)
               this.petpage[0].edit = false
+              this.petpage[0].src = process.env.VUE_APP_API + '/pets/file/' + res.data.result.file
+              this.petpage[0].file = res.data.result.file
               this.petpage[0].name = this.petpage[0].modelName
-              this.petpage[0].animal = this.animalSelected.name
-              this.petpage[0].breed = this.breedSelected.name
+              this.petpage[0].animal = this.animalSelected
+              this.petpage[0].breed = this.breedSelected
               this.petpage[0].description = this.petpage[0].modelDes
             } else {
               alert('更新失敗')
@@ -295,6 +310,7 @@ export default {
         if (res.data.success) {
           this.petpage = res.data.result.map(item => {
             item.src = process.env.VUE_APP_API + '/pets/file/' + item.file
+            item.modelfile = null
             item.modelDes = item.description
             item.modelName = item.name
             item.modelAnimal = item.animal

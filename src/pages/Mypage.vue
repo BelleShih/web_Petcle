@@ -124,7 +124,7 @@
         </q-card>
       </q-dialog>
       <!-- 更新成功彈出視窗 -->
-      <q-dialog v-model="updateSuccess" persistent  transition-show="scale" transition-hide="scale">
+      <q-dialog v-model="updateSuccess" persistent transition-show="scale" transition-hide="scale">
         <q-card class="bg-teal text-white text-center" style="width: 300px">
           <q-card-section>
             <q-icon name="check_circle_outline" size="5rem" color="white"></q-icon>

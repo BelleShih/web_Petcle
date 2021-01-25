@@ -1157,6 +1157,11 @@ q-layout-container{
   }
 }
 
+.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal {
+  margin: auto;
+  z-index: 999;
+}
+
 .fb_btn {
   width:90%;
   resize:none;
@@ -1323,16 +1328,70 @@ q-layout-container{
 
 // 療癒空間------------------------
 
-.spaceMenu-background {
-  background: #464544;
-  color: white;
+#space {
+  .spaceMenu-background {
+    background: #464544;
+    color: white;
+  }
+  
+  .space_carousel {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 40%;
+  }
 }
 
-.space_carousel {
-  width: 100%;
-  height: 100%;
+.pet_card {
+  @include xs {
+    width: 95%;
+  }
+  @include sm {
+    width: 95%;
+  }
+  @include md {
+    width: 55%;
+  }
+  @include lg {
+    width: 40%;
+  }
+  @include xl {
+    width: 25%;
+  }
+}
+.photoBox {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.photo {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
-  object-position: 60% 40%;
+}
+
+.my-pet-card {
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  @include xs {
+    height: 150px;
+  }
+  @include sm {
+    height: 180px;
+  }
+  @include md {
+    height: 200px;
+  }
+  @include lg {
+    height: 150px;
+  }
+  @include xl {
+    height: 250px;
+    margin: 0 0.5rem;
+  }
 }
 
 //最新消息-------------------
@@ -1632,12 +1691,12 @@ q-layout-container{
   }
 
   .petFile_Change {
-    width: 180px;
+    width: 250px;
     height: 50px;
     background:white;
     position: relative;
     top: 160px;
-    left: -280px;
+    left: -320px;
     border-radius: 10px;
   }
 
@@ -1676,6 +1735,7 @@ q-layout-container{
 
   .name {
     font-size: 2.2rem;
+    margin-right: 1rem;
   }
 
   .name_edit {
@@ -1945,6 +2005,25 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
 // 留言管理
 .mr-1 {
   margin-right:1rem;
+}
+
+// seeetalert2改層級--------------------------------------------------------
+.swal2-container {
+  display: flex;
+  position: fixed;
+  z-index: 1060;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: .625em;
+  overflow-x: hidden;
+  transition: background-color .1s;
+  -webkit-overflow-scrolling: touch;
+  z-index: 999999;
 }
 
 // boostrap-----------------------------------------------------------

@@ -90,6 +90,15 @@ const routes = [
         }
       },
       {
+        path: 'petpage/:id',
+        name: 'front.petpages',
+        component: () => import('pages/Petpages.vue'),
+        meta: {
+          title: '我的寶貝',
+          login: true
+        }
+      },
+      {
         path: 'space',
         name: 'front.space',
         component: () => import('pages/Space.vue'),

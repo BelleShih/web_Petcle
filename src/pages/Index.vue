@@ -46,7 +46,7 @@
             </div>
           </q-card>
           <div class="flex justify-end" style="padding-top:5px">
-            <q-chip>{{ photo.animal }}</q-chip>
+            <q-chip color="primary" text-color="white">{{ photo.animal }}</q-chip>
             <q-chip>{{ photo.breed }}</q-chip>
           </div>
         </div>

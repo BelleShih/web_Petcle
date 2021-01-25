@@ -257,7 +257,6 @@ export default {
         alert('請先登入會員')
       } else {
         const reply = {
-          user: this.user.name,
           title: this.title,
           description: this.textarea,
           questiontype: this.type

@@ -427,7 +427,7 @@ export default {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()
-    }, 50000000)
+    }, 50000)
   }
 }
 </script>
