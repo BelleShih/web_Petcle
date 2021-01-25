@@ -1144,6 +1144,10 @@ q-layout-container{
 
   #qes_dialog {
     height: 600px !important;
+
+    .asker {
+      margin-left:0.5rem;height:50px
+    }
   }
 
   .ml-auto {

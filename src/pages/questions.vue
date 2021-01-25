@@ -104,11 +104,11 @@
         <q-card-section>
           <div class="text-h6 row justify-between">
             <p class="dis_title">{{ discussmodel.title }}</p>
-            <div class="row">
+            <div class="row items-center">
               <q-avatar size="1.9rem">
                 <img src="../assets/userphoto-01.jpg">
               </q-avatar>
-              <p style="margin-left:0.5rem">{{ discussmodel.user }}</p>
+              <q-btn size="1.2rem" class="asker" :to=" '/petpage/' + getPet._id ">{{ discussmodel.user }}</q-btn>
             </div>
           </div>
           <div class="row">
@@ -218,7 +218,9 @@ export default {
       types: ['飲食', '生活', '交友', '生病', '其他'],
       title: '',
       type: '',
-      textarea: ''
+      textarea: '',
+      allPets: [],
+      getPet: ''
     }
   },
   computed: {
@@ -279,14 +281,28 @@ export default {
       }
     }
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/discuss/')
+  async mounted () {
+    await this.axios.get(process.env.VUE_APP_API + '/discuss/')
       .then(res => {
         if (res.data.success) {
           this.discuss = res.data.result.map(item => {
             return item
           })
         }
+      })
+    await this.axios.get(process.env.VUE_APP_API + '/pets/')
+      .then(res => {
+        if (res.data.success) {
+          this.allPets = res.data.result.map(pet => {
+            return pet
+          })
+        }
+        this.allPets.filter(item => {
+          if (this.discussmodel.uid === item.user) {
+            return item
+          }
+          this.getPet = item
+        })
       })
   }
 }
