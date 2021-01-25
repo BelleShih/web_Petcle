@@ -25,6 +25,7 @@ export const create = async(req, res) => {
     }
     const result = await discuss.create({
       user:req.session.user.name,
+      uid:req.session.user._id,
       title: req.body.title,
       description:req.body.description,
       questiontype:req.body.questiontype,

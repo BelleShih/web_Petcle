@@ -69,7 +69,6 @@ export const create = async (req, res) => {
         console.log(error)
         message = '上傳錯誤'
       }
-
       res.status(400).send({ success: false, message })
     } else if (error) {
       res.status(500).send({ success: false, message: '伺服器錯誤' })
@@ -111,27 +110,57 @@ export const editPet = async (req, res) => {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
-  try {
-    let result = await pets.findById(req.params.id)
-    if (result === null) {
-      res.status(404).send({ success: false, message: '找不到資料' })
-    } else if (result.user.toString() !== req.session.user._id.toString()) {
-      res.status(403).send({ success: false, message: '沒有權限' })
-    } else {
-      result = await pets.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      res.status(200).send({ success: true, message: '', result })
-    }
-  } catch (error) {
-    if (error.name === 'ValidationError') {
-      const key = Object.keys(error.errors)[0]
-      const message = error.errors[key].message
-      res.status(400).send({ success: false, message })
-    } else if (error.name === 'CastError') {
-      res.status(400).send({ success: false, message: 'ID 格式錯誤' })
-    } else {
-      res.status(500).send({ success: false, message: '伺服器錯誤' })
-    }
-  }
+    upload.single('file')(req, res, async error => {
+      if (error instanceof multer.MulterError) {
+        let message = ''
+        if (error.code === 'LIMIT_FILE_SIZE') {
+          message = '檔案太大'
+        } else if (error.code === 'LIMIT_FORMAT') {
+          message = '格式不符'
+        } else {
+          console.log(error)
+          message = '上傳錯誤'
+        }
+        res.status(400).send({ success: false, message })
+      } else if (error) {
+        console.log(eror)
+        res.status(500).send({ success: false, message: '伺服器錯誤' })
+      } else {
+        let result = await pets.findById(req.params.id)
+        if (result === null) {
+          res.status(404).send({ success: false, message: '找不到資料' })
+        } else if (result.user.toString() !== req.session.user._id.toString()) {
+          res.status(403).send({ success: false, message: '沒有權限' })
+        } else {
+          try {
+            if (req.file) {
+              let file = ''
+              if (process.env.DEV === 'true') {
+                file = req.file.filename
+              } else {
+                file = path.basename(req.file.path)
+                console.log(file)
+              }
+              req.body.file = file
+            } else {
+              req.body.file = result.file
+            }
+            result = await pets.findByIdAndUpdate(req.params.id, req.body, {new: true})
+            console.log(result)
+            res.status(200).send({ success: true, message: '', result })
+          } catch (error) {
+            if (error.name === 'ValidationError') {
+              const key = Object.keys(error.errors)[0]
+              const message = error.errors[key].message
+              res.status(400).send({ success: false, message })
+            } else {
+              console.log(error)
+              res.status(500).send({ success: false, message: '伺服器錯誤' })
+            }
+          }
+        }
+      }
+    })
 }
 
 // 刪除寵物

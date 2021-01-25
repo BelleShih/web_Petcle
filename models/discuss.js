@@ -18,6 +18,10 @@ const disscussfeedbackSchema = new Schema(
 const DiscussSchema = new Schema(
   {
     user: String,
+    uid: {
+      type: mongoose.ObjectId,
+      ref: 'users'
+    },
     title: String,
     description: String,
     // 0飲食 1生活 2交友 3生病 4其他
