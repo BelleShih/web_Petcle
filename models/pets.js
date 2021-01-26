@@ -4,9 +4,13 @@ const Schema = mongoose.Schema
 
 const mailsSchema = new Schema(
   {
+    sendUser: String,
+    uid:{
+      type: mongoose.ObjectId,
+      ref: 'users'
+    },
     title: String,
     description: String,
-    senduser: String,
     date: Date
   }
 )

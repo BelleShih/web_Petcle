@@ -139,14 +139,12 @@ export const editPet = async (req, res) => {
                 file = req.file.filename
               } else {
                 file = path.basename(req.file.path)
-                console.log(file)
               }
               req.body.file = file
             } else {
               req.body.file = result.file
             }
             result = await pets.findByIdAndUpdate(req.params.id, req.body, {new: true})
-            console.log(result)
             res.status(200).send({ success: true, message: '', result })
           } catch (error) {
             if (error.name === 'ValidationError') {
@@ -205,16 +203,6 @@ export const getPets = async (req, res) => {
 
 // 取得使用者的寵物
 export const getUserPet = async (req, res) => {
-  if (req.session.user === undefined) {
-    res.status(401).send({ success: false, message: '未登入' })
-    return
-  }
-  if (req.session.user._id !== req.params.id) {
-    console.log(req.params)
-    res.status(403).send({ success: false, message: '沒有權限' })
-    return
-  }
-
   try {
     const result = await pets.find({ user: req.params.id })
     res.status(200).send({ success: true, message: '', result })
@@ -231,7 +219,6 @@ export const getPet = async (req, res) => {
   }
   try {
     const result = await pets.findById(req.params.id)
-    console.log(req.params)
     res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     console.log(error)
@@ -250,7 +237,6 @@ export const getPetFile = async (req, res) => {
       res.status(200).sendFile(path)
     } else {
       res.status(404).send({ success: false, message: '找不到圖片' })
-      console.log(path)
     }
   } else {
     axios({
@@ -319,4 +305,42 @@ export const changePetFile = async(req, res) => {
       }
     }
   })
+}
+
+export const sendMail = async(req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    pets.findByIdAndUpdate(req.params.id, 
+      {
+        $push: {
+          mails: {
+            sendUser: req.session.user.name,
+            uid:req.session.user._id,
+            title: req.body.title,
+            description: req.body.description,
+            date: Date.now()
+          } 
+        }
+      },
+      {new: true}
+      ) .then(result => {
+        res.status(200).send({ success: true, message: '', result})
+      }) .catch(error => {
+        console.log(error)
+      }) .catch(error => {
+        console.log(error)
+      })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(400).send({ success: false, message })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
 }

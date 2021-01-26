@@ -7,6 +7,7 @@ import fs from 'fs'
 
 import users from '../models/users.js'
 
+// 建立會員
 export const create = async (req, res) => {
   if (!req.headers['content-type'] || !req.headers['content-type'].includes('application/json')) {
     res.status(400).send({ success: false, message: '資料格式不符' })
@@ -45,6 +46,7 @@ export const create = async (req, res) => {
   }
 }
 
+// 登入
 export const login = async (req, res) => {
   if (!req.headers['content-type'] || !req.headers['content-type'].includes('application/json')) {
     res.status(400).send({ success: false, message: '資料格式不符' })
@@ -74,6 +76,7 @@ export const login = async (req, res) => {
   }
 }
 
+// 登出
 export const logout = async (req, res) => {
   req.session.destroy(error => {
     if (error) {
@@ -93,6 +96,7 @@ export const heartbeat = async (req, res) => {
   res.status(200).send(isLogin)
 }
 
+// 刪除使用者
 export const delUser = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
@@ -122,15 +126,16 @@ export const editUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
 }
-// export const userphoto = async (req, res) => {
-//   if (req.session.user === undefined) {
-//     res.status(401).send({ success: false, message: '未登入' })
-//     return
-//   }
-// }
-// export const editphoto = async (req, res) => {
-// }
-// export const findphoto = async (req, res) => {
-// }
-// export const delphoto = async (req, res) => {
-// }
+
+export const getUsers = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    const result = await users.find()
+    res.status(200).send({ success: true, message: '', result})
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
