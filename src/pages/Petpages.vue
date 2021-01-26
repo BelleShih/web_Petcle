@@ -11,7 +11,7 @@
         <!-- 寵物名字 -->
         <div class="row items-center">
           <div class="col-3 name">{{ petpage.name }}</div>
-          <div class="col-3 master">@{{ user.name }}</div>
+          <div class="col-3 master">@{{ master[0].name }}</div>
           <!-- 寄信給他 -->
           <q-btn icon="mail" color="primary" size="15px" rounded class="mail_btn" @click="sendMail(petpage)"> 寄信給牠</q-btn>
         </div>
@@ -74,12 +74,20 @@ export default {
       petpage: [],
       mail: false,
       title: '',
-      textarea: ''
+      textarea: '',
+      allUsers: []
     }
   },
   computed: {
     user () {
       return this.$store.state.user
+    },
+    master () {
+      return this.allUsers.filter(item => {
+        if (item._id === this.petpage.user) {
+          return item
+        }
+      })
     }
   },
   methods: {
@@ -103,8 +111,9 @@ export default {
         this.mail = true
       }
     },
+    // 確認送信
     onSubmit (petpage) {
-      if (this.titl === '' || this.textarea === '') {
+      if (this.title === '' || this.textarea === '') {
         this.$swal.fire({
           icon: 'error',
           title: '錯誤',
@@ -140,12 +149,17 @@ export default {
             }
           })
       }
+    },
+    onReset () {
+      this.title = ''
+      this.textarea = ''
     }
   },
   mounted () {
     // 抓使用者的寵物
     this.axios.get(process.env.VUE_APP_API + '/pets/' + this.$route.params.id)
       .then(res => {
+        console.log(this.$route.params.id)
         if (res.data.success) {
           this.petpage = res.data.result
           this.petpage.src = process.env.VUE_APP_API + '/pets/file/' + this.petpage.file
@@ -161,6 +175,23 @@ export default {
       })
       .catch(err => {
         console.log(err)
+      })
+    // 抓所有使用者
+    this.axios.get(process.env.VUE_APP_API + '/users/')
+      .then(res => {
+        if (res.data.success) {
+          this.allUsers = res.data.result.map(item => {
+            return item
+          })
+        } else {
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
+        }
       })
   }
 }

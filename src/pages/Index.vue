@@ -29,7 +29,8 @@
               </template>
             </q-select>
           </div> -->
-          <q-btn unelevated rounded id="search-btn" label="搜尋" type="submit" @click="filterPhoto()"/>
+          <q-btn rounded id="search-btn" type="submit" @click="filterPhoto()">搜尋</q-btn>
+          <q-btn rounded class="random_btn">隨機療癒</q-btn>
         </q-input>
       </div>
       <div class="col-xs-1 col-md-2 col-lg-3"></div>

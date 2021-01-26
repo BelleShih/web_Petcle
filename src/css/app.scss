@@ -312,6 +312,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 // index 搜尋列區--------------------------------------------
 #index {
   input.q-field__native {
+    height: 40px;
     border: 1px solid $petcolor02;
     border-radius: 100px;
     text-indent: 40px;
@@ -374,6 +375,28 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     color:$petcolor02;
     font-size: 25px;
   }
+
+  .random_btn {
+    width: 200px;
+    height: 40px;
+    margin-left: 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    background: linear-gradient(45deg, rgb(253, 224, 96), rgb(169, 125, 240));
+    color: white;
+    animation: bg 3s infinite ;
+  }
+
+  @keyframes bg {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      filter: hue-rotate(360deg);
+    }
+
+  }
 }
 
 
@@ -381,6 +404,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 //搜尋按鈕--------------------------------------------
 #search-btn{
   width: 160px;
+  height: 40px;
   margin-bottom: 0.2rem;
   margin-left: 0.3rem;
   padding-bottom: 1rem;
@@ -1961,7 +1985,7 @@ q-layout-container{
   }
 }
 
-// 寵物信箱視窗-------------------------
+// 寶貝信箱視窗-------------------------
 #mailDialog {
   .w-100 {
     width: 100%;
@@ -1995,8 +2019,9 @@ q-layout-container{
   .title {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
-    margin-bottom: 1rem;
+    margin: 0 0 1rem 0.5rem;
     color: white;
+    
   }
 
   .mr-auto {

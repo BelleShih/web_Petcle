@@ -141,19 +141,19 @@
           <q-btn icon="close" flat round dense v-close-popup color="white"/>
         </q-card-section>
         <q-card-section class="row items-center no-wrap bg-pet02 mb-1">
-          <div class="flex flex-center w-100">
+          <div class="flex justify-center w-100">
+            <q-icon name="mail_outline" color="white" size="1.9rem" outline></q-icon>
             <div class="text-weight-bold title">寶貝信箱</div>
           </div>
         </q-card-section>
         <q-card-section class="column">
           <div v-for="mail in allMail" :value="mail" :key="mail._id" class="row items-center newMail">
-            <!-- <q-icon name="mail_outline" color="secondary" size="2.5rem" outline></q-icon> -->
             <!-- 寄件人資訊 -->
             <div class="row justify-center sender mr-auto">
               <q-avatar size="1.8rem">
                 <img src="../assets/userphoto-01.jpg">
               </q-avatar>
-              <q-btn class="senderName" @click="senderName(mail)" :to="getPet[0] ? '/petpage/' + getPet[0]._id : '' ">{{ mail.sendUser }}</q-btn>
+              <q-btn class="senderName" @click="senderName(mail)">{{ mail.sendUser }}</q-btn>
             </div>
             <!-- 信件標題 -->
             <div>
@@ -175,7 +175,7 @@
           <q-avatar size="2rem">
             <img src="../assets/userphoto-01.jpg" alt="">
           </q-avatar>
-          <q-btn class="senderName" color="secondary" flat>{{ mailopen.sendUser }}</q-btn>
+          <q-btn class="senderName" color="secondary" @click="senderNameOpen(mailopen)" flat>{{ mailopen.sendUser }}</q-btn>
           <div class="row items-center">
             <p class="mailTitle">{{ mailopen.title }}</p>
             <p class="date">{{ new Date( mailopen.date ).toLocaleString() }}</p>
@@ -186,9 +186,45 @@
           <p class="mailDes">{{ mailopen.description }}</p>
         </q-card-section>
         <q-card-section class="flex justify-center reply">
-          <q-btn icon="reply" color="primary" class="reply-btn">我要回信</q-btn>
+          <q-btn icon="reply" color="primary" class="reply-btn" @click="replyMail(mailopen)">我要回信</q-btn>
         </q-card-section>
       </q-card>
+    </q-dialog>
+    <!-- 我要回信彈出視窗 -->
+    <q-dialog v-model="reply">
+        <q-card id="sendMail" class="flex row">
+          <div class="col-12 flex flex-center column top">
+            <div class="flex justify-end" style="width:100%">
+              <q-btn icon="close" flat round dense v-close-popup color="primary"/>
+            </div>
+            <q-icon name="reply" color="primary" size="3rem">
+            </q-icon>
+            <p class="title">回信給牠</p>
+          </div>
+          <div class="col-12 flex justify-center cloumn qes_div">
+            <q-form
+              @submit="onSubmit_reply"
+              @reset="onReset_reply"
+              class="q-form"
+            >
+              <!-- 主旨 -->
+              <q-input class="input_title" filled v-model="replyTitle" label="請輸入主旨" />
+              <!-- 照片說明 -->
+              <q-input
+                v-model="replyTextarea"
+                filled
+                type="textarea"
+                color="primary"
+                label="內文"
+                class="textarea"
+              />
+              <div class="flex flex-center btn">
+                <q-btn rounded label="送出" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
+              </div>
+            </q-form>
+          </div>
+        </q-card>
     </q-dialog>
   </q-page>
 </template>
@@ -211,7 +247,10 @@ export default {
       mailopen: [],
       allMail: [],
       allPets: [],
-      sendername: []
+      sendername: [],
+      reply: false,
+      replyTitle: '',
+      replyTextarea: ''
     }
   },
   computed: {
@@ -242,6 +281,13 @@ export default {
     getPet () {
       return this.allPets.filter(item => {
         if (this.sendername.uid === item.user) {
+          return item
+        }
+      })
+    },
+    getPetOpen () {
+      return this.allPets.filter(item => {
+        if (this.mailopen.uid === item.user) {
           return item
         }
       })
@@ -419,10 +465,57 @@ export default {
     },
     senderName (mail) {
       this.sendername = mail
+      this.$router.push(this.getPet[0] ? '/petpage/' + this.getPet[0]._id : '')
+    },
+    senderNameOpen (mailopen) {
+      this.$router.push(this.getPetOpen[0] ? '/petpage/' + this.getPetOpen[0]._id : '')
+    },
+    replyMail (mailopen) {
+      this.reply = true
+    },
+    onSubmit_reply (mailopen) {
+      if (this.replyTitle === '' || this.replyTextarea === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '主旨或內文不可空白',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else {
+        const sendMail = {
+          title: this.replyTitle,
+          description: this.replyTextarea
+        }
+        this.axios.patch(process.env.VUE_APP_API + '/pets/mail/' + this.getPetOpen[0]._id, sendMail)
+          .then(res => {
+            if (res.data.success) {
+              this.$swal.fire({
+                icon: 'success',
+                title: '成功送出',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF'
+              })
+              this.replyTitle = ''
+              this.replyTextarea = ''
+              this.reply = false
+              this.checkMail = false
+            } else {
+              this.$swal.fire({
+                icon: 'error',
+                title: '送出失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
+            }
+          })
+      }
+    },
+    onReset_reply () {
+      this.replyText = ''
+      this.replyTextarea = ''
     }
-    // all () {
-    //   const a = this.allMail.reverse()
-    // }
   },
   mounted () {
     // 抓所有動物

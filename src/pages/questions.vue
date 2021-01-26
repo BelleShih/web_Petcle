@@ -294,7 +294,6 @@ export default {
               this.title = ''
               this.textarea = ''
               this.type = null
-              this.quedialog = false
               this.$swal.fire({
                 icon: 'success',
                 title: '發送成功',
