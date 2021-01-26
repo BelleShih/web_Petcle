@@ -333,13 +333,26 @@ export default {
           .post(process.env.VUE_APP_API + '/users/', this.reg)
           .then(res => {
             if (res.data.success) {
-              alert('註冊成功')
+              this.$swal.fire({
+                icon: 'success',
+                title: '註冊成功',
+                text: '請先登入會員',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF',
+                border: 'none'
+              })
               this.registeredPage = false
               this.log.account = ''
               this.log.password = ''
               this.loginPage = true
             } else {
-              alert('發生錯誤')
+              this.$swal.fire({
+                icon: 'error',
+                title: '發生錯誤',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
           .catch(err => {
@@ -353,13 +366,26 @@ export default {
           .then(res => {
             if (res.data.success) {
               this.$store.commit('login', res.data.result)
-              alert('登入成功')
+              this.$swal.fire({
+                icon: 'success',
+                title: '登入成功',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF',
+                border: 'none'
+              })
               this.log.account = ''
               this.log.password = ''
               this.loginPage = false
               this.$router.push('/index')
             } else {
-              alert('發生錯誤')
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '登入失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
           .catch(err => {
@@ -384,13 +410,26 @@ export default {
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
           if (res.data.success) {
-            alert('登出成功')
+            this.$swal.fire({
+              icon: 'success',
+              title: '登出成功',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#56C6BF',
+              border: 'none'
+            })
             this.$store.commit('logout')
             if (this.$router.path !== '/') {
               this.$router.push('/index')
             }
           } else {
-            alert('錯誤')
+            this.$swal.fire({
+              icon: 'error',
+              title: '錯誤',
+              text: '登出錯誤',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           }
         })
         .catch(error => {
@@ -406,7 +445,14 @@ export default {
         .then(res => {
           if (this.user.id.length > 0) {
             if (!res.data) {
-              alert('登入時效已過')
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '登入時效已過',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
               this.$store.commit('logout')
               if (this.$route.path !== '/') {
                 this.$router.push('/index')
@@ -415,7 +461,13 @@ export default {
           }
         })
         .catch(() => {
-          alert('發生錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '發生錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
           this.$store.commit('logout')
           if (this.$route.path !== '/') {
             this.$router.push('/index')

@@ -108,7 +108,7 @@
               <q-avatar size="1.9rem">
                 <img src="../assets/userphoto-01.jpg">
               </q-avatar>
-              <q-btn size="1.2rem" class="asker" :to=" '/petpage/' + getPet._id ">{{ discussmodel.user }}</q-btn>
+              <q-btn size="1.2rem" class="asker" :to="getPet[0] ? '/petpage/' + getPet[0]._id : '' ">{{ discussmodel.user }}</q-btn>
             </div>
           </div>
           <div class="row">
@@ -200,7 +200,7 @@
             </q-form>
           </div>
         </q-card>
-      </q-dialog>
+    </q-dialog>
     </q-page>
 </template>
 
@@ -219,13 +219,19 @@ export default {
       title: '',
       type: '',
       textarea: '',
-      allPets: [],
-      getPet: ''
+      allPets: []
     }
   },
   computed: {
     user () {
       return this.$store.state.user
+    },
+    getPet () {
+      return this.allPets.filter(item => {
+        if (this.discussmodel.uid === item.user) {
+          return item
+        }
+      })
     }
   },
   methods: {
@@ -239,7 +245,10 @@ export default {
         this.$swal.fire({
           icon: 'error',
           title: '上傳錯誤',
-          text: '請先登入會員'
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
         })
       } else {
         const reply = { description: this.modelFeedback }
@@ -249,14 +258,28 @@ export default {
               this.discussmodel.feedback.push({ description: this.modelFeedback, user: this.user.name, date: Date.now() })
               this.modelFeedback = ''
             } else {
-              alert('回覆失敗')
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '回覆失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
       }
     },
     onSubmit () {
       if (this.user.account === '') {
-        alert('請先登入會員')
+        this.$swal.fire({
+          icon: 'error',
+          title: '發送失敗',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else {
         const reply = {
           title: this.title,
@@ -272,10 +295,23 @@ export default {
               this.textarea = ''
               this.type = null
               this.quedialog = false
-              alert('發送成功')
+              this.$swal.fire({
+                icon: 'success',
+                title: '發送成功',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF',
+                border: 'none'
+              })
               this.quedialog = false
             } else {
-              alert('送出失敗')
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '送出失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
       }
@@ -297,12 +333,6 @@ export default {
             return pet
           })
         }
-        this.allPets.filter(item => {
-          if (this.discussmodel.uid === item.user) {
-            return item
-          }
-          this.getPet = item
-        })
       })
   }
 }

@@ -13,7 +13,7 @@
           <div class="col-3 name">{{ petpage.name }}</div>
           <div class="col-3 master">@{{ user.name }}</div>
           <!-- 寄信給他 -->
-          <q-btn icon="mail" color="primary" size="15px" rounded class="mail_btn"> 寄信給牠</q-btn>
+          <q-btn icon="mail" color="primary" size="15px" rounded class="mail_btn" @click="sendMail(petpage)"> 寄信給牠</q-btn>
         </div>
         <!-- 寵物自我介紹 -->
         <div>
@@ -28,6 +28,42 @@
         </div>
       </div>
     </div>
+    <!-- 寄信的彈出視窗 -->
+    <q-dialog v-model="mail">
+        <q-card id="sendMail" class="flex row">
+          <div class="col-12 flex flex-center column top">
+            <div class="flex justify-end" style="width:100%">
+              <q-btn icon="close" flat round dense v-close-popup color="primary"/>
+            </div>
+            <q-icon name="rate_review" color="primary" size="3rem">
+            </q-icon>
+            <p class="title">寄信給牠</p>
+          </div>
+          <div class="col-12 flex justify-center cloumn qes_div">
+            <q-form
+              @submit="onSubmit"
+              @reset="onReset"
+              class="q-form"
+            >
+              <!-- 主旨 -->
+              <q-input class="input_title" filled v-model="title" label="請輸入主旨" />
+              <!-- 照片說明 -->
+              <q-input
+                v-model="textarea"
+                filled
+                type="textarea"
+                color="primary"
+                label="內文"
+                class="textarea"
+              />
+              <div class="flex flex-center btn">
+                <q-btn rounded label="送出" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
+                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
+              </div>
+            </q-form>
+          </div>
+        </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -35,7 +71,10 @@
 export default {
   data () {
     return {
-      petpage: []
+      petpage: [],
+      mail: false,
+      title: '',
+      textarea: ''
     }
   },
   computed: {
@@ -49,6 +88,58 @@ export default {
       return description
         .replace(/\n/g, '<br>')
         .replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
+    },
+    sendMail (petpage) {
+      if (this.user.account === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      } else {
+        this.mail = true
+      }
+    },
+    onSubmit (petpage) {
+      if (this.titl === '' || this.textarea === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '主旨或內文不可空白',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      } else {
+        const sendMail = {
+          title: this.title,
+          description: this.textarea
+        }
+        this.axios.patch(process.env.VUE_APP_API + '/pets/mail/' + this.petpage._id, sendMail)
+          .then(res => {
+            if (res.data.success) {
+              this.$swal.fire({
+                icon: 'success',
+                title: '成功送出',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF',
+                border: 'none'
+              })
+              this.mail = false
+            } else {
+              this.$swal.fire({
+                icon: 'error',
+                title: '送出失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
+            }
+          })
+      }
     }
   },
   mounted () {
@@ -59,7 +150,13 @@ export default {
           this.petpage = res.data.result
           this.petpage.src = process.env.VUE_APP_API + '/pets/file/' + this.petpage.file
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {

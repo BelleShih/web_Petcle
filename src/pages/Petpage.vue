@@ -27,7 +27,7 @@
           />
           <div class="col-3 master">@{{ user.name }}</div>
           <!-- 寄信給他 -->
-          <q-btn v-if="!petpage[0].edit" icon="mail" color="primary" size="15px" rounded class="mail_btn"> 寄信給牠</q-btn>
+          <q-btn v-if="!petpage[0].edit" icon="mail" color="secondary" size="15px" rounded class="mail_btn" @click="mailDialog = true"> 寶貝信箱</q-btn>
         </div>
         <!-- 寵物自我介紹 -->
         <div>
@@ -133,6 +133,63 @@
         </div>
       </q-card>
     </q-dialog>
+    <!-- 寵物信箱視窗 -->
+    <q-dialog v-model="mailDialog" id="mailDialog" position="right">
+      <q-card class="h-60" style="width: 500px">
+        <q-card-section class="row items-center q-pb-none bg-pet02">
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup color="white"/>
+        </q-card-section>
+        <q-card-section class="row items-center no-wrap bg-pet02 mb-1">
+          <div class="flex flex-center w-100">
+            <div class="text-weight-bold title">寶貝信箱</div>
+          </div>
+        </q-card-section>
+        <q-card-section class="column">
+          <div v-for="mail in allMail" :value="mail" :key="mail._id" class="row items-center newMail">
+            <!-- <q-icon name="mail_outline" color="secondary" size="2.5rem" outline></q-icon> -->
+            <!-- 寄件人資訊 -->
+            <div class="row justify-center sender mr-auto">
+              <q-avatar size="1.8rem">
+                <img src="../assets/userphoto-01.jpg">
+              </q-avatar>
+              <q-btn class="senderName" @click="senderName(mail)" :to="getPet[0] ? '/petpage/' + getPet[0]._id : '' ">{{ mail.sendUser }}</q-btn>
+            </div>
+            <!-- 信件標題 -->
+            <div>
+              <q-btn class="mailtitle" @click="mailOpen(mail)">{{ mail.title }}</q-btn>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <!-- 信件內容 -->
+    <q-dialog v-model="checkMail" id="checkMail">
+      <q-card class="mailCard">
+        <q-card-section class="row items-center q-pb-none">
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <!-- 寄件者 -->
+        <q-card-section class="border-b1">
+          <q-avatar size="2rem">
+            <img src="../assets/userphoto-01.jpg" alt="">
+          </q-avatar>
+          <q-btn class="senderName" color="secondary" flat>{{ mailopen.sendUser }}</q-btn>
+          <div class="row items-center">
+            <p class="mailTitle">{{ mailopen.title }}</p>
+            <p class="date">{{ new Date( mailopen.date ).toLocaleString() }}</p>
+          </div>
+        </q-card-section>
+        <!-- 內容 -->
+        <q-card-section class="border-b1">
+          <p class="mailDes">{{ mailopen.description }}</p>
+        </q-card-section>
+        <q-card-section class="flex justify-center reply">
+          <q-btn icon="reply" color="primary" class="reply-btn">我要回信</q-btn>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -148,7 +205,13 @@ export default {
       breedSelected: '',
       textarea: '',
       animals: [],
-      modelfile: null
+      modelfile: null,
+      mailDialog: false,
+      checkMail: false,
+      mailopen: [],
+      allMail: [],
+      allPets: [],
+      sendername: []
     }
   },
   computed: {
@@ -175,14 +238,35 @@ export default {
     },
     breedSelected_edit () {
       return this.petpage[0].breed
+    },
+    getPet () {
+      return this.allPets.filter(item => {
+        if (this.sendername.uid === item.user) {
+          return item
+        }
+      })
     }
   },
   methods: {
     onSubmit_upload () {
       if (this.petFile.size > 1024 * 1024) {
-        alert('圖片太大')
+        this.$swal.fire({
+          icon: 'error',
+          title: '上傳錯誤',
+          text: '圖片太大錯誤',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else if (!this.petFile.type.includes('image')) {
-        alert('檔案格式錯誤')
+        this.$swal.fire({
+          icon: 'error',
+          title: '上傳錯誤',
+          text: '圖片格式錯誤',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else {
         const pet = new FormData()
         pet.append('user', this.user.user)
@@ -210,7 +294,13 @@ export default {
               this.textarea = ''
               this.uploadPet = false
             } else {
-              alert('上傳失敗')
+              this.$swal.fire({
+                icon: 'error',
+                title: '上傳失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
       }
@@ -239,7 +329,13 @@ export default {
           if (res.data.success) {
             this.petpage.splice(0, 1)
           } else {
-            alert('刪除失敗')
+            this.$swal.fire({
+              icon: 'error',
+              title: '刪除失敗',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           }
         })
         .catch(err => {
@@ -255,13 +351,34 @@ export default {
     },
     save () {
       if (this.animalSelected === '' || this.breedSelected === '') {
-        alert('請輸入動物種類 或 品種種類')
+        this.$swal.fire({
+          icon: 'error',
+          title: '更新錯誤',
+          text: '請輸入動物種類 或 品種種類',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else {
         if (this.modelfile) {
           if (this.modelfile.size > 1024 * 1024) {
-            alert('圖片太大')
+            this.$swal.fire({
+              icon: 'error',
+              title: '更新錯誤',
+              text: '圖片太大',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           } else if (!this.modelfile.type.includes('image')) {
-            alert('檔案格式錯誤')
+            this.$swal.fire({
+              icon: 'error',
+              title: '更新錯誤',
+              text: '檔案格式錯誤',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           }
         }
         const petNew = new FormData()
@@ -282,14 +399,30 @@ export default {
               this.petpage[0].breed = this.breedSelected
               this.petpage[0].description = this.petpage[0].modelDes
             } else {
-              alert('更新失敗')
+              this.$swal.fire({
+                icon: 'error',
+                title: '更新失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
           .catch(err => {
             console.log(err)
           })
       }
+    },
+    mailOpen (mail) {
+      this.checkMail = true
+      this.mailopen = mail
+    },
+    senderName (mail) {
+      this.sendername = mail
     }
+    // all () {
+    //   const a = this.allMail.reverse()
+    // }
   },
   mounted () {
     // 抓所有動物
@@ -298,7 +431,13 @@ export default {
         if (res.data.success) {
           this.animals = res.data.result
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {
@@ -308,6 +447,7 @@ export default {
     this.axios.get(process.env.VUE_APP_API + '/pets/user/' + this.user.id)
       .then(res => {
         if (res.data.success) {
+          this.allMail = res.data.result[0].mails.reverse()
           this.petpage = res.data.result.map(item => {
             item.src = process.env.VUE_APP_API + '/pets/file/' + item.file
             item.modelfile = null
@@ -319,12 +459,35 @@ export default {
             return item
           })
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            text: '檔案格式錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {
         console.log(err)
       })
+    this.axios.get(process.env.VUE_APP_API + '/pets/')
+      .then(res => {
+        if (res.data.success) {
+          this.allPets = res.data.result.map(pet => {
+            return pet
+          })
+        }
+      })
+    // this.axios.get(process.env.VUE_APP_API + 'users')
+    //   .then(res => {
+    //     if (res.data.success) {
+    //       this.allUsers = res.data.result.map(item => {
+    //         return
+    //       })
+    //     }
+    //   })
   }
 }
 </script>

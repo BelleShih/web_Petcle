@@ -175,9 +175,23 @@ export default {
   methods: {
     onSubmit_upload () {
       if (this.photoFile.size > 1024 * 1024) {
-        alert('圖片太大')
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '圖片太大',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else if (!this.photoFile.type.includes('image')) {
-        alert('檔案格式錯誤')
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '圖片格式錯誤',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
       } else {
         const photo = new FormData()
         photo.append('image', this.photoFile)
@@ -206,7 +220,13 @@ export default {
               this.textarea = ''
               this.uploadSuccess = true
             } else {
-              alert('上傳失敗')
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430',
+                border: 'none'
+              })
             }
           })
       }
@@ -230,7 +250,14 @@ export default {
             photo.des = photo.model
             this.updateSuccess = true
           } else {
-            alert('更新失敗')
+            this.$swal.fire({
+              icon: 'error',
+              title: '錯誤',
+              text: '儲存失敗',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           }
         })
         .catch(err => {
@@ -247,7 +274,14 @@ export default {
           if (res.data.success) {
             this.photos.splice(index, 1)
           } else {
-            alert('刪除失敗')
+            this.$swal.fire({
+              icon: 'error',
+              title: '錯誤',
+              text: '刪除失敗',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
           }
         })
         .catch(err => {
@@ -262,7 +296,13 @@ export default {
         if (res.data.success) {
           this.animals = res.data.result
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {
@@ -280,7 +320,13 @@ export default {
             return photo
           })
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {

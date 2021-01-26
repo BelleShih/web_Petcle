@@ -43,7 +43,13 @@ export default {
           this.pedias = res.data.result
           this.pedias.src = process.env.VUE_APP_API + '/pedias/file/' + this.pedias.file
         } else {
-          alert(res.data.message)
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {

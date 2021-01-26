@@ -137,7 +137,13 @@ export default {
             return photo
           })
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {
@@ -174,7 +180,13 @@ export default {
         if (res.data.success) {
           this.animals = res.data.result
         } else {
-          alert('錯誤')
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {

@@ -45,7 +45,13 @@ export default {
           this.news = res.data.result
           this.news.src = process.env.VUE_APP_API + '/news/file/' + this.news.file
         } else {
-          alert(res.data.message)
+          this.$swal.fire({
+            icon: 'error',
+            title: '錯誤',
+            confirmButtonColor: '#C2B593',
+            iconColor: '#8d2430',
+            border: 'none'
+          })
         }
       })
       .catch(err => {

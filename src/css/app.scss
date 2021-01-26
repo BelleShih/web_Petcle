@@ -1874,6 +1874,217 @@ q-layout-container{
   }
 }
 
+// 寵物頁面(外人版)
+#sendMail {
+  border: 1px solid $petcolor01;
+  height:60%;
+  @include xs {
+    width:90%;
+  }
+  @include sm {
+    width:90%;
+  }
+  @include md {
+    width:70%;
+  }
+  @include lg {
+    width:60%;
+  }
+  @include xl {
+    width:40%;
+  }
+  .top {
+    border-bottom: 2px solid $petcolor01;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    color: $petcolor01;
+    font-weight: 800;
+    margin:1rem 0 2rem 0;
+  }
+
+  .qes_div {
+    height:65%;
+  }
+
+  .q-form {
+    width:80%;
+    margin-top: 2rem;
+  }
+
+  .input_title {
+    margin-bottom: 1rem;
+  }
+
+  .select {
+    border:none !important;
+    border-radius: 2px;
+    @include xs {
+      width: 100%;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include sm {
+      width: 100%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+    @include md {
+      width: 100%;
+      margin-top: 0rem;
+      margin-bottom: 1rem;
+      background: #eee;
+      font-size: 1rem;
+      color: #333;
+      padding: 10px 0;
+      outline:none;
+    }
+  }
+  
+  .btn {
+    margin-top: 3rem;
+  }
+
+  .textarea {
+    resize:none;
+  }
+}
+
+// 寵物信箱視窗-------------------------
+#mailDialog {
+  .w-100 {
+    width: 100%;
+  }
+
+  .h-60 {
+    height: 60%;
+  }
+
+  .bg-pet02 {
+    background: $petcolor02;
+  }
+
+  .mb-1 {
+    margin-bottom: 1rem;
+  }
+  
+  // 拿掉預設左右下方圓角
+  .q-card > div:last-child, .q-card > img:last-child {
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .newMail {
+    margin: 0.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .mr-auto {
+    margin-right: auto;
+  }
+
+  .mailtitle {
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 0.1rem;
+  }
+
+  .sender {
+    margin-top: 0.5rem;
+  }
+
+  .senderName {
+    height: 30px;
+    margin-bottom: 0.4rem;
+    padding-bottom:0.3rem;
+    font-weight: 600;
+  }
+}
+
+// 信件內容
+#checkMail {
+  .mailCard {
+    @include xs {
+      width: 90%;
+    }
+    @include sm {
+      width: 90%;
+    }
+    @include md {
+      width: 70%;
+    }
+    @include lg {
+      width: 40%;
+    }
+    padding: 1rem;
+    border: 5px solid $petcolor02;
+  }
+
+  .border-b1 {
+    border-bottom: 1px solid #eee;
+  }
+
+  .title {
+    font-size: 1rem;
+    color: $petcolor02;
+    font-weight: 800 !important;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .mailTitle {
+    font-weight: 600 !important;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    margin-top: 1rem;
+    text-align: left;
+    margin-right: auto;
+  }
+
+  .date {
+    color: $petcolor03;
+    margin-bottom: 0;
+  }
+
+  .mailDes {
+    font-weight: 300 !important;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    padding-bottom: 1rem;
+  }
+
+  .reply {
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  .reply-btn {
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
 // footer------------------------
 .footer {
   height: 300px;
@@ -2012,23 +2223,19 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
 }
 
 // seeetalert2改層級--------------------------------------------------------
-.swal2-container {
-  display: flex;
-  position: fixed;
-  z-index: 1060;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: .625em;
-  overflow-x: hidden;
-  transition: background-color .1s;
-  -webkit-overflow-scrolling: touch;
-  z-index: 999999;
+.swal2-container,
+.swal2-center {
+  z-index: 9999999 !important;
 }
+
+// .swal2-styled.swal2-confirm {
+//   border: 0;
+//   border-radius: .25em;
+//   background: initial;
+//   background-color: $petcolor01 !important;
+//   color: #fff;
+//   font-size: 1.0625em;
+// }
 
 // boostrap-----------------------------------------------------------
 
