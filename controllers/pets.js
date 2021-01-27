@@ -87,7 +87,8 @@ export const create = async (req, res) => {
           animal: req.body.animal,
           breed: req.body.breed,
           description: req.body.description,
-          mails: []
+          mails: [],
+          sendMail: []
         })
         res.status(200).send({ success: true, message: '', result })
       } catch (error) {
@@ -307,7 +308,8 @@ export const changePetFile = async (req, res) => {
   })
 }
 
-export const sendMail = async (req, res) => {
+// 收到的信件
+export const getMail = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
     return
@@ -334,6 +336,44 @@ export const sendMail = async (req, res) => {
       })
       .catch(error => {
         console.log(error)
+      })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(400).send({ success: false, message })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+// 寄送的信件
+export const sendMail = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    pets
+      .findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            sendMails: {
+              forName: req.body.name,
+              forId: req.body._id,
+              title: req.body.title,
+              description: req.body.description,
+              date: Date.now()
+            }
+          }
+        },
+        { new: true }
+      )
+      .then(result => {
+        res.status(200).send({ success: true, message: '', result })
       })
       .catch(error => {
         console.log(error)

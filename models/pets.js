@@ -15,6 +15,19 @@ const mailsSchema = new Schema(
   }
 )
 
+const sendMailsSchema = new Schema(
+  {
+    forName: String,
+    forId:{
+      type: mongoose.ObjectId,
+      ref: 'users'
+    },
+    title: String,
+    description: String,
+    date: Date
+  }
+)
+
 const petsSchema = new Schema(
   {
     user: String,
@@ -23,7 +36,8 @@ const petsSchema = new Schema(
     breed: String,
     description : String,
     file: String,
-    mails: [mailsSchema]
+    mails: [mailsSchema],
+    sendMails: [sendMailsSchema]
   }
 )
 
