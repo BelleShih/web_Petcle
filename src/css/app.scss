@@ -3,10 +3,10 @@
 // 前台公版
 #mainLayout {
   .nav_line {
-    width:1px;
-    height:25px;
-    background:#C2B593;
-    margin-top:0.2rem
+    width: 1px;
+    height: 25px;
+    background: #c2b593;
+    margin-top: 0.2rem;
   }
 }
 
@@ -20,7 +20,7 @@
   }
   @include lg {
     padding: 0 3rem;
-  }  
+  }
 }
 
 #nav {
@@ -41,11 +41,11 @@
   }
   li {
     color: $petcolor01;
-    list-style:none;
+    list-style: none;
     font-size: 1rem;
     border-bottom: 2px solid transparent;
-  
-    &:hover{
+
+    &:hover {
       border-bottom: 2px solid $petcolor01;
       font-weight: 800;
     }
@@ -68,7 +68,7 @@
   height: 50px;
 }
 
-.q-layout__shadow{
+.q-layout__shadow {
   display: none;
 }
 
@@ -113,7 +113,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 #logo-login {
-  height: 80px ;
+  height: 80px;
 }
 
 .login-line {
@@ -142,7 +142,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   color: $petcolor03;
   font-weight: 700;
   margin: 2rem 3rem;
-  input{
+  input {
     width: 200px;
     height: 40px;
     border-radius: 50px;
@@ -159,15 +159,15 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 .login-btn {
   padding-top: 2rem;
-  
-  &:nth-child(2){
+
+  &:nth-child(2) {
     background-color: $petcolor03;
     color: white;
     margin-left: 1rem;
   }
 }
 
-#no-member-text{
+#no-member-text {
   margin-bottom: 2rem;
   letter-spacing: 0.1rem;
   a {
@@ -180,29 +180,29 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 // 註冊 --------------------------------------------
 #reg_dialog {
   @include xs {
-    width:95%;
-    height:95%;
+    width: 95%;
+    height: 95%;
     flex-direction: column;
     flex-wrap: nowrap;
   }
   @include sm {
-    width:90%;
-    height:80%;
+    width: 90%;
+    height: 80%;
     flex-direction: column;
   }
   @include md {
-    width:90%;
-    height:90;
+    width: 90%;
+    height: 90;
     flex-direction: column;
   }
   @include lg {
-    width:90%;
-    height:80%;
-    flex-direction:row;
+    width: 90%;
+    height: 80%;
+    flex-direction: row;
   }
   @include xl {
-    width:1000px;
-    height:70%;
+    width: 1000px;
+    height: 70%;
     flex-direction: row;
   }
 }
@@ -210,19 +210,20 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 // quasar SCSS檔案修改
 @media (min-width: 576px) {
   .q-dialog__inner--minimized > div {
-      max-width: 80%;
+    max-width: 80%;
   }
 }
 
 //取消底色圓角
-.q-card > div:first-child, .q-card > img:first-child {
+.q-card > div:first-child,
+.q-card > img:first-child {
   border-top-right-radius: 0;
 }
 
 .welcome {
-  width:100%;
-  height:100%;
-  color:white;
+  width: 100%;
+  height: 100%;
+  color: white;
   letter-spacing: 1.5rem;
   position: relative;
   left: 10px;
@@ -234,10 +235,10 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
   @include md {
     letter-spacing: 0.8rem;
-  }  
+  }
 }
 
-#registered-logo{
+#registered-logo {
   width: 180px;
   position: relative;
   top: 50px;
@@ -278,7 +279,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 .registered-input {
   color: $petcolor03;
   font-size: 1rem;
-  input{
+  input {
     width: 200px;
     height: 40px;
     border-radius: 50px;
@@ -292,20 +293,20 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     outline: none;
   }
   @include xs {
-  font-weight: 500;
-  margin: 0rem 0rem;
+    font-weight: 500;
+    margin: 0rem 0rem;
   }
   @include sm {
-  font-weight: 500;
-  margin: 1rem 0rem;  
+    font-weight: 500;
+    margin: 1rem 0rem;
   }
   @include md {
-  font-weight: 500;
-  margin: 1rem 0rem;  
+    font-weight: 500;
+    margin: 1rem 0rem;
   }
   @include lg {
-  font-weight: 700;
-  margin: 1rem 3rem;
+    font-weight: 700;
+    margin: 1rem 3rem;
   }
 }
 
@@ -317,26 +318,26 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     border-radius: 100px;
     text-indent: 40px;
     margin-bottom: 0.2rem;
-  
+
     &:focus {
       border: 2px solid $petcolor02;
     }
   }
   // 放大鏡 icon
-  #search-icon{
+  #search-icon {
     position: absolute;
     left: 10px;
-    top: 6px;
+    top: 8px;
     color: $petcolor02;
   }
-  
+
   #search-select-out {
     @include xs {
       display: none;
     }
   }
   //搜尋條件
-  #search-select{
+  #search-select {
     width: 130px;
     height: 30px;
     margin: 0 0rem;
@@ -346,33 +347,33 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     border-radius: 100px;
     text-indent: 28px;
   }
-  
+
   // 消除搜尋條件預設效果
   .q-field--auto-height.q-field--labeled .q-field__control-container {
     padding-top: 0px;
   }
-  
+
   .q-field--standard .q-field__control:before {
     border: 1px solid $petcolor02;
     border-radius: 100px;
     height: 38px;
     margin: 0px 1px 0 5px;
   }
-  
+
   .q-field--standard .q-field__control:hover:before {
     border: 1px solid $petcolor02;
   }
-  
+
   .q-field__control {
     color: transparent;
     height: 40px;
     max-width: 100%;
     outline: none;
   }
-  
+
   .q-field__marginal {
     height: 56px;
-    color:$petcolor02;
+    color: $petcolor02;
     font-size: 25px;
   }
 
@@ -385,7 +386,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     letter-spacing: 0.2rem;
     background: linear-gradient(45deg, rgb(253, 224, 96), rgb(169, 125, 240));
     color: white;
-    animation: bg 3s infinite ;
+    animation: bg 3s infinite;
   }
 
   @keyframes bg {
@@ -395,14 +396,11 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     100% {
       filter: hue-rotate(360deg);
     }
-
   }
 }
 
-
-
 //搜尋按鈕--------------------------------------------
-#search-btn{
+#search-btn {
   width: 160px;
   height: 40px;
   margin-bottom: 0.2rem;
@@ -425,7 +423,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 //點擊後的顏色
-.q-item.q-router-link--active, .q-item--active {
+.q-item.q-router-link--active,
+.q-item--active {
   color: white;
 }
 
@@ -438,45 +437,65 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 // index 首頁照片區------------------------------------------
-.my-card {
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+#index {
+  .my-card {
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @include xs {
+      height: 200px;
+    }
+    @include sm {
+      height: 180px;
+    }
+    @include md {
+      height: 200px;
+    }
+    @include lg {
+      height: 200px;
+    }
+    @include xl {
+      height: 400px;
+      margin: 0 0.5rem;
+    }
   }
-  @include xs {
-    height: 200px;
-  }
-  @include sm {
-    height: 180px;
-  }
-  @include md {
-    height: 200px;
-  }
-  @include lg {
-    height: 200px;
-  }
-  @include xl {
-    height: 400px;
-    margin: 0 0.5rem;
-  }
-}
 
-q-layout-container{
-  @include xs {
-    padding: 0 0.5rem;
+  q-layout-container {
+    @include xs {
+      padding: 0 0.5rem;
+    }
+    @include sm {
+      padding: 0 0.5rem;
+    }
+    @include md {
+      padding: 0 1.5rem;
+    }
+    @include lg {
+      padding: 0 2.5rem;
+    }
+    @include xl {
+      padding: 0 3rem;
+    }
   }
-  @include sm {
-    padding: 0 0.5rem;
-  }
-  @include md {
-    padding: 0 1.5rem;
-  }
-  @include lg {
-    padding: 0 2.5rem;
-  }
-  @include xl {
-    padding: 0 3rem;
+  .page {
+    @include xs {
+      margin-top: 0rem !important;
+      padding-top: 2rem !important;
+    }
+    @include sm {
+      margin-top: 0rem !important;
+    }
+    @include md {
+      margin-top: 1rem !important;
+    }
+    @include lg {
+      margin-top: 1.5rem !important;
+    }
+    @include xl {
+      margin-top: 2rem !important;
+    }
   }
 }
 
@@ -489,14 +508,14 @@ q-layout-container{
     display: none;
   }
   @include md {
-    width:100px !important;
-    margin-bottom:15px;
+    width: 100px !important;
+    margin-bottom: 15px;
     display: block;
   }
 }
 
 .about-title {
-  margin-top:50px;
+  margin-top: 50px;
   font-size: 1rem !important;
   border-top: 1px solid $petcolor01;
   border-bottom: 1px solid $petcolor01;
@@ -563,8 +582,8 @@ q-layout-container{
 }
 
 .form_border {
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
   @include xs {
     flex-direction: column;
   }
@@ -576,29 +595,28 @@ q-layout-container{
   }
 }
 
-
-.about_input_div input{
-    -webkit-writing-mode: horizontal-tb !important;
-    text-rendering: auto;
-    color: -internal-light-dark-color(rgb(255, 255, 255), white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    cursor: text;
-    margin: 0em;
-    font: 400 13.3333px Arial;
-    padding: 1px 2px;
-    border-width: 2px;
-    border:1px solid white !important;
-    text-indent: 20px;
-    &:focus{
-        outline: none;
-        background: rgba(255,255,255,0.5);
-    }
+.about_input_div input {
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: -internal-light-dark-color(rgb(255, 255, 255), white);
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  cursor: text;
+  margin: 0em;
+  font: 400 13.3333px Arial;
+  padding: 1px 2px;
+  border-width: 2px;
+  border: 1px solid white !important;
+  text-indent: 20px;
+  &:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.5);
+  }
 }
 
 .about_input {
@@ -632,7 +650,6 @@ q-layout-container{
     left: -90px;
   }
 }
-
 
 #form_line {
   width: 1px;
@@ -680,22 +697,21 @@ q-layout-container{
   overflow-wrap: break-word;
   margin: 0em;
   font: 400 13.3333px Arial;
-  font-size:1.3rem;
+  font-size: 1.3rem;
   border: 1px solid white;
   padding: 1rem;
   &::placeholder {
     color: white;
     font-weight: 800;
     letter-spacing: 0.2rem;
-    font-size:1rem;
+    font-size: 1rem;
     // padding-left: 10px;
     // padding-top: 10px;
     opacity: 1; /* Firefox */
-
   }
-  &:focus{
+  &:focus {
     outline: none;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -703,7 +719,6 @@ q-layout-container{
 .q-btn__wrapper:before {
   box-shadow: none !important;
 }
-
 
 // 我的主頁--------------------------------------------
 #mypage {
@@ -734,7 +749,7 @@ q-layout-container{
   }
 
   .mypage_btnG {
-    margin-top:1rem;
+    margin-top: 1rem;
     @include xs {
       flex-direction: row;
       border-top: 1px solid rgb(199, 199, 199);
@@ -747,9 +762,9 @@ q-layout-container{
       flex-direction: column;
     }
   }
-  
+
   .mypage_btn {
-    margin-bottom:1rem !important;
+    margin-bottom: 1rem !important;
     font-weight: 900;
     @include xs {
       flex-direction: row;
@@ -780,11 +795,11 @@ q-layout-container{
       display: block;
     }
   }
-  
+
   .mypage_line {
-    border-right:1px solid rgb(199, 199, 199);
+    border-right: 1px solid rgb(199, 199, 199);
     @include xs {
-      border-right:none;
+      border-right: none;
     }
   }
 
@@ -799,28 +814,27 @@ q-layout-container{
   }
 }
 
-
 // 主頁上傳照片視窗-----------------------------
 #upload_dialog {
   @include xs {
-    width:90%;
-    height:85%;
+    width: 90%;
+    height: 85%;
   }
   @include sm {
-    width:90%;
-    height:80%;
+    width: 90%;
+    height: 80%;
   }
   @include md {
-    width:70%;
-    height:80%;
+    width: 70%;
+    height: 80%;
   }
   @include lg {
-    width:60%;
-    height:70%;
+    width: 60%;
+    height: 70%;
   }
   @include xl {
-    width:30%;
-    height:70%;
+    width: 30%;
+    height: 70%;
   }
 }
 
@@ -842,15 +856,15 @@ q-layout-container{
 }
 
 .uploadphoto_des {
-  width:100%;
-  font-size:1rem;
+  width: 100%;
+  font-size: 1rem;
   letter-spacing: 0.3rem !important;
   font-weight: 600;
   color: $petcolor03;
 }
 
 .ULanimaltype {
-  border:none !important;
+  border: none !important;
   border-radius: 2px;
   @include xs {
     margin-top: 1rem;
@@ -859,7 +873,7 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
   @include sm {
     margin-top: 1rem;
@@ -868,7 +882,7 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
   @include md {
     margin-top: 0rem;
@@ -877,13 +891,12 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
-  
 }
 
 .ULanimaltype_bp {
-  border:none !important;
+  border: none !important;
   border-radius: 2px;
   @include xs {
     width: 100%;
@@ -892,7 +905,7 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
   @include sm {
     width: 100%;
@@ -902,7 +915,7 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
   @include md {
     width: 100%;
@@ -912,7 +925,7 @@ q-layout-container{
     font-size: 1rem;
     color: #333;
     padding: 10px 0;
-    outline:none;
+    outline: none;
   }
 }
 
@@ -956,26 +969,26 @@ q-layout-container{
     border-radius: 100px;
     text-indent: 40px;
     margin-bottom: 0.2rem;
-  
+
     &:focus {
       border: 2px solid $petcolor01;
     }
   }
   // 放大鏡 icon
-  #search-icon{
+  #search-icon {
     position: absolute;
     left: 10px;
     top: 6px;
     color: $petcolor01;
   }
-  
+
   #search-select-out {
     @include xs {
       display: none;
     }
   }
   //搜尋條件
-  #search-select{
+  #search-select {
     width: 130px;
     height: 30px;
     margin: 0 0rem;
@@ -985,28 +998,28 @@ q-layout-container{
     border-radius: 100px;
     text-indent: 28px;
   }
-    
+
   .q-field--standard .q-field__control:before {
     border: 1px solid $petcolor01;
     border-radius: 100px;
     height: 38px;
     margin: 0px 1px 0 5px;
   }
-  
+
   .q-field--standard .q-field__control:hover:before {
     border: 1px solid $petcolor01;
   }
-  
+
   .q-field__control {
     color: transparent;
     height: 40px;
     max-width: 100%;
     outline: none;
   }
-  
+
   .q-field__marginal {
     height: 56px;
-    color:$petcolor01;
+    color: $petcolor01;
     font-size: 25px;
   }
 
@@ -1052,7 +1065,7 @@ q-layout-container{
   }
 
   .tab-panels {
-    margin-top:2rem;
+    margin-top: 2rem;
   }
 
   .qus_btn {
@@ -1085,19 +1098,19 @@ q-layout-container{
 
   .dis_date {
     margin-left: auto;
-    color:$petcolor03;
+    color: $petcolor03;
     font-size: 0.5rem;
   }
 
   .des {
-    overflow:hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     white-space: normal;
-    text-align:left;
+    text-align: left;
     font-size: 1rem;
     letter-spacing: 0.05rem;
   }
@@ -1137,23 +1150,23 @@ q-layout-container{
   }
 
   .w-85 {
-    width:85%;
+    width: 85%;
   }
 
   // 我要發問按鈕
   .que-btn {
-    z-index: 9999; 
+    z-index: 9999;
     position: fixed !important;
     right: 20px;
     top: 80%;
-    font-size:1rem;
-    
+    font-size: 1rem;
+
     q-btn {
       box-shadow: 0 0 15px #ffffff;
     }
 
     p {
-      width: 55px;
+      width: 60px;
       color: white;
       position: relative;
       top: -104px;
@@ -1170,7 +1183,8 @@ q-layout-container{
     height: 600px !important;
 
     .asker {
-      margin-left:0.5rem;height:50px
+      margin-left: 0.5rem;
+      height: 50px;
     }
   }
 
@@ -1185,22 +1199,23 @@ q-layout-container{
   }
 }
 
-.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)>.swal2-modal {
+.swal2-container:not(.swal2-top):not(.swal2-top-start):not(.swal2-top-end):not(.swal2-top-left):not(.swal2-top-right):not(.swal2-center-start):not(.swal2-center-end):not(.swal2-center-left):not(.swal2-center-right):not(.swal2-bottom):not(.swal2-bottom-start):not(.swal2-bottom-end):not(.swal2-bottom-left):not(.swal2-bottom-right):not(.swal2-grow-fullscreen)
+  > .swal2-modal {
   margin: auto;
   z-index: 999;
 }
 
 .fb_btn {
-  width:90%;
-  resize:none;
-  outline:none;
-  border:none;
-  background:#F3F3F3;
-  margin-right:10px
+  width: 90%;
+  resize: none;
+  outline: none;
+  border: none;
+  background: #f3f3f3;
+  margin-right: 10px;
 }
 
 .dis_title {
-  margin-left:0.5rem;
+  margin-left: 0.5rem;
   font-weight: 800 !important;
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
@@ -1218,26 +1233,25 @@ q-layout-container{
 
 // 網友回覆區
 .fb {
-  border-bottom:1px solid #eee;
-  padding:1rem 0
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
 }
 
 //發問跳出視窗，抓回應者與內容的排版
 .fb-1 {
-  margin-top:0.3rem !important; 
-  margin-left:1rem;
+  margin-left: 0.5rem;
   font-weight: 800;
   color: $petcolor02;
 }
 
 .fb-2 {
-  margin-top:0.3rem !important;
+  margin-top: 0.3rem !important;
   font-size: 1rem;
   letter-spacing: 0.05rem;
 }
 
 .fb-3 {
-  margin-top:0.3rem !important;
+  margin-top: 0.3rem !important;
   font-size: 0.5rem;
   color: $petcolor03;
 }
@@ -1245,27 +1259,27 @@ q-layout-container{
 // 我要發問-彈出視窗
 #quedialog {
   @include xs {
-    width:90%;
-    height:60%;
+    width: 90%;
+    height: 60%;
   }
   @include sm {
-    width:90%;
-    height:60%;
+    width: 90%;
+    height: 60%;
   }
   @include md {
-    width:70%;
-    height:60%;
+    width: 70%;
+    height: 60%;
   }
   @include lg {
-    width:60%;
-    height:60%;
+    width: 60%;
+    height: 60%;
   }
   @include xl {
-    width:40%;
-    height:60%;
+    width: 40%;
+    height: 60%;
   }
   .top {
-    background:$petcolor01
+    background: $petcolor01;
   }
 
   .title {
@@ -1278,11 +1292,11 @@ q-layout-container{
   }
 
   .qes_div {
-    height:80%;
+    height: 80%;
   }
 
   .q-form {
-    width:80%;
+    width: 80%;
     margin-top: 2rem;
   }
 
@@ -1291,7 +1305,7 @@ q-layout-container{
   }
 
   .select {
-    border:none !important;
+    border: none !important;
     border-radius: 2px;
     @include xs {
       width: 100%;
@@ -1300,7 +1314,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include sm {
       width: 100%;
@@ -1310,7 +1324,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include md {
       width: 100%;
@@ -1320,39 +1334,38 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
   }
-  
+
   .btn {
     margin-top: 3rem;
   }
 
   .textarea {
-    resize:none;
+    resize: none;
   }
 }
 
 // 設定discuss彈出視窗寬度
 .w-RWD {
-  width:50%;
+  width: 50%;
   @include xs {
-    width:90% !important
+    width: 90% !important;
   }
   @include sm {
     widows: 90% !important;
   }
   @include md {
-    width:60% !important
+    width: 60% !important;
   }
   @include lg {
-    width:50% !important
+    width: 50% !important;
   }
   @include xl {
-    width:50% !important
+    width: 50% !important;
   }
 }
-
 
 // 療癒空間------------------------
 
@@ -1361,7 +1374,7 @@ q-layout-container{
     background: #464544;
     color: white;
   }
-  
+
   .space_carousel {
     width: 100%;
     height: 100%;
@@ -1386,6 +1399,9 @@ q-layout-container{
   @include xl {
     width: 25%;
   }
+}
+.q-dialog__inner > div {
+  border-radius: 5px !important;
 }
 .photoBox {
   width: 100% !important;
@@ -1424,7 +1440,7 @@ q-layout-container{
 
 //最新消息-------------------
 #news {
-  margin-top:2rem;
+  margin-top: 2rem;
   .width {
     @include xs {
       width: 90%;
@@ -1446,7 +1462,7 @@ q-layout-container{
     background-color: #fff;
     border-radius: 4px;
     box-shadow: none;
-}
+  }
 }
 
 .news_row {
@@ -1483,12 +1499,12 @@ q-layout-container{
 // 最新消息文章頁------------------------
 #newsContent {
   .title {
-    color:$petcolor02;
-    letter-spacing:0.2rem;
+    color: $petcolor02;
+    letter-spacing: 0.2rem;
     font-size: 3rem;
-    font-weight:800;
+    font-weight: 800;
     margin-top: 1.5rem;
-  }  
+  }
   .line {
     height: 1px !important;
     background: rgb(189, 189, 189) !important;
@@ -1540,7 +1556,7 @@ q-layout-container{
       width: 90%;
     }
   }
-  
+
   .object-fit {
     width: 100%;
     height: 100%;
@@ -1599,7 +1615,7 @@ q-layout-container{
 
 // 設定卡片說明文字為2行
 .pedia_des {
-  overflow:hidden;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -1616,12 +1632,12 @@ q-layout-container{
     margin-top: 2rem;
   }
   .title {
-    color:#333;
-    letter-spacing:0.1rem;
+    color: #333;
+    letter-spacing: 0.1rem;
     font-size: 3rem;
-    font-weight:800;
+    font-weight: 800;
     margin-top: 1.5rem;
-    border-left: 10px solid #C2B593;
+    border-left: 10px solid #c2b593;
     padding-left: 1rem;
   }
 
@@ -1680,16 +1696,16 @@ q-layout-container{
 // 寵物頁面----------------------
 // petpage-----------------------
 #petpage {
-  margin-top:5rem !important;
+  margin-top: 5rem !important;
 
   .nopet_Page {
-    width:800px;
-    height:500px;
-    background:rgb(243, 243, 243);
-    border:2px dotted rgb(189, 189, 189);
+    width: 800px;
+    height: 500px;
+    background: rgb(243, 243, 243);
+    border: 2px dotted rgb(189, 189, 189);
     border-radius: 20px;
-    padding:50px;
-    margin-bottom: 5rem
+    padding: 50px;
+    margin-bottom: 5rem;
   }
 
   .uploadPet_btn:hover {
@@ -1702,8 +1718,8 @@ q-layout-container{
   }
 
   .petpage_row {
-    margin-bottom:5rem;
-    background:#eee;
+    margin-bottom: 5rem;
+    background: #eee;
     padding: 2rem 0;
     border-radius: 10px;
   }
@@ -1721,7 +1737,7 @@ q-layout-container{
   .petFile_Change {
     width: 250px;
     height: 50px;
-    background:white;
+    background: white;
     position: relative;
     top: 160px;
     left: -320px;
@@ -1758,7 +1774,7 @@ q-layout-container{
   }
 
   .pet_icon {
-    margin-right:1rem
+    margin-right: 1rem;
   }
 
   .name {
@@ -1768,13 +1784,13 @@ q-layout-container{
 
   .name_edit {
     margin: 1rem 0;
-    height:50px
+    height: 50px;
   }
 
   .master {
-    margin-right:auto;
+    margin-right: auto;
     color: #666;
-    padding-top:1rem
+    padding-top: 1rem;
   }
 
   .mail_btn {
@@ -1797,20 +1813,20 @@ q-layout-container{
 
   .animal {
     height: 22px;
-    text-align:right;
+    text-align: right;
     border-right: 1px solid $petcolor01;
-    padding-right:1rem
+    padding-right: 1rem;
   }
 
   .breed {
-    padding-left:1rem
+    padding-left: 1rem;
   }
 
   .edit_animal {
-    border:none !important;
+    border: none !important;
     border-radius: 2px;
     margin-top: 1rem;
-    background: #E0E0E0;
+    background: #e0e0e0;
     height: 50px;
     font-size: 0.9rem;
     font-weight: 400;
@@ -1820,10 +1836,10 @@ q-layout-container{
   }
 
   .edit_breed {
-    border:none !important;
+    border: none !important;
     border-radius: 2px;
     margin-top: 1rem;
-    background: #E0E0E0;
+    background: #e0e0e0;
     height: 50px;
     font-size: 0.9rem;
     font-weight: 400;
@@ -1831,7 +1847,7 @@ q-layout-container{
     padding: 10px 0;
     text-indent: 10px;
     @include md {
-      margin-left:1rem
+      margin-left: 1rem;
     }
   }
 
@@ -1843,13 +1859,13 @@ q-layout-container{
 // 上傳寵物------------------------
 #uploadPet {
   .top {
-    background:$petcolor01;
+    background: $petcolor01;
   }
 
   .bottom {
-    height:80%;
+    height: 80%;
     margin-top: 1rem;
-    margin-bottom:1rem
+    margin-bottom: 1rem;
   }
 
   .title {
@@ -1862,7 +1878,7 @@ q-layout-container{
   }
 
   .ULanimaltype {
-    border:none !important;
+    border: none !important;
     border-radius: 2px;
     @include xs {
       margin-top: 1rem;
@@ -1871,7 +1887,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include sm {
       margin-top: 1rem;
@@ -1880,7 +1896,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include md {
       margin-top: 0rem;
@@ -1889,7 +1905,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
   }
 
@@ -1901,21 +1917,21 @@ q-layout-container{
 // 寵物頁面(外人版)
 #sendMail {
   border: 1px solid $petcolor01;
-  height:60%;
+  height: 60%;
   @include xs {
-    width:90%;
+    width: 90%;
   }
   @include sm {
-    width:90%;
+    width: 90%;
   }
   @include md {
-    width:70%;
+    width: 70%;
   }
   @include lg {
-    width:60%;
+    width: 60%;
   }
   @include xl {
-    width:40%;
+    width: 40%;
   }
   .top {
     border-bottom: 2px solid $petcolor01;
@@ -1926,15 +1942,15 @@ q-layout-container{
     letter-spacing: 0.5rem;
     color: $petcolor01;
     font-weight: 800;
-    margin:1rem 0 2rem 0;
+    margin: 1rem 0 2rem 0;
   }
 
   .qes_div {
-    height:65%;
+    height: 65%;
   }
 
   .q-form {
-    width:80%;
+    width: 80%;
     margin-top: 2rem;
   }
 
@@ -1943,7 +1959,7 @@ q-layout-container{
   }
 
   .select {
-    border:none !important;
+    border: none !important;
     border-radius: 2px;
     @include xs {
       width: 100%;
@@ -1952,7 +1968,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include sm {
       width: 100%;
@@ -1962,7 +1978,7 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
     @include md {
       width: 100%;
@@ -1972,16 +1988,16 @@ q-layout-container{
       font-size: 1rem;
       color: #333;
       padding: 10px 0;
-      outline:none;
+      outline: none;
     }
   }
-  
+
   .btn {
     margin-top: 3rem;
   }
 
   .textarea {
-    resize:none;
+    resize: none;
   }
 }
 
@@ -2002,9 +2018,10 @@ q-layout-container{
   .mb-1 {
     margin-bottom: 1rem;
   }
-  
+
   // 拿掉預設左右下方圓角
-  .q-card > div:last-child, .q-card > img:last-child {
+  .q-card > div:last-child,
+  .q-card > img:last-child {
     border-bottom: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -2021,7 +2038,6 @@ q-layout-container{
     letter-spacing: 0.1rem;
     margin: 0 0 1rem 0.5rem;
     color: white;
-    
   }
 
   .mr-auto {
@@ -2041,7 +2057,7 @@ q-layout-container{
   .senderName {
     height: 30px;
     margin-bottom: 0.4rem;
-    padding-bottom:0.3rem;
+    padding-bottom: 0.3rem;
     font-weight: 600;
   }
 }
@@ -2113,7 +2129,7 @@ q-layout-container{
 // footer------------------------
 .footer {
   height: 300px;
-  background:#56C6BF;
+  background: #56c6bf;
   @include xs {
     height: 1000px;
     width: auto;
@@ -2121,33 +2137,33 @@ q-layout-container{
 }
 
 .footer_row {
-  &:nth-child(1){
+  &:nth-child(1) {
     @include md {
       justify-content: center;
       align-items: center;
     }
   }
-  &:nth-child(3){
+  &:nth-child(3) {
     @include md {
       width: 10%;
     }
   }
 }
 
-.footer_coll{
+.footer_coll {
   @include xs {
     height: 200px !important;
     justify-content: center;
     flex-direction: column;
   }
   @include lg {
-    padding-left:9rem;
+    padding-left: 9rem;
     height: 50%;
   }
 }
 
-.footer_li{
-  list-style:none;
+.footer_li {
+  list-style: none;
   color: white;
   line-height: 2rem;
   padding-left: 0;
@@ -2166,21 +2182,21 @@ q-layout-container{
 }
 
 .footer_h6 {
-  font-weight:800 !important;
-  padding-left:10px;
-  font-size:1.2rem;
+  font-weight: 800 !important;
+  padding-left: 10px;
+  font-size: 1.2rem;
 }
-
 
 //adminLayout -----------------------------
 #admin_img {
-    width: 130px;
-    height: 100%;
-    padding-top: 5rem;
+  width: 130px;
+  height: 100%;
+  padding-top: 5rem;
 }
 
 .admin_menu {
   margin-top: 5rem;
+  margin-bottom: auto;
   padding-left: 0;
   li {
     list-style: none;
@@ -2192,10 +2208,24 @@ q-layout-container{
     text-align: center;
     font-weight: 800;
     color: white;
+  }
+  .menu_btn {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.2rem !important;
     &:hover {
-      background:#333;
+      background: #333;
+    }
+    &:visited {
+      background: #333 !important;
     }
   }
+}
+
+.adminTitle {
+  border-bottom: 2px solid #333;
+  font-weight: 600;
 }
 
 .admin_btn {
@@ -2203,7 +2233,9 @@ q-layout-container{
   letter-spacing: 0.3rem;
 }
 
-body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusable--focused > .q-focus-helper, body.desktop .q-hoverable:hover > .q-focus-helper {
+body.desktop .q-focusable:focus > .q-focus-helper,
+body.desktop .q-manual-focusable--focused > .q-focus-helper,
+body.desktop .q-hoverable:hover > .q-focus-helper {
   background: transparent;
   opacity: 0;
 }
@@ -2212,7 +2244,7 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
 #admin_new {
   .q-table--no-wrap th,
   .q-table--no-wrap td {
-    white-space:normal;
+    white-space: normal;
   }
   .q-table {
     table-layout: fixed;
@@ -2221,30 +2253,30 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
 
 #adminnew_dialog {
   @include xs {
-    width:90%;
-    height:85%;
+    width: 90%;
+    height: 85%;
   }
   @include sm {
-    width:90%;
-    height:80%;
+    width: 90%;
+    height: 80%;
   }
   @include md {
-    width:80%;
-    height:80%;
+    width: 80%;
+    height: 80%;
   }
   @include lg {
-    width:70%;
-    height:90%;
+    width: 70%;
+    height: 90%;
   }
   @include xl {
-    width:35%;
-    height:70%;
+    width: 35%;
+    height: 70%;
   }
 }
 
 // 留言管理
 .mr-1 {
-  margin-right:1rem;
+  margin-right: 1rem;
 }
 
 // seeetalert2改層級--------------------------------------------------------
@@ -2279,25 +2311,35 @@ body.desktop .q-focusable:focus > .q-focus-helper, body.desktop .q-manual-focusa
 }
 
 @media (min-width: 576px) {
-  .container, .container-sm {
+  .container,
+  .container-sm {
     max-width: 540px;
   }
 }
 
 @media (min-width: 768px) {
-  .container, .container-sm, .container-md {
+  .container,
+  .container-sm,
+  .container-md {
     max-width: 720px;
   }
 }
 
 @media (min-width: 992px) {
-  .container, .container-sm, .container-md, .container-lg {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
     max-width: 960px;
   }
 }
 
 @media (min-width: 1200px) {
-  .container, .container-sm, .container-md, .container-lg, .container-xl {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
     max-width: 1200px;
   }
 }

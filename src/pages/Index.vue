@@ -1,15 +1,14 @@
 <template>
   <q-page id="index">
     <q-layout-container>
-    <!-- 搜尋列 -->
-    <div class="row" style="margin-bottom:0.5rem;margin-top:1.5rem">
-      <div class="col-xs-1 col-md-2 col-lg-3"></div>
-      <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
-        <q-input borderless dense debounce="300" v-model="filtermodel" >
-          <template v-slot:append id="search">
-            <q-icon id="search-icon" name="search" />
-          </template>
-          <!-- <div id="search-select-out">
+      <!-- 搜尋列 -->
+      <div class="row justify-center" style="margin-bottom:0.3rem;margin-top:1.5rem">
+        <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
+          <q-input borderless dense debounce="300" v-model="filtermodel">
+            <template v-slot:append id="search">
+              <q-icon id="search-icon" name="search" />
+            </template>
+            <!-- <div id="search-select-out">
             <q-select
               id="search-select"
               v-model="model"
@@ -29,30 +28,55 @@
               </template>
             </q-select>
           </div> -->
-          <q-btn rounded id="search-btn" type="submit" @click="filterPhoto()">搜尋</q-btn>
-          <q-btn rounded class="random_btn">隨機療癒</q-btn>
-        </q-input>
+            <q-btn rounded id="search-btn" type="submit" @click="filterPhoto()">搜尋</q-btn>
+          </q-input>
+        </div>
+        <q-btn rounded class="col-xs-10 col-md-8 col-lg-1 random_btn" @click="random()" style="margin-top:1.2rem">隨機療癒</q-btn>
       </div>
-      <div class="col-xs-1 col-md-2 col-lg-3"></div>
-    </div>
-    <!-- 照片展示 -->
-    <q-page-container class="flex flex-center">
-      <div class="row fit wrap items-start">
-        <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo.file" :value="photo">
-          <q-card class="my-card">
-            <img :src="photo.src">
-            <div class="absolute-bottom-right">
-              <q-btn v-if="photo.star === false" flat round color="white" icon="star" @click="like(photo)"/>
-              <q-btn v-else flat round color="red-9" icon="star" @click="del(index)"/>
+      <!-- 照片展示 -->
+      <q-page-container class="flex flex-center page">
+        <div class="row fit wrap items-start">
+          <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo.file" :value="photo">
+            <q-card class="my-card">
+              <img :src="photo.src" />
+              <div class="absolute-bottom-right">
+                <q-btn v-if="photo.star === false" flat round color="white" icon="star" @click="like(photo)" />
+                <q-btn v-else flat round color="red-9" icon="star" @click="del(index)" />
+              </div>
+            </q-card>
+            <div class="flex justify-end" style="padding-top:5px">
+              <q-chip color="primary" text-color="white">{{ photo.animal }}</q-chip>
+              <q-chip>{{ photo.breed }}</q-chip>
             </div>
-          </q-card>
-          <div class="flex justify-end" style="padding-top:5px">
-            <q-chip color="primary" text-color="white">{{ photo.animal }}</q-chip>
-            <q-chip>{{ photo.breed }}</q-chip>
           </div>
         </div>
-      </div>
-    </q-page-container>
+      </q-page-container>
+      <!-- 隨機療癒彈出視窗 -->
+      <q-dialog v-model="randomCard">
+        <q-card class="column pet_card">
+          <q-card-section class="row justify-end q-pb-none">
+            <q-btn icon="close" round dense v-close-popup color="primary" />
+          </q-card-section>
+          <q-card-section class="photoBox">
+            <img :src="photos[rand].src" class="photo" />
+          </q-card-section>
+          <q-card-section>
+            <div>
+              <q-chip color="primary" text-color="white">
+                {{ photos[rand].animal }}
+              </q-chip>
+              <q-chip color="accent" text-color="white">
+                {{ photos[rand].breed }}
+              </q-chip>
+            </div>
+          </q-card-section>
+          <q-card-section style="margin:0 0 1rem 0.5rem">
+            <div>
+              {{ photos[rand].description }}
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-layout-container>
   </q-page>
 </template>
@@ -60,7 +84,7 @@
 <script>
 export default {
   name: 'PageIndex',
-  data () {
+  data() {
     return {
       model: '依熱門程度排序',
       options: [
@@ -81,50 +105,81 @@ export default {
       animals: [],
       newPhotos: [],
       filter: '',
-      filtermodel: ''
+      filtermodel: '',
+      randomCard: false,
+      rand: 0
     }
   },
   methods: {
-    like (photo) {
+    like(photo) {
       photo.star = true
       this.$store.commit('like', photo)
     },
-    del (index) {
+    del(index) {
       this.$store.commit('delPhoto', index)
     },
-    filterPhoto (filter) {
+    filterPhoto(filter) {
       // 搜尋功能
       this.filter = this.filtermodel
+    },
+    random() {
+      this.randomCard = true
+      const r = (min, max) => {
+        return Math.round(Math.random() * (max - min)) + min
+      }
+      this.rand = r(0, this.photos.length)
     }
   },
   computed: {
-    redStar () {
+    redStar() {
       return this.$store.getters.stars
     },
-    filteredphoto () {
+    filteredphoto() {
       return this.photos.filter(photo => {
         const keyword = this.filter.toUpperCase()
-        if (photo.animal.toString().toUpperCase().includes(keyword)) {
+        if (
+          photo.animal
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
           return true
         }
-        if (photo.breed.toString().toUpperCase().includes(keyword)) {
+        if (
+          photo.breed
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
           return true
         }
-        if (photo.bodypart.toString().toUpperCase().includes(keyword)) {
+        if (
+          photo.bodypart
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
           return true
         }
         return false
       })
     }
+    // rand() {
+    //   const r = (min, max) => {
+    //     return Math.round(Math.random() * (max - min)) + min
+    //   }
+    //   return r(0, this.photos.length)
+    // }
   },
-  async mounted () {
+  async mounted() {
     this.$axios.post('login', {
       username: 'username',
       password: 'password'
     })
 
     // 抓資料庫photos的所有圖
-    await this.axios.get(process.env.VUE_APP_API + '/photos/')
+    await this.axios
+      .get(process.env.VUE_APP_API + '/photos/')
       .then(res => {
         if (res.data.success) {
           this.photos = res.data.result.map(photo => {
@@ -150,24 +205,32 @@ export default {
       .catch(err => {
         console.log(err)
       })
-      // 抓動物品種、類型、部位的name出來
+    // 抓動物品種、類型、部位的name出來
     await this.photos.map(item => {
-      this.axios.get(process.env.VUE_APP_API + '/photos/breeds/' + item._id).then(res => {
-        item.breed = res.data.breed.name
-      }).catch(err => {
-        console.log(err)
-      })
-      this.axios.get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id).then(res => {
-        console.log(res)
-        item.bodypart = res.data.body.name
-      }).catch(err => {
-        console.log(err)
-      })
-      this.axios.get(process.env.VUE_APP_API + '/photos/animals/' + item._id).then(res => {
-        item.animal = res.data.animal
-      }).catch(err => {
-        console.log(err)
-      })
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
+        .then(res => {
+          item.breed = res.data.breed.name
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id)
+        .then(res => {
+          item.bodypart = res.data.body.name
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/animals/' + item._id)
+        .then(res => {
+          item.animal = res.data.animal
+        })
+        .catch(err => {
+          console.log(err)
+        })
     })
     this.redStar.forEach(item => {
       const p = this.photos.find(photo => {
@@ -176,7 +239,8 @@ export default {
       p.star = true
     })
     // 抓取動物資料
-    this.axios.get(process.env.VUE_APP_API + '/animals/')
+    this.axios
+      .get(process.env.VUE_APP_API + '/animals/')
       .then(res => {
         if (res.data.success) {
           this.animals = res.data.result

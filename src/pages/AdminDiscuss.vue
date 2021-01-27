@@ -1,44 +1,21 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
     <q-layout-container>
-      <q-table
-        :grid="$q.screen.xs"
-        :data="discuss"
-        :columns="titles"
-        row-key="name"
-        :rows-per-page-option="[5, 7, 10]"
-        :filter="filter"
-      >
+      <q-table :grid="$q.screen.xs" :data="discuss" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
         <template v-slot:body="discuss">
           <q-tr :props="discuss">
             <q-td key="questiontype">
-              <q-input
-                outlined
-                filled
-                v-if="discuss.row.edit"
-                v-model="discuss.row.modelType"
-              />
+              <q-input outlined filled v-if="discuss.row.edit" v-model="discuss.row.modelType" />
               <p v-else>{{ discuss.row.questiontype }}</p>
             </q-td>
 
             <q-td key="title">
-              <q-input
-                outlined
-                filled
-                v-if="discuss.row.edit"
-                v-model="discuss.row.modelTitle"
-              />
+              <q-input outlined filled v-if="discuss.row.edit" v-model="discuss.row.modelTitle" />
               <p v-else>{{ discuss.row.title }}</p>
             </q-td>
 
             <q-td key="description">
-              <q-input
-                outlined
-                filled
-                type="textarea"
-                v-if="discuss.row.edit"
-                v-model="discuss.row.modelDescription"
-              />
+              <q-input outlined filled type="textarea" v-if="discuss.row.edit" v-model="discuss.row.modelDescription" />
               <p v-else>{{ discuss.row.description }}</p>
             </q-td>
             <q-td key="date">
@@ -47,15 +24,15 @@
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
-              <q-btn v-if="!discuss.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(discuss)" class="mr-1"/>
-              <q-btn v-if="!discuss.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(discuss, index)"/>
-              <q-btn v-if="discuss.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(discuss)" class="mr-1"/>
-              <q-btn v-if="discuss.row.edit" round icon="cancel" color="accent" size="0.7rem"  @click="cancel(discuss)"/>
+              <q-btn v-if="!discuss.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(discuss)" class="mr-1" />
+              <q-btn v-if="!discuss.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(discuss, index)" />
+              <q-btn v-if="discuss.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(discuss)" class="mr-1" />
+              <q-btn v-if="discuss.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(discuss)" />
             </q-td>
           </q-tr>
         </template>
         <template v-slot:top-left>
-          <h6>留言管理</h6>
+          <h6 class="adminTitle">留言管理</h6>
         </template>
         <!-- 搜尋框 -->
         <template v-slot:top-right>
@@ -72,7 +49,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       filter: '',
       discuss: [],
@@ -119,19 +96,20 @@ export default {
     }
   },
   methods: {
-    edit (discuss) {
+    edit(discuss) {
       discuss.row.edit = true
 
       discuss.row.modelType = discuss.row.type
       discuss.row.modelTitle = discuss.row.title
       discuss.row.modelDescription = discuss.row.description
     },
-    save (discuss) {
-      this.axios.patch(process.env.VUE_APP_API + '/discuss/' + discuss.row._id, {
-        title: discuss.row.modelTitle,
-        description: discuss.row.modelDescription,
-        questiontype: discuss.row.modelType
-      })
+    save(discuss) {
+      this.axios
+        .patch(process.env.VUE_APP_API + '/discuss/' + discuss.row._id, {
+          title: discuss.row.modelTitle,
+          description: discuss.row.modelDescription,
+          questiontype: discuss.row.modelType
+        })
         .then(res => {
           if (res.data.success) {
             discuss.row.edit = false
@@ -148,8 +126,9 @@ export default {
           console.log(err)
         })
     },
-    del (discuss) {
-      this.axios.delete(process.env.VUE_APP_API + '/discuss/' + discuss.row._id)
+    del(discuss) {
+      this.axios
+        .delete(process.env.VUE_APP_API + '/discuss/' + discuss.row._id)
         .then(res => {
           if (res.data.success) {
             this.discuss.splice(discuss.rowIndex, 1)
@@ -162,13 +141,14 @@ export default {
           console.log(err)
         })
     },
-    cancel (discuss) {
+    cancel(discuss) {
       discuss.row.edit = false
       discuss.row.model = discuss.row.description
     }
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/discuss/')
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/discuss/')
       .then(res => {
         if (res.data.success) {
           this.discuss = res.data.result.map(discuss => {

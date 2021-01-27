@@ -22,7 +22,7 @@ const routes = [
         name: 'front.questions',
         component: () => import('pages/Questions.vue'),
         meta: {
-          title: '毛孩大小事',
+          title: 'Petcle | 毛孩大小事',
           login: false
         }
       },
@@ -31,7 +31,7 @@ const routes = [
         name: 'front.pedia',
         component: () => import('pages/Pedia.vue'),
         meta: {
-          title: '寵物百科',
+          title: 'Petcle | 寵物百科',
           login: false
         }
       },
@@ -40,7 +40,7 @@ const routes = [
         name: 'front.pediaContent',
         component: () => import('pages/PediaContent.vue'),
         meta: {
-          title: '寵物百科',
+          title: 'Petcle | 寵物百科',
           login: false
         }
       },
@@ -49,7 +49,7 @@ const routes = [
         name: 'front.news',
         component: () => import('pages/News.vue'),
         meta: {
-          title: '最新消息',
+          title: 'Petcle | 最新消息',
           login: false
         }
       },
@@ -58,7 +58,7 @@ const routes = [
         name: 'front.newsContent',
         component: () => import('pages/NewsContent.vue'),
         meta: {
-          title: '最新消息',
+          title: 'Petcle | 最新消息',
           login: false
         }
       },
@@ -67,7 +67,7 @@ const routes = [
         name: 'front.about',
         component: () => import('pages/About.vue'),
         meta: {
-          title: '關於Petcle',
+          title: 'Petcle | 關於Petcle',
           login: false
         }
       },
@@ -94,7 +94,7 @@ const routes = [
         name: 'front.petpages',
         component: () => import('pages/Petpages.vue'),
         meta: {
-          title: '我的寶貝',
+          title: 'Petcle | 會員寵物',
           login: true
         }
       },
@@ -118,7 +118,7 @@ const routes = [
         name: 'admin.index',
         component: () => import('pages/AdminIndex.vue'),
         meta: {
-          title: 'Petcle 管理員系統',
+          title: 'Petcle | 管理員系統',
           login: true
         }
       },
@@ -127,7 +127,7 @@ const routes = [
         name: 'admin.discuss',
         component: () => import('pages/AdminDiscuss.vue'),
         meta: {
-          title: 'Petcle 討論區管理',
+          title: 'Petcle | 討論區管理',
           login: true
         }
       },
@@ -136,7 +136,7 @@ const routes = [
         name: 'admin.news',
         component: () => import('pages/AdminNews.vue'),
         meta: {
-          title: 'Petcle 最新消息管理',
+          title: 'Petcle | 最新消息管理',
           login: true
         }
       },
@@ -145,7 +145,7 @@ const routes = [
         name: 'admin.about',
         component: () => import('pages/AdminAbout.vue'),
         meta: {
-          title: 'Petcle 關於我們管理',
+          title: 'Petcle | 關於我們管理',
           login: true
         }
       },
@@ -154,7 +154,7 @@ const routes = [
         name: 'admin.pedia',
         component: () => import('pages/AdminPedia.vue'),
         meta: {
-          title: 'Petcle 寵物百科管理',
+          title: 'Petcle | 寵物百科管理',
           login: true
         }
       },
@@ -163,7 +163,7 @@ const routes = [
         name: 'admin.mail',
         component: () => import('pages/AdminMail.vue'),
         meta: {
-          title: 'Petcle 信件管理',
+          title: 'Petcle | 信件管理',
           login: true
         }
       },
@@ -172,7 +172,16 @@ const routes = [
         name: 'admin.member',
         component: () => import('pages/AdminMember.vue'),
         meta: {
-          title: 'Petcle 用戶管理',
+          title: 'Petcle | 用戶管理',
+          login: true
+        }
+      },
+      {
+        path: 'pet',
+        name: 'admin.pet',
+        component: () => import('pages/AdminPets.vue'),
+        meta: {
+          title: 'Petcle | 寵物管理',
           login: true
         }
       }
