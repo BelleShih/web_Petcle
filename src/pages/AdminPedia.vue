@@ -91,7 +91,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       pedias: [],
@@ -142,20 +142,19 @@ export default {
     }
   },
   methods: {
-    edit(pedia) {
+    edit (pedia) {
       pedia.row.edit = true
 
       pedia.row.modelType = pedia.row.type
       pedia.row.modelTitle = pedia.row.title
       pedia.row.modelDescription = pedia.row.description
     },
-    save(pedia) {
-      this.axios
-        .patch(process.env.VUE_APP_API + '/pedias/' + pedia.row._id, {
-          title: pedia.row.modelTitle,
-          description: pedia.row.modelDescription,
-          type: pedia.row.modelType
-        })
+    save (pedia) {
+      this.axios.patch(process.env.VUE_APP_API + '/pedias/' + pedia.row._id, {
+        title: pedia.row.modelTitle,
+        description: pedia.row.modelDescription,
+        type: pedia.row.modelType
+      })
         .then(res => {
           if (res.data.success) {
             pedia.row.edit = false
@@ -172,9 +171,8 @@ export default {
           console.log(err)
         })
     },
-    del(pedia) {
-      this.axios
-        .delete(process.env.VUE_APP_API + '/pedias/' + pedia.row._id)
+    del (pedia) {
+      this.axios.delete(process.env.VUE_APP_API + '/pedias/' + pedia.row._id)
         .then(res => {
           if (res.data.success) {
             this.pedias.splice(pedia.rowIndex, 1)
@@ -187,12 +185,12 @@ export default {
           console.log(err)
         })
     },
-    cancel(pedia) {
+    cancel (pedia) {
       pedia.row.edit = false
       pedia.row.model = pedia.row.description
     },
     // 新增消息
-    addPedia() {
+    addPedia () {
       if (this.pediaFile.size > 1024 * 1024) {
         alert('圖片太大')
       } else if (!this.pediaFile.type.includes('image')) {
@@ -222,16 +220,15 @@ export default {
         })
       }
     },
-    restPedia() {
+    restPedia () {
       this.pediaFile = null
       this.modelTitle = ''
       this.modelDescription = ''
       this.modelType = ''
     }
   },
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/pedias/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/pedias/')
       .then(res => {
         if (res.data.success) {
           this.pedias = res.data.result.map(pedia => {

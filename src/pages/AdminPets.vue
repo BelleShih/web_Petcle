@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       pets: [],
@@ -114,21 +114,20 @@ export default {
     }
   },
   methods: {
-    edit(pet) {
+    edit (pet) {
       pet.row.edit = true
       pet.row.modelName = pet.row.name
       pet.row.modelAnimal = pet.row.account
       pet.row.modelBreed = pet.row.email
       pet.row.modelDes = pet.row.description
     },
-    save(pet) {
-      this.axios
-        .patch(process.env.VUE_APP_API + '/pets/' + pet.row._id, {
-          name: pet.row.modelName,
-          animal: pet.row.modelAnimal,
-          breed: pet.row.modelBreed,
-          description: pet.row.modelDes
-        })
+    save (pet) {
+      this.axios.patch(process.env.VUE_APP_API + '/pets/' + pet.row._id, {
+        name: pet.row.modelName,
+        animal: pet.row.modelAnimal,
+        breed: pet.row.modelBreed,
+        description: pet.row.modelDes
+      })
         .then(res => {
           if (res.data.success) {
             pet.row.edit = false
@@ -145,9 +144,8 @@ export default {
           console.log(err)
         })
     },
-    del(pet) {
-      this.axios
-        .delete(process.env.VUE_APP_API + '/pets/' + pet.row._id)
+    del (pet) {
+      this.axios.delete(process.env.VUE_APP_API + '/pets/' + pet.row._id)
         .then(res => {
           if (res.data.success) {
             this.pets.splice(pet.rowIndex, 1)
@@ -160,7 +158,7 @@ export default {
           console.log(err)
         })
     },
-    cancel(pet) {
+    cancel (pet) {
       pet.row.edit = false
       pet.modelName = pet.name
       pet.modeAnimal = pet.animal
@@ -168,9 +166,8 @@ export default {
       pet.modelDes = pet.description
     }
   },
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/pets/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/pets/')
       .then(res => {
         if (res.data.success) {
           this.pets = res.data.result.map(pet => {

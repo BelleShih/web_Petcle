@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       users: [],
@@ -102,21 +102,20 @@ export default {
     }
   },
   methods: {
-    edit(user) {
+    edit (user) {
       user.row.edit = true
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
     },
-    save(user) {
-      this.axios
-        .patch(process.env.VUE_APP_API + '/users/' + user.row._id, {
-          name: user.row.modelName,
-          account: user.row.modelAccount,
-          email: user.row.modelEmail,
-          pet: this.modelPet
-        })
+    save (user) {
+      this.axios.patch(process.env.VUE_APP_API + '/users/' + user.row._id, {
+        name: user.row.modelName,
+        account: user.row.modelAccount,
+        email: user.row.modelEmail,
+        pet: this.modelPet
+      })
         .then(res => {
           if (res.data.success) {
             user.row.edit = false
@@ -134,7 +133,7 @@ export default {
           console.log(err)
         })
     },
-    del(user) {
+    del (user) {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/' + user.row._id)
         .then(res => {
@@ -149,7 +148,7 @@ export default {
           console.log(err)
         })
     },
-    cancel(user) {
+    cancel (user) {
       user.row.edit = false
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
@@ -157,9 +156,8 @@ export default {
       this.modelPet = user.row.pet
     }
   },
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/users/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/users/')
       .then(res => {
         if (res.data.success) {
           this.users = res.data.result.map(user => {

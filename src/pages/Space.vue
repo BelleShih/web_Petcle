@@ -116,7 +116,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer: false,
       tab: 'tab1',
@@ -128,16 +128,16 @@ export default {
     }
   },
   computed: {
-    photo() {
+    photo () {
       return this.$store.getters.stars
     }
   },
   methods: {
-    del(index) {
+    del (index) {
       this.photo.star = false
       this.$store.commit('delPhoto', index)
     },
-    photoOpen(item) {
+    photoOpen (item) {
       this.photoOpenn = true
       this.photos = item
     }

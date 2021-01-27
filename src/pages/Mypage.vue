@@ -105,7 +105,7 @@
 <script>
 export default {
   name: 'Mypage',
-  data() {
+  data () {
     return {
       uploadphoto: false,
       photoFile: '',
@@ -121,18 +121,18 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    selectedBreed() {
+    selectedBreed () {
       return this.animalSelected.breeds
     },
-    selectedBodypart() {
+    selectedBodypart () {
       return this.animalSelected.bodypart
     }
   },
   methods: {
-    onSubmit_upload() {
+    onSubmit_upload () {
       if (this.photoFile.size > 1024 * 1024) {
         this.$swal.fire({
           icon: 'error',
@@ -194,18 +194,18 @@ export default {
         })
       }
     },
-    onReset_upload() {
+    onReset_upload () {
       this.photoFile = null
       this.animalSelected = ''
       this.breedSelected = ''
       this.bodySelected = ''
       this.textarea = ''
     },
-    cancel(photo) {
+    cancel (photo) {
       photo.edit = false
       photo.model = photo.des
     },
-    save(photo) {
+    save (photo) {
       this.axios
         .patch(process.env.VUE_APP_API + '/photos/' + photo._id, { description: photo.model })
         .then(res => {
@@ -228,11 +228,11 @@ export default {
           console.log(err)
         })
     },
-    edit(photo) {
+    edit (photo) {
       photo.edit = true
       photo.model = photo.des
     },
-    del(photo, index) {
+    del (photo, index) {
       this.axios
         .delete(process.env.VUE_APP_API + '/photos/' + photo._id)
         .then(res => {
@@ -255,9 +255,8 @@ export default {
     }
   },
   // 抓全部的動物資料
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/animals/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/animals/')
       .then(res => {
         if (res.data.success) {
           this.animals = res.data.result
@@ -275,8 +274,7 @@ export default {
         console.log(err)
       })
     // 抓使用者的圖片資料
-    this.axios
-      .get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)
+    this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)
       .then(res => {
         if (res.data.success) {
           this.photos = res.data.result.map(photo => {

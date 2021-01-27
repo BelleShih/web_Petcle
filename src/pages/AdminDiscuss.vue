@@ -49,7 +49,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       discuss: [],
@@ -96,14 +96,14 @@ export default {
     }
   },
   methods: {
-    edit(discuss) {
+    edit (discuss) {
       discuss.row.edit = true
 
       discuss.row.modelType = discuss.row.type
       discuss.row.modelTitle = discuss.row.title
       discuss.row.modelDescription = discuss.row.description
     },
-    save(discuss) {
+    save (discuss) {
       this.axios
         .patch(process.env.VUE_APP_API + '/discuss/' + discuss.row._id, {
           title: discuss.row.modelTitle,
@@ -126,7 +126,7 @@ export default {
           console.log(err)
         })
     },
-    del(discuss) {
+    del (discuss) {
       this.axios
         .delete(process.env.VUE_APP_API + '/discuss/' + discuss.row._id)
         .then(res => {
@@ -141,14 +141,13 @@ export default {
           console.log(err)
         })
     },
-    cancel(discuss) {
+    cancel (discuss) {
       discuss.row.edit = false
       discuss.row.model = discuss.row.description
     }
   },
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/discuss/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/discuss/')
       .then(res => {
         if (res.data.success) {
           this.discuss = res.data.result.map(discuss => {

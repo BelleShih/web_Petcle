@@ -47,15 +47,14 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       left: false
     }
   },
   methods: {
-    logout() {
-      this.axios
-        .delete(process.env.VUE_APP_API + '/users/logout')
+    logout () {
+      this.axios.delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
           if (res.data.success) {
             alert('登出成功')

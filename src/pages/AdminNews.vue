@@ -91,7 +91,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       news: [],
@@ -142,14 +142,14 @@ export default {
     }
   },
   methods: {
-    edit(newss) {
+    edit (newss) {
       newss.row.edit = true
 
       newss.row.modelType = newss.row.type
       newss.row.modelTitle = newss.row.title
       newss.row.modelDescription = newss.row.description
     },
-    save(newss) {
+    save (newss) {
       this.axios
         .patch(process.env.VUE_APP_API + '/news/' + newss.row._id, {
           title: newss.row.modelTitle,
@@ -172,7 +172,7 @@ export default {
           console.log(err)
         })
     },
-    del(newss) {
+    del (newss) {
       this.axios
         .delete(process.env.VUE_APP_API + '/news/' + newss.row._id)
         .then(res => {
@@ -187,12 +187,12 @@ export default {
           console.log(err)
         })
     },
-    cancel(newss) {
+    cancel (newss) {
       newss.row.edit = false
       newss.row.model = newss.row.description
     },
     // 新增消息
-    addNew() {
+    addNew () {
       if (this.newFile.size > 1024 * 1024) {
         alert('圖片太大')
       } else if (!this.newFile.type.includes('image')) {
@@ -222,16 +222,15 @@ export default {
         })
       }
     },
-    restNew() {
+    restNew () {
       this.newFile = null
       this.modelTitle = ''
       this.modelDescription = ''
       this.modelType = ''
     }
   },
-  mounted() {
-    this.axios
-      .get(process.env.VUE_APP_API + '/news/')
+  mounted () {
+    this.axios.get(process.env.VUE_APP_API + '/news/')
       .then(res => {
         if (res.data.success) {
           this.news = res.data.result.map(newss => {

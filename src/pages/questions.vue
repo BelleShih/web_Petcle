@@ -316,7 +316,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tab: 'all',
       discuss: [],
@@ -339,17 +339,17 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    getPet() {
+    getPet () {
       return this.allPets.filter(item => {
         if (this.discussmodel.uid === item.user) {
           return item
         }
       })
     },
-    getPetFB() {
+    getPetFB () {
       return this.allPets.filter(item => {
         if (this.fbUser.uid === item.user) {
           return item
@@ -358,12 +358,12 @@ export default {
     }
   },
   methods: {
-    discussOpen(item) {
+    discussOpen (item) {
       this.qes = true
       this.discussmodel = item
     },
     // 使用者送出留言
-    addfb() {
+    addfb () {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -392,7 +392,7 @@ export default {
         })
       }
     },
-    onSubmit() {
+    onSubmit () {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -436,12 +436,12 @@ export default {
         })
       }
     },
-    getPetFb(fb) {
+    getPetFb (fb) {
       this.fbUser = fb
       this.$router.push(this.getPetFB[0] ? '/petpage/' + this.getPetFB[0]._id : '')
     }
   },
-  async mounted() {
+  async mounted () {
     await this.axios.get(process.env.VUE_APP_API + '/discuss/').then(res => {
       if (res.data.success) {
         this.discuss = res.data.result.map(item => {

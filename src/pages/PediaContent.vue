@@ -23,7 +23,7 @@
         </div>
         <!-- 線 -->
         <div class="line" style="margin-bottom:2rem"></div>
-        <q-btn icon="expand_less" color="primary" :to="{ name:'front.pedias'}">回到寵物百科</q-btn>
+        <q-btn icon="expand_less" color="primary" :to="{ name:'front.pedia'}">回到寵物百科</q-btn>
       </div>
     </div>
   </q-page>
