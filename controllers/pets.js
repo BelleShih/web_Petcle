@@ -12,12 +12,12 @@ let storage
 
 dotenv.config()
 
-if(process.env.DEV === 'true') {
+if (process.env.DEV === 'true') {
   storage = multer.diskStorage({
-    destination (req, file, callback) {
+    destination(req, file, callback) {
       callback(null, 'images/')
     },
-    filename (req, file, callback) {
+    filename(req, file, callback) {
       callback(null, Date.now() + path.extname(file.originalname))
     }
   })
@@ -29,7 +29,7 @@ if(process.env.DEV === 'true') {
       password: process.env.FTP_PASSWORD,
       secure: false
     },
-    destination (req, file, options, callback) {
+    destination(req, file, options, callback) {
       callback(null, '/' + Date.now() + path.extname(file.originalname))
     }
   })
@@ -37,7 +37,7 @@ if(process.env.DEV === 'true') {
 
 const upload = multer({
   storage,
-  fileFilter (req, file, callback) {
+  fileFilter(req, file, callback) {
     if (!file.mimetype.includes('image')) {
       callback(new multer.MulterError('LIMIT_FORMAT'), false)
     } else {
@@ -83,11 +83,11 @@ export const create = async (req, res) => {
         const result = await pets.create({
           file,
           user: req.session.user._id,
-          name:req.body.name,
-          animal:req.body.animal,
-          breed:req.body.breed,
+          name: req.body.name,
+          animal: req.body.animal,
+          breed: req.body.breed,
           description: req.body.description,
-          mails:[]
+          mails: []
         })
         res.status(200).send({ success: true, message: '', result })
       } catch (error) {
@@ -110,55 +110,53 @@ export const editPet = async (req, res) => {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
-    upload.single('file')(req, res, async error => {
-      if (error instanceof multer.MulterError) {
-        let message = ''
-        if (error.code === 'LIMIT_FILE_SIZE') {
-          message = '檔案太大'
-        } else if (error.code === 'LIMIT_FORMAT') {
-          message = '格式不符'
-        } else {
-          console.log(error)
-          message = '上傳錯誤'
-        }
-        res.status(400).send({ success: false, message })
-      } else if (error) {
-        console.log(eror)
-        res.status(500).send({ success: false, message: '伺服器錯誤' })
+  upload.single('file')(req, res, async error => {
+    if (error instanceof multer.MulterError) {
+      let message = ''
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        message = '檔案太大'
+      } else if (error.code === 'LIMIT_FORMAT') {
+        message = '格式不符'
       } else {
-        let result = await pets.findById(req.params.id)
-        if (result === null) {
-          res.status(404).send({ success: false, message: '找不到資料' })
-        } else if (result.user.toString() !== req.session.user._id.toString()) {
-          res.status(403).send({ success: false, message: '沒有權限' })
-        } else {
-          try {
-            if (req.file) {
-              let file = ''
-              if (process.env.DEV === 'true') {
-                file = req.file.filename
-              } else {
-                file = path.basename(req.file.path)
-              }
-              req.body.file = file
+        console.log(error)
+        message = '上傳錯誤'
+      }
+      res.status(400).send({ success: false, message })
+    } else if (error) {
+      console.log(eror)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    } else {
+      let result = await pets.findById(req.params.id)
+      if (result === null) {
+        res.status(404).send({ success: false, message: '找不到資料' })
+      } else {
+        try {
+          if (req.file) {
+            let file = ''
+            if (process.env.DEV === 'true') {
+              file = req.file.filename
             } else {
-              req.body.file = result.file
+              file = path.basename(req.file.path)
             }
-            result = await pets.findByIdAndUpdate(req.params.id, req.body, {new: true})
-            res.status(200).send({ success: true, message: '', result })
-          } catch (error) {
-            if (error.name === 'ValidationError') {
-              const key = Object.keys(error.errors)[0]
-              const message = error.errors[key].message
-              res.status(400).send({ success: false, message })
-            } else {
-              console.log(error)
-              res.status(500).send({ success: false, message: '伺服器錯誤' })
-            }
+            req.body.file = file
+          } else {
+            req.body.file = result.file
+          }
+          result = await pets.findByIdAndUpdate(req.params.id, req.body, { new: true })
+          res.status(200).send({ success: true, message: '', result })
+        } catch (error) {
+          if (error.name === 'ValidationError') {
+            const key = Object.keys(error.errors)[0]
+            const message = error.errors[key].message
+            res.status(400).send({ success: false, message })
+          } else {
+            console.log(error)
+            res.status(500).send({ success: false, message: '伺服器錯誤' })
           }
         }
       }
-    })
+    }
+  })
 }
 
 // 刪除寵物
@@ -243,16 +241,18 @@ export const getPetFile = async (req, res) => {
       method: 'GET',
       url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
       responseType: 'stream'
-    }).then(ress => {
-      ress.data.pipe(res)
-    }).catch(error => {
-      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
     })
+      .then(ress => {
+        ress.data.pipe(res)
+      })
+      .catch(error => {
+        res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
+      })
   }
 }
 
 // 更換寵物圖片
-export const changePetFile = async(req, res) => {
+export const changePetFile = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
     return
@@ -277,11 +277,11 @@ export const changePetFile = async(req, res) => {
       res.status(500).send({ success: false, message: '伺服器錯誤' })
     } else {
       let file = ''
-        if (process.env.DEV === 'true') {
-          file = req.file.filename
-        } else {
-          file = path.basename(req.file.path)
-        }
+      if (process.env.DEV === 'true') {
+        file = req.file.filename
+      } else {
+        file = path.basename(req.file.path)
+      }
       try {
         let result = await pets.findById(req.params.id)
         if (result === null) {
@@ -307,30 +307,35 @@ export const changePetFile = async(req, res) => {
   })
 }
 
-export const sendMail = async(req, res) => {
+export const sendMail = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
   try {
-    pets.findByIdAndUpdate(req.params.id, 
-      {
-        $push: {
-          mails: {
-            sendUser: req.session.user.name,
-            uid:req.session.user._id,
-            title: req.body.title,
-            description: req.body.description,
-            date: Date.now()
-          } 
-        }
-      },
-      {new: true}
-      ) .then(result => {
-        res.status(200).send({ success: true, message: '', result})
-      }) .catch(error => {
+    pets
+      .findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            mails: {
+              sendUser: req.session.user.name,
+              uid: req.session.user._id,
+              title: req.body.title,
+              description: req.body.description,
+              date: Date.now()
+            }
+          }
+        },
+        { new: true }
+      )
+      .then(result => {
+        res.status(200).send({ success: true, message: '', result })
+      })
+      .catch(error => {
         console.log(error)
-      }) .catch(error => {
+      })
+      .catch(error => {
         console.log(error)
       })
   } catch (error) {

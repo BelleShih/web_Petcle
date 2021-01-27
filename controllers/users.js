@@ -19,7 +19,7 @@ export const create = async (req, res) => {
       res.status(400).send({ success: false, message: '密碼必須四個字以上' })
     } else if (req.body.password1.length > 20) {
       res.status(400).send({ success: false, message: '密碼必須二十個字以下' })
-    } else if ((req.body.email.includes('@')) === false) {
+    } else if (req.body.email.includes('@') === false) {
       res.status(400).send({ success: false, message: '電子信箱格式錯誤' })
     } else {
       await users.create({
@@ -54,10 +54,13 @@ export const login = async (req, res) => {
   }
 
   try {
-    const result = await users.findOne({
-      account: req.body.account,
-      password: md5(req.body.password)
-    }, '-password')
+    const result = await users.findOne(
+      {
+        account: req.body.account,
+        password: md5(req.body.password)
+      },
+      '-password'
+    )
 
     if (result === null) {
       res.status(404).send({ success: false, message: '帳號或密碼錯誤' })
@@ -121,12 +124,53 @@ export const delUser = async (req, res) => {
   }
 }
 
+// 編輯使用者資料
 export const editUser = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  if (!req.headers['content-type'] || !req.headers['content-type'].includes('application/json')) {
+    res.status(400).send({ success: false, message: '資料格式不符' })
+    return
+  }
+  try {
+    let result = await users.findById(req.params.id)
+    if (result === null) {
+      res.status(404).send({ success: false, message: '找不到資料' })
+    } else {
+      result = await users.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      res.status(200).send({ success: true, message: '', result })
+    }
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(400).send({ success: false, message })
+    } else if (error.name === 'CastError') {
+      res.status(400).send({ success: false, message: 'ID 格式錯誤' })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
 }
 
+// 抓到指定使用者
 export const getUser = async (req, res) => {
+  // try {
+  //   const result = await users.findById(req.params.id)
+  //   if (result === null) {
+  //     res.status(404).send({ success: false, message: '找不到使用者' })
+  //   } else {
+  //     res.status(200).send({ success: true, message: '', result })
+  //   }
+  // } catch (error) {
+  //   res.status(500).send({ success: false, message: '伺服器錯誤' })
+  // }
 }
 
+// 抓到全部使用者
 export const getUsers = async (req, res) => {
   if (req.session.user === undefined) {
     res.status(401).send({ success: false, message: '未登入' })
@@ -134,7 +178,7 @@ export const getUsers = async (req, res) => {
   }
   try {
     const result = await users.find()
-    res.status(200).send({ success: true, message: '', result})
+    res.status(200).send({ success: true, message: '', result })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }

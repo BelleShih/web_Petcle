@@ -13,9 +13,9 @@ router.delete('/logout', logout)
 router.delete('/:id', delUser)
 // 編輯使用者資料
 router.patch('/:id', editUser)
-// 查詢使用者
+// 查詢指定使用者
 router.get('/:id', getUser)
-// 抓全部使用者
+// 查詢全部使用者
 router.get('/', getUsers)
 
 router.get('/heartbeat', heartbeat)

@@ -12,12 +12,12 @@ let storage
 
 dotenv.config()
 
-if(process.env.DEV === 'true') {
+if (process.env.DEV === 'true') {
   storage = multer.diskStorage({
-    destination (req, file, callback) {
+    destination(req, file, callback) {
       callback(null, 'images/')
     },
-    filename (req, file, callback) {
+    filename(req, file, callback) {
       callback(null, Date.now() + path.extname(file.originalname))
     }
   })
@@ -29,7 +29,7 @@ if(process.env.DEV === 'true') {
       password: process.env.FTP_PASSWORD,
       secure: false
     },
-    destination (req, file, options, callback) {
+    destination(req, file, options, callback) {
       callback(null, '/' + Date.now() + path.extname(file.originalname))
     }
   })
@@ -37,7 +37,7 @@ if(process.env.DEV === 'true') {
 
 const upload = multer({
   storage,
-  fileFilter (req, file, callback) {
+  fileFilter(req, file, callback) {
     if (!file.mimetype.includes('image')) {
       callback(new multer.MulterError('LIMIT_FORMAT'), false)
     } else {
@@ -85,10 +85,10 @@ export const create = async (req, res) => {
         const result = await pedias.create({
           title: req.body.title,
           description: req.body.description,
-          type:req.body.type,
+          type: req.body.type,
           file,
-          date:Date.now(),
-          update:req.body.update
+          date: Date.now(),
+          update: req.body.update
         })
         res.status(200).send({ success: true, message: '', result })
       } catch (error) {
@@ -182,7 +182,6 @@ export const getPedia = async (req, res) => {
     const result = await pedias.findById(req.params.id)
     if (result === null) {
       res.status(404).send({ success: false, message: '找不到資料' })
-      console.log(error)
     } else {
       res.status(200).send({ success: true, message: '', result })
     }
@@ -207,10 +206,12 @@ export const file = async (req, res) => {
       method: 'GET',
       url: 'http://' + process.env.FTP_HOST + '/' + process.env.FTP_USER + '/' + req.params.file,
       responseType: 'stream'
-    }).then(ress => {
-      ress.data.pipe(res)
-    }).catch(error => {
-      res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
     })
+      .then(ress => {
+        ress.data.pipe(res)
+      })
+      .catch(error => {
+        res.status(error.response.status).send({ success: false, message: '取得圖片失敗' })
+      })
   }
 }
