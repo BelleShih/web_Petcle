@@ -4,7 +4,7 @@
       <!-- 搜尋列 -->
       <div class="row justify-center" style="margin-bottom:0.3rem;margin-top:1.5rem">
         <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
-          <q-input borderless dense debounce="300" v-model="filtermodel">
+          <q-input borderless dense debounce="300" v-model="filtermodel" @keyup.enter="filterPhoto()">
             <template v-slot:append id="search">
               <q-icon id="search-icon" name="search" />
             </template>
@@ -88,7 +88,7 @@
 <script>
 export default {
   name: 'PageIndex',
-  data () {
+  data() {
     return {
       model: '依熱門程度排序',
       options: [
@@ -115,18 +115,18 @@ export default {
     }
   },
   methods: {
-    like (photo) {
+    like(photo) {
       photo.star = true
       this.$store.commit('like', photo)
     },
-    del (index) {
+    del(index) {
       this.$store.commit('delPhoto', index)
     },
-    filterPhoto (filter) {
+    filterPhoto(filter) {
       // 搜尋功能
       this.filter = this.filtermodel
     },
-    random () {
+    random() {
       this.randomCard = true
       const r = (min, max) => {
         return Math.round(Math.random() * (max - min)) + min
@@ -135,10 +135,11 @@ export default {
     }
   },
   computed: {
-    redStar () {
+    redStar() {
       return this.$store.getters.stars
     },
-    filteredphoto () {
+    // filter文字過濾
+    filteredphoto() {
       return this.photos.filter(photo => {
         const keyword = this.filter.toUpperCase()
         if (
@@ -175,16 +176,18 @@ export default {
     //   return r(0, this.photos.length)
     // }
   },
-  async mounted () {
+  async mounted() {
     this.$axios.post('login', {
       username: 'username',
       password: 'password'
     })
 
     // 抓資料庫photos的所有圖
-    await this.axios.get(process.env.VUE_APP_API + '/photos/')
+    await this.axios
+      .get(process.env.VUE_APP_API + '/photos/')
       .then(res => {
         if (res.data.success) {
+          this.photos = res.data.result.reverse()
           this.photos = res.data.result.map(photo => {
             photo.src = process.env.VUE_APP_API + '/photos/file/' + photo.file
             photo.des = photo.description
@@ -210,7 +213,8 @@ export default {
       })
     // 抓動物品種、類型、部位的name出來
     await this.photos.map(item => {
-      this.axios.get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
         .then(res => {
           item.breed = res.data.breed.name
         })
@@ -234,6 +238,7 @@ export default {
           console.log(err)
         })
     })
+    // 加入購物車後星星的 bug
     this.redStar.forEach(item => {
       const p = this.photos.find(photo => {
         return item._id === photo._id
@@ -241,7 +246,8 @@ export default {
       p.star = true
     })
     // 抓取動物資料
-    this.axios.get(process.env.VUE_APP_API + '/animals/')
+    this.axios
+      .get(process.env.VUE_APP_API + '/animals/')
       .then(res => {
         if (res.data.success) {
           this.animals = res.data.result

@@ -4,7 +4,7 @@
     <div class="row flex-center h-100 petpage_row">
       <!-- 寵物照片 -->
       <div class="flex-center column col-10 col-lg-6 box h-100 ">
-        <img class="col-10" :src="petpage.src">
+        <img class="col-10" :src="petpage.src" />
       </div>
       <!-- 右半資料 -->
       <div class="column col-10 col-lg-6 right justify-center">
@@ -13,7 +13,7 @@
           <div class="col-3 name">{{ petpage.name }}</div>
           <div class="col-3 master">@{{ master[0].name }}</div>
           <!-- 寄信給他 -->
-          <q-btn icon="mail" color="primary" size="15px" rounded class="mail_btn" @click="sendMail(petpage)"> 寄信給牠</q-btn>
+          <q-btn icon="mail" color="primary" size="15px" rounded class="mail_btn" @click="sendMail(petpage)">寄信給牠</q-btn>
         </div>
         <!-- 寵物自我介紹 -->
         <div>
@@ -30,74 +30,69 @@
     </div>
     <!-- 寄信的彈出視窗 -->
     <q-dialog v-model="mail">
-        <q-card id="sendMail" class="flex row">
-          <div class="col-12 flex flex-center column top">
-            <div class="flex justify-end" style="width:100%">
-              <q-btn icon="close" flat round dense v-close-popup color="primary"/>
+      <q-card id="sendMail" class="flex row">
+        <div class="col-12 flex flex-center column top">
+          <div class="flex justify-end" style="width:100%">
+            <q-btn icon="close" flat round dense v-close-popup color="primary" />
+          </div>
+          <q-icon name="rate_review" color="primary" size="3rem"></q-icon>
+          <p class="title">寄信給牠</p>
+        </div>
+        <div class="col-12 flex justify-center cloumn qes_div">
+          <q-form @submit="onSubmit" @reset="onReset" class="q-form">
+            <!-- 主旨 -->
+            <q-input class="input_title" filled v-model="title" label="請輸入主旨" />
+            <!-- 照片說明 -->
+            <q-input v-model="textarea" filled type="textarea" color="primary" label="內文" class="textarea" />
+            <div class="flex flex-center btn">
+              <q-btn rounded label="送出" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px" />
+              <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px" />
             </div>
-            <q-icon name="rate_review" color="primary" size="3rem">
-            </q-icon>
-            <p class="title">寄信給牠</p>
-          </div>
-          <div class="col-12 flex justify-center cloumn qes_div">
-            <q-form
-              @submit="onSubmit"
-              @reset="onReset"
-              class="q-form"
-            >
-              <!-- 主旨 -->
-              <q-input class="input_title" filled v-model="title" label="請輸入主旨" />
-              <!-- 照片說明 -->
-              <q-input
-                v-model="textarea"
-                filled
-                type="textarea"
-                color="primary"
-                label="內文"
-                class="textarea"
-              />
-              <div class="flex flex-center btn">
-                <q-btn rounded label="送出" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px"/>
-                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px"/>
-              </div>
-            </q-form>
-          </div>
-        </q-card>
+          </q-form>
+        </div>
+      </q-card>
     </q-dialog>
   </q-page>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       petpage: [],
       mail: false,
       title: '',
       textarea: '',
-      allUsers: []
+      allUsers: [],
+      allPets: []
     }
   },
   computed: {
-    user () {
+    user() {
       return this.$store.state.user
     },
-    master () {
+    master() {
       return this.allUsers.filter(item => {
         if (item._id === this.petpage.user) {
           return item
         }
       })
+    },
+    getUserPet() {
+      return this.allPets.filter(item => {
+        if (this.user.id === item.user) {
+          return item
+        }
+        console.log(this.user.id)
+      })
     }
   },
   methods: {
     // 維持文章送出格式
-    html (description) {
-      return description
-        .replace(/\n/g, '<br>')
-        .replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
+    html(description) {
+      return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     },
-    sendMail (petpage) {
+    sendMail(petpage) {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -112,7 +107,7 @@ export default {
       }
     },
     // 確認送信
-    onSubmit (petpage) {
+    onSubmit(petpage) {
       if (this.title === '' || this.textarea === '') {
         this.$swal.fire({
           icon: 'error',
@@ -124,40 +119,44 @@ export default {
         })
       } else {
         const sendMail = {
+          name: this.master[0].name,
+          _id: this.master[0]._id,
           title: this.title,
           description: this.textarea
         }
-        this.axios.patch(process.env.VUE_APP_API + '/pets/mail/' + this.petpage._id, sendMail)
-          .then(res => {
-            if (res.data.success) {
-              this.$swal.fire({
-                icon: 'success',
-                title: '成功送出',
-                confirmButtonColor: '#C2B593',
-                iconColor: '#56C6BF',
-                border: 'none'
-              })
-              this.mail = false
-            } else {
-              this.$swal.fire({
-                icon: 'error',
-                title: '送出失敗',
-                confirmButtonColor: '#C2B593',
-                iconColor: '#8d2430',
-                border: 'none'
-              })
-            }
-          })
+        this.axios.patch(process.env.VUE_APP_API + '/pets/mail/' + this.petpage._id, sendMail).then(res => {
+          if (res.data.success) {
+            this.$swal.fire({
+              icon: 'success',
+              title: '成功送出',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#56C6BF',
+              border: 'none'
+            })
+            this.mail = false
+          } else {
+            this.$swal.fire({
+              icon: 'error',
+              title: '送出失敗',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#8d2430',
+              border: 'none'
+            })
+          }
+        })
+        // 保存送信紀錄
+        this.axios.patch(process.env.VUE_APP_API + '/pets/sendMail/' + this.getUserPet[0]._id, sendMail)
       }
     },
-    onReset () {
+    onReset() {
       this.title = ''
       this.textarea = ''
     }
   },
-  mounted () {
+  mounted() {
     // 抓使用者的寵物
-    this.axios.get(process.env.VUE_APP_API + '/pets/' + this.$route.params.id)
+    this.axios
+      .get(process.env.VUE_APP_API + '/pets/' + this.$route.params.id)
       .then(res => {
         console.log(this.$route.params.id)
         if (res.data.success) {
@@ -177,22 +176,37 @@ export default {
         console.log(err)
       })
     // 抓所有使用者
-    this.axios.get(process.env.VUE_APP_API + '/users/')
-      .then(res => {
-        if (res.data.success) {
-          this.allUsers = res.data.result.map(item => {
-            return item
-          })
-        } else {
-          this.$swal.fire({
-            icon: 'error',
-            title: '錯誤',
-            confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
-          })
-        }
-      })
+    this.axios.get(process.env.VUE_APP_API + '/users/').then(res => {
+      if (res.data.success) {
+        this.allUsers = res.data.result.map(item => {
+          return item
+        })
+      } else {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      }
+    })
+    // 抓所有動物
+    this.axios.get(process.env.VUE_APP_API + '/pets/').then(res => {
+      if (res.data.success) {
+        this.allPets = res.data.result.map(item => {
+          return item
+        })
+      } else {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      }
+    })
   }
 }
 </script>

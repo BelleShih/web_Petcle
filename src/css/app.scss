@@ -181,7 +181,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 #reg_dialog {
   @include xs {
     width: 95%;
-    height: 95%;
+    height: 70%;
     flex-direction: column;
     flex-wrap: nowrap;
   }
@@ -191,8 +191,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     flex-direction: column;
   }
   @include md {
-    width: 90%;
-    height: 90;
+    width: 80%;
+    height: 80%;
     flex-direction: column;
   }
   @include lg {
@@ -201,7 +201,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     flex-direction: row;
   }
   @include xl {
-    width: 1000px;
+    width: 60%;
     height: 70%;
     flex-direction: row;
   }
@@ -440,9 +440,9 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 #index {
   .my-card {
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
     }
     @include xs {
       height: 200px;
@@ -2003,6 +2003,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 // 寶貝信箱視窗-------------------------
 #mailDialog {
+  flex-direction: column !important;
+
   .w-100 {
     width: 100%;
   }
@@ -2015,8 +2017,38 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     background: $petcolor02;
   }
 
-  .mb-1 {
-    margin-bottom: 1rem;
+  .bg-pet01 {
+    background: $petcolor01;
+  }
+
+  .top {
+    width: 410px;
+    height: 150px;
+    border-radius: 0px;
+  }
+
+  .center {
+    width: 500px;
+    height: 300px;
+    background: white;
+    @include xs {
+      width: 100% !important;
+    }
+  }
+
+  .bottom {
+    width: 500px;
+    height: 70px;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    @include xs {
+      width: 100% !important;
+    }
+  }
+
+  .sendReco_btn {
+    width: 100%;
+    height: 100%;
   }
 
   // 拿掉預設左右下方圓角
@@ -2060,6 +2092,43 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     padding-bottom: 0.3rem;
     font-weight: 600;
   }
+
+  .mailRecord {
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid $petcolor01;
+  }
+
+  .fixed,
+  .fixed-full,
+  .fullscreen,
+  .fixed-center,
+  .fixed-bottom,
+  .fixed-left,
+  .fixed-right,
+  .fixed-top,
+  .fixed-top-left,
+  .fixed-top-right,
+  .fixed-bottom-left,
+  .fixed-bottom-right {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .q-dialog__inner > div {
+    border-radius: 0px !important;
+  }
+
+  .q-dialog__inner > div {
+    box-shadow: none;
+  }
+}
+
+.getName {
+  height: 30px;
+  margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
+  font-weight: 600;
 }
 
 // 信件內容
@@ -2079,6 +2148,70 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     }
     padding: 1rem;
     border: 5px solid $petcolor02;
+  }
+
+  .border-b1 {
+    border-bottom: 1px solid #eee;
+  }
+
+  .title {
+    font-size: 1rem;
+    color: $petcolor02;
+    font-weight: 800 !important;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .mailTitle {
+    font-weight: 600 !important;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+    margin-top: 1rem;
+    text-align: left;
+    margin-right: auto;
+  }
+
+  .date {
+    color: $petcolor03;
+    margin-bottom: 0;
+  }
+
+  .mailDes {
+    font-weight: 300 !important;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+    padding-bottom: 1rem;
+  }
+
+  .reply {
+    margin-top: 2rem;
+    font-size: 1rem;
+  }
+
+  .reply-btn {
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+// 寄信紀錄
+#checkReMail {
+  .mailCard {
+    @include xs {
+      width: 90%;
+    }
+    @include sm {
+      width: 90%;
+    }
+    @include md {
+      width: 70%;
+    }
+    @include lg {
+      width: 40%;
+    }
+    padding: 1rem;
+    border: 5px solid $petcolor01;
   }
 
   .border-b1 {
@@ -2188,6 +2321,15 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 //adminLayout -----------------------------
+#adminLayout {
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    height: 100%;
+  }
+}
 #admin_img {
   width: 130px;
   height: 100%;
@@ -2216,9 +2358,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     letter-spacing: 0.2rem !important;
     &:hover {
       background: #333;
-    }
-    &:visited {
-      background: #333 !important;
     }
   }
 }

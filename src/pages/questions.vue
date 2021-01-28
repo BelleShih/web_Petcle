@@ -42,11 +42,11 @@
         </q-tabs>
         <!-- 搜尋功能 -->
         <div class="flex row col-xs-5 col-lg-3 flex-center search">
-          <q-input borderless dense debounce="300" v-model="filtermodel">
+          <q-input borderless dense debounce="300" v-model="filtermodel" @keyup.enter="filterDiscuss()">
             <template v-slot:append id="search">
               <q-icon id="search-icon" name="search" />
             </template>
-            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterPhoto()" class="btn" />
+            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterDiscuss()" class="btn" />
           </q-input>
         </div>
         <!-- 寵物百科按鈕 -->
@@ -59,7 +59,14 @@
     <!-- 全部問題頁 -->
     <q-tab-panels v-model="tab" animated class="tab-panels flex m-auto w-85">
       <q-tab-panel name="all" class="flex row justify-betwen">
-        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn" v-for="item in discuss" :key="item._id" :value="item" @click="discussOpen(item)">
+        <q-btn
+          align="left"
+          class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn"
+          v-for="item in filteredDiscuss"
+          :key="item._id"
+          :value="item"
+          @click="discussOpen(item)"
+        >
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
@@ -230,7 +237,7 @@
               <q-avatar size="1.9rem">
                 <img src="../assets/userphoto-01.jpg" />
               </q-avatar>
-              <q-btn size="1.2rem" class="asker" :to="getPet[0] ? '/petpage/' + getPet[0]._id : ''">{{ discussmodel.user }}</q-btn>
+              <q-btn size="1.2rem" class="asker" @click="askName()">{{ discussmodel.user }}</q-btn>
             </div>
           </div>
           <div class="row">
@@ -316,12 +323,13 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       tab: 'all',
       discuss: [],
       qes: false,
       modelFeedback: '',
+      filter: '',
       filtermodel: '',
       discussmodel: {},
       quedialog: false,
@@ -339,31 +347,70 @@ export default {
     }
   },
   computed: {
-    user () {
+    user() {
       return this.$store.state.user
     },
-    getPet () {
+    getPet() {
       return this.allPets.filter(item => {
         if (this.discussmodel.uid === item.user) {
           return item
         }
       })
     },
-    getPetFB () {
+    getPetFB() {
       return this.allPets.filter(item => {
         if (this.fbUser.uid === item.user) {
           return item
         }
       })
+    },
+    // 搜尋功能
+    filteredDiscuss() {
+      return this.discuss.filter(dis => {
+        const keyword = this.filter.toUpperCase()
+        if (
+          dis.title
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        if (
+          dis.description
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        if (
+          dis.questiontype
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        if (
+          dis.user
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        return false
+      })
     }
   },
   methods: {
-    discussOpen (item) {
+    discussOpen(item) {
       this.qes = true
       this.discussmodel = item
     },
     // 使用者送出留言
-    addfb () {
+    addfb() {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -392,7 +439,7 @@ export default {
         })
       }
     },
-    onSubmit () {
+    onSubmit() {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -436,14 +483,43 @@ export default {
         })
       }
     },
-    getPetFb (fb) {
-      this.fbUser = fb
-      this.$router.push(this.getPetFB[0] ? '/petpage/' + this.getPetFB[0]._id : '')
+    getPetFb(fb) {
+      if (this.user.account === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      } else {
+        this.fbUser = fb
+        this.$router.push(this.getPetFB[0] ? '/petpage/' + this.getPetFB[0]._id : '')
+      }
+    },
+    filterDiscuss(filter) {
+      this.filter = this.filtermodel
+    },
+    askName() {
+      if (this.user.account === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430',
+          border: 'none'
+        })
+      } else {
+        this.$router.push(this.getPet[0] ? '/petpage/' + this.getPet[0]._id : '')
+      }
     }
   },
-  async mounted () {
+  async mounted() {
     await this.axios.get(process.env.VUE_APP_API + '/discuss/').then(res => {
       if (res.data.success) {
+        this.discuss = res.data.result.reverse()
         this.discuss = res.data.result.map(item => {
           return item
         })

@@ -6,7 +6,7 @@
           <q-tr :props="user">
             <q-td key="name">
               <q-input outlined filled v-if="user.row.edit" v-model="user.row.modelName" />
-              <q-btn v-else>{{ user.row.name }}</q-btn>
+              <q-btn v-else :to="'/admin/member/' + user.row._id">{{ user.row.name }}</q-btn>
             </q-td>
 
             <q-td key="account">
@@ -53,7 +53,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       filter: '',
       users: [],
@@ -102,20 +102,21 @@ export default {
     }
   },
   methods: {
-    edit (user) {
+    edit(user) {
       user.row.edit = true
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
     },
-    save (user) {
-      this.axios.patch(process.env.VUE_APP_API + '/users/' + user.row._id, {
-        name: user.row.modelName,
-        account: user.row.modelAccount,
-        email: user.row.modelEmail,
-        pet: this.modelPet
-      })
+    save(user) {
+      this.axios
+        .patch(process.env.VUE_APP_API + '/users/' + user.row._id, {
+          name: user.row.modelName,
+          account: user.row.modelAccount,
+          email: user.row.modelEmail,
+          pet: this.modelPet
+        })
         .then(res => {
           if (res.data.success) {
             user.row.edit = false
@@ -133,7 +134,7 @@ export default {
           console.log(err)
         })
     },
-    del (user) {
+    del(user) {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/' + user.row._id)
         .then(res => {
@@ -148,16 +149,20 @@ export default {
           console.log(err)
         })
     },
-    cancel (user) {
+    cancel(user) {
       user.row.edit = false
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
+    },
+    userContent() {
+      // this.$router.push()
     }
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/users/')
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/users/')
       .then(res => {
         if (res.data.success) {
           this.users = res.data.result.map(user => {

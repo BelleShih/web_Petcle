@@ -9,6 +9,10 @@
               <p v-else>{{ discuss.row.questiontype }}</p>
             </q-td>
 
+            <q-td key="user">
+              <p>{{ discuss.row.user }}</p>
+            </q-td>
+
             <q-td key="title">
               <q-input outlined filled v-if="discuss.row.edit" v-model="discuss.row.modelTitle" />
               <p v-else>{{ discuss.row.title }}</p>
@@ -49,7 +53,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       filter: '',
       discuss: [],
@@ -65,6 +69,13 @@ export default {
           align: 'left',
           field: 'questiontype',
           format: val => `${val}`,
+          sortable: true
+        },
+        {
+          name: 'user',
+          align: 'left',
+          label: '發問人',
+          field: 'user',
           sortable: true
         },
         {
@@ -96,14 +107,14 @@ export default {
     }
   },
   methods: {
-    edit (discuss) {
+    edit(discuss) {
       discuss.row.edit = true
 
-      discuss.row.modelType = discuss.row.type
+      discuss.row.modelType = discuss.row.questiontype
       discuss.row.modelTitle = discuss.row.title
       discuss.row.modelDescription = discuss.row.description
     },
-    save (discuss) {
+    save(discuss) {
       this.axios
         .patch(process.env.VUE_APP_API + '/discuss/' + discuss.row._id, {
           title: discuss.row.modelTitle,
@@ -126,7 +137,7 @@ export default {
           console.log(err)
         })
     },
-    del (discuss) {
+    del(discuss) {
       this.axios
         .delete(process.env.VUE_APP_API + '/discuss/' + discuss.row._id)
         .then(res => {
@@ -141,18 +152,20 @@ export default {
           console.log(err)
         })
     },
-    cancel (discuss) {
+    cancel(discuss) {
       discuss.row.edit = false
       discuss.row.model = discuss.row.description
     }
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/discuss/')
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/discuss/')
       .then(res => {
         if (res.data.success) {
           this.discuss = res.data.result.map(discuss => {
             discuss.modelT = discuss.title
             discuss.modelD = discuss.description
+            discuss.modelType = discuss.questiontype
             discuss.edit = false
             return discuss
           })

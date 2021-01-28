@@ -7,38 +7,38 @@
         <!-- 標題文字區 -->
         <div class="width">
           <div class="type">
-            <p >{{ news.type }}</p>
+            <p>{{ news.type }}</p>
           </div>
           <p class="title">{{ news.title }}</p>
-          <p>{{ new Date( news.date ).toDateString()}}</p>
+          <p>{{ new Date(news.date).toDateString() }}</p>
         </div>
         <!-- 線 -->
         <div class="line" style="margin-top:1rem"></div>
         <!-- 圖片 -->
         <div class="box">
-          <img :src="news.src" class="object-fit">
+          <img :src="news.src" class="object-fit" />
         </div>
         <!-- 內容 -->
         <div class="flex flex-center width">
-          <p class="text" v-html="html(news.description)">
-          </p>
+          <p class="text" v-html="html(news.description)"></p>
         </div>
         <!-- 線 -->
         <div class="line" style="margin-bottom:2rem"></div>
-        <q-btn icon="expand_less" color="primary" :to="{ name:'front.news'}">回到最新消息</q-btn>
+        <q-btn icon="expand_less" color="primary" :to="{ name: 'front.news' }">回到最新消息</q-btn>
       </div>
     </q-layout-container>
   </q-page>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       news: []
     }
   },
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/news/' + this.$route.params.id)
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/news/' + this.$route.params.id)
       .then(res => {
         console.log(this.$route.params.id)
         if (res.data.success) {
@@ -59,10 +59,8 @@ export default {
       })
   },
   methods: {
-    html (description) {
-      return description
-        .replace(/\n/g, '<br>')
-        .replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
+    html(description) {
+      return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     }
   }
 }

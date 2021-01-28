@@ -14,7 +14,16 @@
       <q-tab-panels v-model="tab" animated>
         <!-- 隨機播放 -->
         <q-tab-panel name="tab1">
-          <q-carousel v-model="slide" swipeable animated :autoplay="autoplay" infinite height="1200px" class=" text-white rounded-borders">
+          <q-carousel
+            v-model="slide"
+            swipeable
+            animated
+            :autoplay="autoplay"
+            :fullscreen.sync="fullscreen"
+            infinite
+            height="1000px"
+            class=" text-white rounded-borders"
+          >
             <q-carousel-slide v-for="(item, index) in photo" :key="item.file" :value="item" :name="index" :img-src="item.src" />
             <template v-slot:control>
               <q-carousel-control position="bottom-right" :offset="[18, 18]">
@@ -116,7 +125,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       drawer: false,
       tab: 'tab1',
@@ -128,16 +137,16 @@ export default {
     }
   },
   computed: {
-    photo () {
+    photo() {
       return this.$store.getters.stars
     }
   },
   methods: {
-    del (index) {
+    del(index) {
       this.photo.star = false
       this.$store.commit('delPhoto', index)
     },
-    photoOpen (item) {
+    photoOpen(item) {
       this.photoOpenn = true
       this.photos = item
     }

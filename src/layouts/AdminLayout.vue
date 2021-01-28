@@ -10,7 +10,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="left" side="left" :width="300" :breakpoint="600" content-class="bg-grey-8" style="width:100%">
+    <q-drawer show-if-above v-model="left" side="left" :width="300" :breakpoint="600" content-class="bg-grey-8" class="menu">
       <q-btn class="flex flex-center justify-start" :to="{ name: 'front.index' }">
         <img id="admin_img" src="../assets/petcle-logo-w.png" />
       </q-btn>
@@ -28,12 +28,12 @@
           <q-btn class="menu_btn" icon="article" size="0.5rem" label="關於我們" :to="{ name: 'admin.about' }"></q-btn>
         </li>
         <li>
-          <q-btn class="menu_btn" icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.member' }"></q-btn>
+          <q-btn class="menu_btn" icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.members' }"></q-btn>
         </li>
         <li>
           <q-btn class="menu_btn" icon="pets" size="0.5rem" label="寵物管理" :to="{ name: 'admin.pet' }"></q-btn>
         </li>
-        <li style="margin-top:150px;">
+        <li style="margin-top:120px;">
           <q-btn class="menu_btn" icon="login" size="0.5rem" label="登出" @click="logout"></q-btn>
         </li>
       </ul>
@@ -47,14 +47,15 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       left: false
     }
   },
   methods: {
-    logout () {
-      this.axios.delete(process.env.VUE_APP_API + '/users/logout')
+    logout() {
+      this.axios
+        .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
           if (res.data.success) {
             alert('登出成功')

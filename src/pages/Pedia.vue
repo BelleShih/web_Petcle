@@ -2,11 +2,11 @@
   <q-page id="pedia" style="height:100%">
     <q-layout-container style="height:100%">
       <div class="flex flex-center" style="height:100%;margin-top:2rem">
-        <div class="row fit wrap items-start flex-center" >
+        <div class="row fit wrap flex-center">
           <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
             <q-card class="pedia-card flex column">
               <div class="flex col-6">
-                <img :src="pedia.src">
+                <img :src="pedia.src" />
               </div>
               <div class="flex col-4" style="padding:1rem">
                 <p class="text-h6 q-mt-sm q-mb-xs title">{{ pedia.title }}</p>
@@ -15,7 +15,7 @@
                 </p>
               </div>
               <div class="flex col-2 justify-end">
-                <q-btn flat color="dark" label="繼續閱讀" :to=" '/pedia/' + pedia._id "/>
+                <q-btn flat color="dark" label="繼續閱讀" :to="'/pedia/' + pedia._id" />
               </div>
             </q-card>
           </div>
@@ -26,16 +26,18 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       pedias: []
     }
   },
   // 抓全部文章
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/pedias/')
+  mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/pedias/')
       .then(res => {
         if (res.data.success) {
+          this.pedias = res.data.result.reverse()
           this.pedias = res.data.result.map(pedia => {
             pedia.src = process.env.VUE_APP_API + '/pedias/file/' + pedia.file
             return pedia

@@ -14,10 +14,8 @@
           <b style="font-size:1.5rem">關於我們 ABOUT US</b>
           <div id="about-line"></div>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aut iure alias impedit voluptate! Cumque voluptate exercitationem illo earum nemo beatae
-            rerum, voluptates est. Ab obcaecati ex optio nihil? Aspernatur perspiciatis minima pariatur sit, labore aperiam in. Corrupti eum repellat omnis
-            similique molestiae? Magnam, magni doloribus. Facilis inventore vel distinctio et nisi ab eius perspiciatis temporibus, quidem aperiam numquam earum
-            omnis ipsum molestiae ducimus, officia voluptate quibusdam incidunt veniam harum sit alias tempora asperiores architecto.
+            Petcle
+            是一個公開的寵物交流平台，使用者可以在這裡分享自己滿意的寵物照片，若有看到喜歡的照片也可以收藏在自己的空間裡面，隨時都可以回來看這些可愛寵物，療癒身心，網站不定時會發佈一些與寵物相關的消息，也會在寵物百科定期上架寵物相關文章。
           </p>
         </div>
       </div>

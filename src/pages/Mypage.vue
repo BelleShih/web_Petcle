@@ -1,7 +1,7 @@
 <template>
   <q-page id="mypage">
     <q-layout-container>
-      <div class="flex row justify-around" style="padding:50px 0">
+      <div class="row justify-around" style="padding:100px 0">
         <div class="col-12 col-md-3 flex column mypage_line">
           <div class="flex flex-center user_des">
             <q-avatar class="img" size="120px">
@@ -32,10 +32,13 @@
         <div class="col-12 col-md-8">
           <container class="flex flex-center">
             <div class="row fit wrap items-start">
-              <div class="col-6 col-md-6 col-lg-6 col-xl-3 q-pa-sm" v-for="(photo, index) in photos" :key="photo.file" :value="photo">
-                <q-card class="my-card" style="height:17rem">
-                  <img :src="photo.src" />
-                </q-card>
+              <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in photos" :key="photo.file" :value="photo">
+                <q-btn @click="photoOpen(photo)">
+                  <q-card class="my-pet-card">
+                    <img :src="photo.src" />
+                    <div class="absolute-bottom-right"></div>
+                  </q-card>
+                </q-btn>
                 <div class="q-pa-md" style="max-width: 300px">
                   <q-input v-if="photo.edit" v-model="photo.model" filled type="textarea" />
                 </div>
@@ -60,7 +63,7 @@
           <div class="col-12 flex flex-center cloumn" style="height:80%">
             <q-form @submit="onSubmit_upload" @reset="onReset_upload" style="width:80%">
               <!-- 檔案上傳 -->
-              <q-file v-model="photoFile" filled bottom-slots counter label="選擇檔案" style="margin-bottom:1rem">
+              <q-file v-model="photoFile" filled bottom-slots counter label="選擇檔案" color="secondary" style="margin-bottom:1rem">
                 <template v-slot:prepend>
                   <q-icon name="cloud_upload" @click.stop />
                 </template>
@@ -98,6 +101,32 @@
           <q-icon name="cancel" size="40px" color="white" class="absolute UPcancel" @click="uploadphoto = false"></q-icon>
         </q-card>
       </q-dialog>
+      <!-- 點擊圖片彈出拍立得視窗 -->
+      <q-dialog v-model="photoOpenn">
+        <q-card class="column pet_card">
+          <q-card-section class="row justify-end q-pb-none">
+            <q-btn icon="close" round dense v-close-popup color="primary" />
+          </q-card-section>
+          <q-card-section class="photoBox">
+            <img :src="photoopen.src" class="photo" />
+          </q-card-section>
+          <q-card-section>
+            <div>
+              <q-chip color="primary" text-color="white">
+                {{ photoopen.animal }}
+              </q-chip>
+              <q-chip color="accent" text-color="white">
+                {{ photoopen.breed }}
+              </q-chip>
+            </div>
+          </q-card-section>
+          <q-card-section style="margin:0 0 1rem 0.5rem">
+            <div>
+              {{ photoopen.description }}
+            </div>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-layout-container>
   </q-page>
 </template>
@@ -105,7 +134,7 @@
 <script>
 export default {
   name: 'Mypage',
-  data () {
+  data() {
     return {
       uploadphoto: false,
       photoFile: '',
@@ -117,30 +146,31 @@ export default {
       photos: [],
       updateSuccess: false,
       editMenu: false,
-      uploadSuccess: false
+      uploadSuccess: false,
+      photoopen: [],
+      photoOpenn: false
     }
   },
   computed: {
-    user () {
+    user() {
       return this.$store.state.user
     },
-    selectedBreed () {
+    selectedBreed() {
       return this.animalSelected.breeds
     },
-    selectedBodypart () {
+    selectedBodypart() {
       return this.animalSelected.bodypart
     }
   },
   methods: {
-    onSubmit_upload () {
+    onSubmit_upload() {
       if (this.photoFile.size > 1024 * 1024) {
         this.$swal.fire({
           icon: 'error',
           title: '錯誤',
           text: '圖片太大',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else if (!this.photoFile.type.includes('image')) {
         this.$swal.fire({
@@ -148,8 +178,15 @@ export default {
           title: '錯誤',
           text: '圖片格式錯誤',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
+        })
+      } else if (this.photoFile === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '圖片欄位不得空白',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
         })
       } else {
         const photo = new FormData()
@@ -176,6 +213,7 @@ export default {
               confirmButtonColor: '#C2B593',
               iconColor: '#56C6BF'
             })
+            this.uploadphoto = false
             // 清空
             this.photoFile = null
             this.animalSelected = ''
@@ -187,32 +225,36 @@ export default {
               icon: 'error',
               title: '錯誤',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         })
       }
     },
-    onReset_upload () {
+    onReset_upload() {
       this.photoFile = null
       this.animalSelected = ''
       this.breedSelected = ''
       this.bodySelected = ''
       this.textarea = ''
     },
-    cancel (photo) {
+    cancel(photo) {
       photo.edit = false
       photo.model = photo.des
     },
-    save (photo) {
+    save(photo) {
       this.axios
         .patch(process.env.VUE_APP_API + '/photos/' + photo._id, { description: photo.model })
         .then(res => {
           if (res.data.success) {
             photo.edit = false
             photo.des = photo.model
-            this.updateSuccess = true
+            this.$swal.fire({
+              icon: 'success',
+              title: '更新成功',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#56C6BF'
+            })
           } else {
             this.$swal.fire({
               icon: 'error',
@@ -228,16 +270,22 @@ export default {
           console.log(err)
         })
     },
-    edit (photo) {
+    edit(photo) {
       photo.edit = true
       photo.model = photo.des
     },
-    del (photo, index) {
+    del(photo, index) {
       this.axios
         .delete(process.env.VUE_APP_API + '/photos/' + photo._id)
         .then(res => {
           if (res.data.success) {
             this.photos.splice(index, 1)
+            this.$swal.fire({
+              icon: 'success',
+              title: '刪除成功',
+              confirmButtonColor: '#C2B593',
+              iconColor: '#56C6BF'
+            })
           } else {
             this.$swal.fire({
               icon: 'error',
@@ -252,11 +300,16 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    photoOpen(photo) {
+      this.photoOpenn = true
+      this.photoopen = photo
     }
   },
   // 抓全部的動物資料
-  mounted () {
-    this.axios.get(process.env.VUE_APP_API + '/animals/')
+  async mounted() {
+    this.axios
+      .get(process.env.VUE_APP_API + '/animals/')
       .then(res => {
         if (res.data.success) {
           this.animals = res.data.result
@@ -265,8 +318,7 @@ export default {
             icon: 'error',
             title: '錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })
@@ -274,14 +326,19 @@ export default {
         console.log(err)
       })
     // 抓使用者的圖片資料
-    this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)
+    await this.axios
+      .get(process.env.VUE_APP_API + '/photos/user/' + this.user.id)
       .then(res => {
         if (res.data.success) {
           this.photos = res.data.result.map(photo => {
             photo.src = process.env.VUE_APP_API + '/photos/file/' + photo.file
             photo.des = photo.description
             photo.model = photo.description
+            photo.breed = photo.breeds
+            photo.bodypart = photo.bodyparts
             photo.edit = false
+            delete photo.breeds
+            delete photo.bodyparts
             return photo
           })
         } else {
@@ -289,14 +346,40 @@ export default {
             icon: 'error',
             title: '錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })
       .catch(err => {
         console.log(err)
       })
+    // 抓動物品種、類型、部位的name出來
+    await this.photos.map(item => {
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
+        .then(res => {
+          item.breed = res.data.breed.name
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id)
+        .then(res => {
+          item.bodypart = res.data.body.name
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      this.axios
+        .get(process.env.VUE_APP_API + '/photos/animals/' + item._id)
+        .then(res => {
+          item.animal = res.data.animal
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    })
   }
 }
 </script>

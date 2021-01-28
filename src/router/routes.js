@@ -169,8 +169,17 @@ const routes = [
       },
       {
         path: 'member',
-        name: 'admin.member',
+        name: 'admin.members',
         component: () => import('pages/AdminMember.vue'),
+        meta: {
+          title: 'Petcle | 用戶管理',
+          login: true
+        }
+      },
+      {
+        path: 'member/:id',
+        name: 'admin.member',
+        component: () => import('pages/AdminMemberContent.vue'),
         meta: {
           title: 'Petcle | 用戶管理',
           login: true
