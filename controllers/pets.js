@@ -212,10 +212,6 @@ export const getUserPet = async (req, res) => {
 
 // 取得指定寵物
 export const getPet = async (req, res) => {
-  if (req.session.user === undefined) {
-    res.status(401).send({ success: false, message: '未登入' })
-    return
-  }
   try {
     const result = await pets.findById(req.params.id)
     res.status(200).send({ success: true, message: '', result })
