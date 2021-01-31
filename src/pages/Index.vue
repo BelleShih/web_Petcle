@@ -31,7 +31,8 @@
             <q-btn rounded id="search-btn" type="submit" @click="filterPhoto()">搜尋</q-btn>
           </q-input>
         </div>
-        <q-btn rounded class="col-xs-10 col-md-8 col-lg-1 random_btn" @click="random()" style="margin-top:1.2rem">隨機療癒</q-btn>
+        <q-btn rounded class="col-xs-10 col-md-8 col-lg-1 random_btn" @click="random()" style="margin-top:1.2rem">
+          <q-icon name="help_outline" size="1.2rem" style="margin-right:0.5rem"></q-icon>隨機療癒</q-btn>
       </div>
       <!-- 照片展示 -->
       <q-page-container class="flex flex-center page">
@@ -75,7 +76,7 @@
               {{ photos[rand].description }}
             </div>
             <div class="absolute-bottom-right" style="margin-right:1rem">
-              <q-btn v-if="photos[rand].star === false" flat round color="negative" icon="star_border" @click="like(photos[rand])" />
+              <q-btn v-if="photos[rand].star === false" flat round color="negative" icon="star_border" @click="like_rand(photos[rand])" />
               <q-btn v-else flat round color="red-9" icon="star" @click="del(index)" />
             </div>
           </q-card-section>
@@ -111,13 +112,37 @@ export default {
       filter: '',
       filtermodel: '',
       randomCard: false,
-      rand: 0
+      rand: 0,
+      ranPhoto: []
     }
   },
   methods: {
     like(photo) {
-      photo.star = true
-      this.$store.commit('like', photo)
+      if (this.user.account === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '儲存失敗',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593'
+        })
+      } else {
+        photo.star = true
+        this.$store.commit('like', photo)
+      }
+    },
+    like_rand(item) {
+      if (this.user.account === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '儲存失敗',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593'
+        })
+      } else {
+        this.ranPhoto = item
+        this.ranPhoto.star = true
+        this.$store.commit('like', this.ranPhoto)
+      }
     },
     del(index) {
       this.$store.commit('delPhoto', index)

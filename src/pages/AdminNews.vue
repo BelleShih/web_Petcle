@@ -3,7 +3,7 @@
     <q-layout-container>
       <q-table :grid="$q.screen.xs" :data="news" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
         <template v-slot:body="newss">
-          <q-tr :props="newss">
+          <q-tr :props="newss" >
             <q-td key="type">
               <q-input outlined filled v-if="newss.row.edit" v-model="newss.row.modelType" />
               <p v-else>{{ newss.row.type }}</p>

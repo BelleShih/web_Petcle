@@ -47,6 +47,7 @@
         </template>
         <template v-slot:top-left>
           <h6 class="adminTitle">寵物管理</h6>
+          <q-btn rounded icon="arrow_back" color="primary" style="width:40px" :to="{ name: 'admin.member' }"/>
         </template>
         <!-- 搜尋框 -->
         <template v-slot:top-right>

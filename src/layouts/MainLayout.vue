@@ -204,7 +204,7 @@
             </div>
             <div class="login-line"></div>
             <div class="login-btn flex flex-center">
-              <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px" />
+              <q-btn rounded label="登入" type="submit" color="secondary" size="1.1rem" style="margin-right:1rem;width:80px" @keyup.enter="onSubmit_log()"/>
               <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px" />
             </div>
           </q-form>
@@ -355,7 +355,25 @@ export default {
   },
   methods: {
     onSubmit_reg() {
-      if (this.accountState_reg && this.passwordState_reg && this.nameState && this.emailState && this.reg.pet !== null) {
+      if (this.reg.password1 !== this.reg.password2) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '註冊失敗',
+          text: '密碼認證不一致',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      }
+      if (this.reg.pet === null) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '註冊失敗',
+          text: '請選擇寵物狀態',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      }
+      if ((this.reg.password1 === this.reg.password2) && this.accountState_reg && this.passwordState_reg && this.nameState && this.emailState && this.reg.pet !== null) {
         this.axios
           .post(process.env.VUE_APP_API + '/users/', this.reg)
           .then(res => {
@@ -364,8 +382,7 @@ export default {
                 icon: 'success',
                 title: '註冊成功',
                 confirmButtonColor: '#C2B593',
-                iconColor: '#56C6BF',
-                border: 'none'
+                iconColor: '#56C6BF'
               })
               this.registeredPage = false
               this.log.account = ''
@@ -376,8 +393,7 @@ export default {
                 icon: 'error',
                 title: '發生錯誤',
                 confirmButtonColor: '#C2B593',
-                iconColor: '#8d2430',
-                border: 'none'
+                iconColor: '#8d2430'
               })
             }
           })
@@ -397,8 +413,7 @@ export default {
                 icon: 'success',
                 title: '登入成功',
                 confirmButtonColor: '#C2B593',
-                iconColor: '#56C6BF',
-                border: 'none'
+                iconColor: '#56C6BF'
               })
               this.log.account = ''
               this.log.password = ''
@@ -410,8 +425,7 @@ export default {
                 title: '錯誤',
                 text: '登入失敗',
                 confirmButtonColor: '#C2B593',
-                iconColor: '#8d2430',
-                border: 'none'
+                iconColor: '#8d2430'
               })
             }
           })
@@ -503,7 +517,7 @@ export default {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()
-    }, 50000)
+    }, 5000)
   }
 }
 </script>

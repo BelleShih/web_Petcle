@@ -58,6 +58,9 @@
       <q-dialog v-model="uploadphoto">
         <q-card id="upload_dialog" class="flex row">
           <div class="col-12 flex flex-center" style="background: #56C6BF;height:20%">
+            <div class="flex justify-end" style="width:100%">
+              <q-btn icon="close" flat round dense v-close-popup color="white" />
+            </div>
             <p class="upload_title">上傳照片</p>
           </div>
           <div class="col-12 flex flex-center cloumn" style="height:80%">
@@ -98,7 +101,6 @@
               </div>
             </q-form>
           </div>
-          <q-icon name="cancel" size="40px" color="white" class="absolute UPcancel" @click="uploadphoto = false"></q-icon>
         </q-card>
       </q-dialog>
       <!-- 點擊圖片彈出拍立得視窗 -->

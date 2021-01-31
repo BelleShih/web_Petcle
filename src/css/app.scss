@@ -184,7 +184,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 #no-member-text {
-  margin: 1.5rem 0 0 0;
+  margin: 1.5rem 0 0 1.4rem;
   letter-spacing: 0.1rem;
   a {
     color: $petcolor03;
@@ -690,7 +690,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     color: white;
     font-weight: 800;
     letter-spacing: 0.2rem;
-    padding-left: 10px;
   }
 }
 
@@ -698,13 +697,13 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   height: 100%;
   position: relative;
   @include xs {
-    left: 39%;
+    left: 41.5%;
   }
   @include sm {
-    left: 50%;
+    left: 2%;
   }
   @include md {
-    top: -150px;
+    top: -80px;
     left: -5%;
   }
   @include lg {
@@ -745,7 +744,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   color: black;
   letter-spacing: normal;
   word-spacing: normal;
-  text-indent: 0px;
+  text-indent: 5px;
   display: inline-block;
   text-align: start;
   -webkit-appearance: textarea;
@@ -2289,7 +2288,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 // 寄信紀錄搜尋框
-#sendMail {
+#sendMails {
   input.q-field__native {
     width: 280px;
     height: 40px;

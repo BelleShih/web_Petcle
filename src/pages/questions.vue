@@ -287,7 +287,7 @@
     </q-dialog>
     <!-- 我要發問按鈕 -->
     <div class="q-pa-md q-gutter-lg que-btn">
-      <q-btn round size="35px" color="primary" @click="quedialog = true" />
+      <q-btn round size="35px" color="primary" @click="quedialog = true" style="box-shadow:0px 0px 10px #eee"/>
       <p>我要發問</p>
     </div>
     <!-- 發問視窗 -->
@@ -295,7 +295,7 @@
       <q-card id="quedialog" class="flex row">
         <div class="col-12 flex flex-center column top">
           <div class="flex justify-end" style="width:100%">
-            <q-btn icon="close" flat round dense v-close-popup color="white" />
+            <q-btn icon="close" flat round dense v-close-popup color="white"/>
           </div>
           <p class="title">我要發問</p>
         </div>
