@@ -25,10 +25,10 @@
           <q-btn class="menu_btn" icon="emoji_objects" size="0.5rem" label="寵物百科" :to="{ name: 'admin.pedia' }"></q-btn>
         </li>
         <li>
-          <q-btn class="menu_btn" icon="article" size="0.5rem" label="關於我們" :to="{ name: 'admin.about' }"></q-btn>
+          <q-btn class="menu_btn" icon="mail" size="0.5rem" label="聯絡我們" :to="{ name: 'admin.contact' }"></q-btn>
         </li>
         <li>
-          <q-btn class="menu_btn" icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.members' }"></q-btn>
+          <q-btn class="menu_btn" icon="supervisor_account" size="0.5rem" label="用戶管理" :to="{ name: 'admin.member' }"></q-btn>
         </li>
         <li>
           <q-btn class="menu_btn" icon="pets" size="0.5rem" label="寵物管理" :to="{ name: 'admin.pet' }"></q-btn>

@@ -417,8 +417,7 @@ export default {
           title: '上傳錯誤',
           text: '請先登入會員',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else {
         const reply = { description: this.modelFeedback }
@@ -432,8 +431,7 @@ export default {
               title: '錯誤',
               text: '回覆失敗',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         })
@@ -446,8 +444,7 @@ export default {
           title: '發送失敗',
           text: '請先登入會員',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else {
         const reply = {
@@ -466,8 +463,7 @@ export default {
               icon: 'success',
               title: '發送成功',
               confirmButtonColor: '#C2B593',
-              iconColor: '#56C6BF',
-              border: 'none'
+              iconColor: '#56C6BF'
             })
             this.quedialog = false
           } else {
@@ -476,8 +472,7 @@ export default {
               title: '錯誤',
               text: '送出失敗',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         })
@@ -490,8 +485,7 @@ export default {
           title: '錯誤',
           text: '請先登入會員',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else {
         this.fbUser = fb
@@ -508,8 +502,7 @@ export default {
           title: '錯誤',
           text: '請先登入會員',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else {
         this.$router.push(this.getPet[0] ? '/petpage/' + this.getPet[0]._id : '')

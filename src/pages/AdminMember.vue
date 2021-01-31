@@ -6,7 +6,7 @@
           <q-tr :props="user">
             <q-td key="name">
               <q-input outlined filled v-if="user.row.edit" v-model="user.row.modelName" />
-              <q-btn v-else :to="'/admin/member/' + user.row._id">{{ user.row.name }}</q-btn>
+              <p v-else>{{ user.row.name }}</p>
             </q-td>
 
             <q-td key="account">
@@ -24,6 +24,14 @@
                 <q-radio v-model="modelPet" val="false" label="否" />
               </div>
               <p v-else>{{ user.row.pet }}</p>
+            </q-td>
+
+            <q-td>
+              <q-btn rounded icon="pets" color="secondary" @click="goPet(user)"></q-btn>
+            </q-td>
+
+            <q-td>
+              <q-btn icon="photo" coloe="primary" :to="'/admin/member/' + user.row._id"></q-btn>
             </q-td>
 
             <q-td key="actions">
@@ -61,6 +69,8 @@ export default {
       modelName: '',
       modelEmail: '',
       modelPet: 'false',
+      allPets: [],
+      userDes: [],
       // 表格標題
       titles: [
         {
@@ -94,11 +104,30 @@ export default {
           sortable: true
         },
         {
+          name: 'userpet',
+          label: '寵物管理',
+          align: 'left'
+        },
+        {
+          name: 'photos',
+          label: '照片管理',
+          align: 'left'
+        },
+        {
           name: 'actions',
           label: '編輯',
           align: 'left'
         }
       ]
+    }
+  },
+  computed: {
+    userPet () {
+      return this.allPets.filter(pet => {
+        if (this.userDes._id === pet.user) {
+          return pet
+        }
+      })
     }
   },
   methods: {
@@ -156,8 +185,9 @@ export default {
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
     },
-    userContent() {
-      // this.$router.push()
+    goPet(user) {
+      this.userDes = user.row
+      this.$router.push(this.userPet[0] ? '/admin/pet/' + this.userPet[0]._id : '')
     }
   },
   mounted() {
@@ -171,6 +201,19 @@ export default {
             user.modelEmail = user.email
             user.edit = false
             return user
+          })
+        } else {
+          alert('錯誤')
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    this.axios.get(process.env.VUE_APP_API + '/pets/')
+      .then(res => {
+        if (res.data.success) {
+          this.allPets = res.data.result.map(pet => {
+            return pet
           })
         } else {
           alert('錯誤')

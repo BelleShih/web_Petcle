@@ -57,59 +57,99 @@
     <!-- 註冊 -->
     <q-dialog v-model="registeredPage" style="width:100%">
       <q-card id="reg_dialog" class="flex row">
-        <q-card-section class="col-xs-12 col-sm-12 col-md-12 col-xl-5" style="background:#C2B593">
+        <q-card-section class="col-xs-12 col-sm-12 col-md-5 col-xl-5 left">
           <div class="flex flex-center q-my-md column welcome">
             WELCOME
             <img id="registered-logo" src="../assets/petcle-logo-w.png" />
+            <div class="registered-font col-12">會員註冊</div>
           </div>
         </q-card-section>
-        <q-card-section class="col-12 col-md-12 col-xl-7 flex flex-center column">
-          <div class="registered-font">會員註冊</div>
-          <div class="flex flex-center items-center">
-            <q-form @submit.prevent="onSubmit_reg" @reset="onReset_reg" class="q-gutter-md registered-form">
-              <div class="registered-input">
-                名稱
-                <input v-model="reg.name" placeholder="請輸入名稱" type="text" :state="nameState" style="position:relative;left:45px" required />
-              </div>
-              <div class="registered-input">
-                帳號
-                <input v-model="reg.account" placeholder="請輸入帳號" type="text" :state="accountState_reg" style="position:relative;left:45px" required />
-              </div>
-              <div class="registered-input">
-                密碼
-                <input
-                  v-model="reg.password1"
-                  placeholder="請輸入密碼"
-                  type="password"
-                  :state="passwordState_reg"
-                  style="position:relative;left:45px"
-                  required
-                />
-              </div>
-              <div class="registered-input">
-                確認密碼
-                <input v-model="reg.password2" placeholder="請再次輸入密碼" type="password" style="position:relative;left:12px" required />
-              </div>
-              <div class="registered-input">
-                E-MAIL
-                <input v-model="reg.email" placeholder="請輸入Email" type="email" :state="emailState" style="position:relative;left:20px" required />
-              </div>
-              <div class="q-gutter-sm registered-input">
-                是否有養寵物
-                <q-radio v-model="reg.pet" type="radio" :val="true" label="是" />
-                <q-radio v-model="reg.pet" type="radio" :val="false" label="否" />
-              </div>
-              <div class="registered-btn flex flex-center">
-                <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px" />
-                <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px" />
-              </div>
-            </q-form>
-          </div>
+        <q-card-section class="col-xs-12 col-sm-12 col-md-7 col-xl-7 flex flex-center column">
+          <q-form @submit.prevent="onSubmit_reg" @reset="onReset_reg" class="flex justify-center registered-form">
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">名稱</div>
+              <q-input
+              v-model="reg.name"
+              placeholder="請輸入名稱"
+              type="text"
+              :state="nameState"
+              required
+              class="input col-7"
+              :rules="[
+                val => !!val || '* 必填'
+              ]" />
+            </div>
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">帳號</div>
+              <q-input
+              v-model="reg.account"
+              placeholder="請輸入帳號"
+              type="text"
+              :state="accountState_reg"
+              required
+              class="input col-7"
+              :rules="[
+                val => !!val || '* 必填',
+                val => val && val.length >= 4 || '帳號為4個字(含)以上'
+              ]" />
+            </div>
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">密碼</div>
+              <q-input
+                v-model="reg.password1"
+                placeholder="請輸入密碼"
+                type="password"
+                :state="passwordState_reg"
+                required
+                class="input col-7"
+                :rules="[
+                  val => !!val || '* 必填',
+                  val => val && val.length >= 4 || '密碼為4個字(含)以上'
+                ]"
+              />
+            </div>
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">確認密碼</div>
+              <q-input
+              v-model="reg.password2"
+              placeholder="請再次輸入密碼"
+              type="password"
+              required
+              class="input col-7"
+              :rules="[
+                val => !!val || '* 請再次輸入密碼'
+              ]"
+              />
+            </div>
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">E-MAIL</div>
+              <q-input
+              v-model="reg.email"
+              placeholder="請輸入Email"
+              type="email"
+              :state="emailState"
+              required
+              class="input col-7"
+              :rules="[
+                val => !!val || '* 必填',
+                val => val.includes('@') || '請輸入電子信箱正確格式'
+              ]" />
+            </div>
+            <div class="q-gutter-sm registered-input row flex-center">
+              是否有養寵物
+              <q-radio v-model="reg.pet" type="radio" :val="true" label="是" />
+              <q-radio v-model="reg.pet" type="radio" :val="false" label="否" />
+            </div>
+            <div class="registered-btn flex flex-center">
+              <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px" />
+              <q-btn rounded label="重置" type="reset" color="accent" size="1.1rem" style="width:80px" />
+            </div>
+          </q-form>
         </q-card-section>
       </q-card>
     </q-dialog>
     <!-- 登入 -->
-    <q-dialog v-model="loginPage">
+    <q-dialog v-model="loginPage" id="login">
       <q-card style="width: 500px; max-width: 80vw; height: 600px">
         <q-card-section>
           <div class="flex flex-center q-my-md">
@@ -121,15 +161,36 @@
           <div class="login-font">會員登入</div>
           <div class="login-line"></div>
         </q-card-section>
-        <div class="q-pa-md flex flex-center items-center login-input-div">
-          <q-form @submit="onSubmit_log" @reset="onReset_log" class="q-gutter-md">
-            <div class="login-input text-center">
-              帳號
-              <input v-model="log.account" placeholder="請輸入帳號" type="text" :state="accountState" required />
+        <div class="q-pa-md flex justify-around login-input-div">
+          <q-form @submit="onSubmit_log" @reset="onReset_log" class="q-gutter-md flex  flex-center">
+            <div class="row flex-center login-input">
+              <div class="account_text col-2">帳號</div>
+              <q-input
+              v-model="log.account"
+              placeholder="請輸入帳號"
+              type="text"
+              :state="accountState"
+              required
+              class="input col-6"
+              :rules="[
+                val => !!val || '* 必填',
+                val => val && val.length > 3 || '帳號為3個字以上'
+              ]"
+              />
             </div>
-            <div class="login-input text-center">
-              密碼
-              <input v-model="log.password" placeholder="請輸入密碼" type="password" :state="passwordState" required />
+            <div class="row flex-center login-input">
+              <div class="account_text col-2">密碼</div>
+                <q-input
+                v-model="log.password"
+                placeholder="請輸入密碼"
+                type="password"
+                :state="passwordState"
+                required
+                class="input col-6"
+                :rules="[
+                  val => !!val || '* 必填',
+                  val => val && val.length > 3 || '密碼為3個字以上'
+                ]"/>
             </div>
             <div id="no-member-text" class="text-center">
               <a

@@ -108,6 +108,42 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 // 登入--------------------------------------------
 // 調整登入圓角
+#login {
+  .q-field--standard .q-field__control:before {
+    border-bottom: none;
+  }
+  .q-field--standard .q-field__control:after {
+    background: transparent
+  }
+  q-input{
+    text-indent: 30px;
+  }
+
+  .login-input {
+    width: 100%;
+    font-size: 1.2rem;
+    color: $petcolor03;
+    font-weight: 700;
+    margin-right: 2rem;
+    .account_text {
+      margin: -0.9rem 1rem 0 0;
+      text-align: right;
+    }
+    input {
+      border-radius: 50px;
+      text-indent: 20px;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+
+    .q-field__control {
+      background:#eee;
+      border-radius: 50px;
+      height: 56px;
+      max-width: 100%
+    }
+  }
+}
 .q-dialog__inner > div {
   border-radius: 15px;
 }
@@ -137,28 +173,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   margin-top: 1rem;
 }
 
-.login-input {
-  font-size: 1.2rem;
-  color: $petcolor03;
-  font-weight: 700;
-  margin: 2rem 3rem;
-  input {
-    width: 200px;
-    height: 40px;
-    border-radius: 50px;
-    margin-left: 1rem;
-    text-indent: 10px;
-    border: none;
-    background: rgb(235, 235, 235);
-    font-weight: 300;
-    font-size: 1rem;
-    height: calc(1.5em + 0.75rem + 2px);
-    outline: none;
-  }
-}
-
 .login-btn {
-  padding-top: 2rem;
+  padding-top: 1rem;
 
   &:nth-child(2) {
     background-color: $petcolor03;
@@ -168,7 +184,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 #no-member-text {
-  margin-bottom: 2rem;
+  margin: 1.5rem 0 0 0;
   letter-spacing: 0.1rem;
   a {
     color: $petcolor03;
@@ -181,29 +197,87 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 #reg_dialog {
   @include xs {
     width: 95%;
-    height: 70%;
+    height: 90%;
     flex-direction: column;
     flex-wrap: nowrap;
   }
   @include sm {
     width: 90%;
-    height: 80%;
+    height: 70%;
     flex-direction: column;
   }
   @include md {
     width: 80%;
-    height: 80%;
+    height: 90%;
     flex-direction: column;
   }
   @include lg {
-    width: 90%;
-    height: 80%;
+    width: 70%;
+    height: 90%;
     flex-direction: row;
   }
   @include xl {
     width: 60%;
-    height: 70%;
+    height: 85%;
     flex-direction: row;
+  }
+
+  .q-field--standard .q-field__control:before {
+    border-bottom: none;
+  }
+  .q-field--standard .q-field__control:after {
+    background: transparent
+  }
+  q-input{
+    text-indent: 30px;
+  }
+
+  .registered-input {
+    width: 100%;
+    font-size: 1.2rem;
+    color: $petcolor03;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    .account_text {
+      margin: -0.9rem 1rem 0 0;
+    }
+    input {
+      border-radius: 50px;
+      text-indent: 20px;
+      font-weight: 300;
+      font-size: 1rem;
+    }
+
+    .q-field__control {
+      background:#eee;
+      border-radius: 50px;
+      height: 56px;
+      max-width: 100%
+    }
+  }
+
+  .registered-font {
+    height: 40px;
+    font-size: 1.3rem;
+    letter-spacing: 1rem;
+    color: white;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 3.5rem;
+  }
+
+  .left {
+    background:#C2B593;
+    @include sm {
+      height: 100%;
+    }
+    @include md {
+      height: 100%;
+    }
+  }
+
+  .registered-form {
+    padding: 1rem;
   }
 }
 
@@ -261,54 +335,42 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
-.registered-font {
-  font-size: 1.5rem;
-  letter-spacing: 1rem;
-  margin-bottom: 1.5rem;
-  color: $petcolor01;
-  font-weight: 800;
-  text-align: center;
-}
 
-.registered-form {
-  position: relative;
-  top: 20px;
-  left: 10px;
-}
 
-.registered-input {
-  color: $petcolor03;
-  font-size: 1rem;
-  input {
-    width: 200px;
-    height: 40px;
-    border-radius: 50px;
-    margin-bottom: 0.7rem;
-    text-indent: 10px;
-    border: none;
-    background: rgb(235, 235, 235);
-    font-weight: 300;
-    font-size: 1rem;
-    height: calc(1.5em + 0.75rem + 2px);
-    outline: none;
-  }
-  @include xs {
-    font-weight: 500;
-    margin: 0rem 0rem;
-  }
-  @include sm {
-    font-weight: 500;
-    margin: 1rem 0rem;
-  }
-  @include md {
-    font-weight: 500;
-    margin: 1rem 0rem;
-  }
-  @include lg {
-    font-weight: 700;
-    margin: 1rem 3rem;
-  }
-}
+
+// .registered-input {
+//   color: $petcolor03;
+//   font-size: 1rem;
+//   input {
+//     width: 200px;
+//     height: 40px;
+//     border-radius: 50px;
+//     margin-bottom: 0.7rem;
+//     text-indent: 10px;
+//     border: none;
+//     background: rgb(235, 235, 235);
+//     font-weight: 300;
+//     font-size: 1rem;
+//     height: calc(1.5em + 0.75rem + 2px);
+//     outline: none;
+//   }
+//   @include xs {
+//     font-weight: 500;
+//     margin: 0rem 0rem;
+//   }
+//   @include sm {
+//     font-weight: 500;
+//     margin: 1rem 0rem;
+//   }
+//   @include md {
+//     font-weight: 500;
+//     margin: 1rem 0rem;
+//   }
+//   @include lg {
+//     font-weight: 700;
+//     margin: 1rem 3rem;
+//   }
+// }
 
 // index 搜尋列區--------------------------------------------
 #index {
@@ -683,9 +745,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   color: black;
   letter-spacing: normal;
   word-spacing: normal;
-  text-transform: none;
   text-indent: 0px;
-  text-shadow: none;
   display: inline-block;
   text-align: start;
   -webkit-appearance: textarea;
@@ -697,7 +757,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   overflow-wrap: break-word;
   margin: 0em;
   font: 400 13.3333px Arial;
-  font-size: 1.3rem;
+  font-size: 0.8rem;
   border: 1px solid white;
   padding: 1rem;
   &::placeholder {
@@ -2122,6 +2182,39 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   .q-dialog__inner > div {
     box-shadow: none;
   }
+
+  // .mailSearch {
+    
+  //   border: 1px solid $petcolor02;
+  //   border-radius: 100px;
+  //   text-indent: 40px !important;
+  //   margin-bottom: 0.2rem;
+
+  //   &:focus {
+  //     border: 2px solid $petcolor02;
+  //   }
+  // }
+
+  input.q-field__native {
+    width: 280px;
+    height: 40px;
+    border: 1px solid $petcolor02;
+    border-radius: 100px;
+    text-indent: 40px;
+    margin-bottom: 0.2rem;
+    margin-right: 1rem;
+
+    &:focus {
+      border: 2px solid $petcolor02;
+    }
+  }
+  // 放大鏡 icon
+  #search-icon {
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    color: $petcolor02;
+  }
 }
 
 .getName {
@@ -2192,6 +2285,30 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     font-weight: 600;
     font-size: 1rem;
     letter-spacing: 0.1rem;
+  }
+}
+
+// 寄信紀錄搜尋框
+#sendMail {
+  input.q-field__native {
+    width: 280px;
+    height: 40px;
+    border: 1px solid $petcolor01;
+    border-radius: 100px;
+    text-indent: 40px;
+    margin-bottom: 0.2rem;
+    margin-right: 1rem;
+
+    &:focus {
+      border: 2px solid $petcolor01;
+    }
+  }
+  // 放大鏡 icon
+  #search-icon {
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    color: $petcolor01;
   }
 }
 

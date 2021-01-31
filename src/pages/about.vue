@@ -54,33 +54,115 @@
           <div class="flex flex-center row form_border">
             <div class="col-xs-12 col-md-2 col-lg-2 flex column about_left" style="color:white">
               <h6 style="margin-bottom:0.3rem">聯絡我們</h6>
-              <p>CONTENT US</p>
+              <p>CONTACT US</p>
               <div id="form_line"></div>
             </div>
-            <div class="col-xs-12 col-md-8 col-lg-8 flex column">
+            <q-form class="col-xs-12 col-md-8 col-lg-8 flex column">
               <div class="col-12 col-md-8 col-lg-8 flex row flex-center">
                 <div class="flex column col-12 col-lg-6">
                   <div class="about_input_div">
                     <input v-model="sender" placeholder="寄件者" class="about_input" />
                   </div>
                   <div class="about_input_div">
-                    <input v-model="sender" placeholder="電子信箱" class="about_input" />
+                    <input v-model="mail" placeholder="電子信箱" class="about_input" />
                   </div>
                   <div class="about_input_div">
-                    <input v-model="sender" placeholder="主旨" :dense="dense" class="about_input" />
+                    <input v-model="title" placeholder="主旨" :dense="dense" class="about_input" />
                   </div>
                 </div>
                 <div class="flex col-12 col-lg-6 about_textarea ">
-                  <textarea v-model="FormText" type="textarea" color="secondary" maxlength="50" placeholder="想說的話" />
+                  <textarea v-model="description" type="textarea" color="secondary" maxlength="50" placeholder="想說的話" />
                 </div>
               </div>
               <div class="col-12 col-md-2 col-lg-2 form_btn">
-                <q-btn color="white" class="full-width" label="送出" />
+                <q-btn color="white" class="full-width" label="送出" @click="onSubmit_mail()"/>
               </div>
-            </div>
+            </q-form>
           </div>
         </q-form>
       </div>
     </q-layout-container>
   </q-page>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      sender: '',
+      mail: '',
+      title: '',
+      description: ''
+    }
+  },
+  methods: {
+    onSubmit_mail() {
+      if (this.sender === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請填寫寄件者',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else if (this.mail === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請填寫信箱',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else if (this.title === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請填寫主旨',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else if (this.description === '') {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請填寫想說的話',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else {
+        const mail = {
+          sender: this.sender,
+          mail: this.mail,
+          title: this.title,
+          description: this.description
+        }
+        this.axios.post(process.env.VUE_APP_API + '/contacts/', mail)
+          .then(res => {
+            if (res.data.success) {
+              this.$swal.fire({
+                icon: 'success',
+                title: '發送成功',
+                text: '親愛的使用者您好，您的來信已收到，我們會盡快處理及回覆，謝謝！',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#56C6BF'
+              })
+              this.sender = ''
+              this.mail = ''
+              this.title = ''
+              this.description = ''
+            } else {
+              this.$swal.fire({
+                icon: 'error',
+                title: '錯誤',
+                text: '回覆失敗',
+                confirmButtonColor: '#C2B593',
+                iconColor: '#8d2430'
+              })
+            }
+          })
+      }
+    }
+  }
+
+}
+</script>

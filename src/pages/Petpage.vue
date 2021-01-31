@@ -123,7 +123,13 @@
       <!-- 信件 -->
       <div class="center">
         <q-card-section class="column">
-          <div v-for="mail in allMail" :value="mail" :key="mail._id" class="row items-center newMail">
+          <q-input borderless dense debounce="300" v-model="filtermodel" @keyup.enter="filterMail()" class="mailSearch">
+            <template v-slot:append>
+              <q-icon id="search-icon" name="search" />
+            </template>
+            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail()" color="secondary"/>
+          </q-input>
+          <div v-for="mail in filteredMail" :value="mail" :key="mail._id" class="row items-center newMail">
             <!-- 寄件人資訊 -->
             <div class="row justify-center sender mr-auto">
               <q-avatar size="1.8rem">
@@ -211,9 +217,15 @@
         </q-card-section>
       </div>
       <!-- 信件 -->
-      <div class="center">
+      <div class="center" id="sendMail">
         <q-card-section class="column">
-          <div v-for="mail in getMailRecord" :value="mail" :key="mail._id" class="row items-center newMail">
+          <q-input borderless dense debounce="300" v-model="filtermodel_02" @keyup.enter="filterMail_02()">
+            <template v-slot:append>
+              <q-icon id="search-icon" name="search" />
+            </template>
+            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail_02()" color="primary"/>
+          </q-input>
+          <div v-for="mail in filteredMail_02" :value="mail" :key="mail._id" class="row items-center newMail">
             <!-- 寄件人資訊 -->
             <div class="row justify-center sender mr-auto">
               <q-icon name="reply" style="padding-top:0.4rem" label="寄給 :" size="1.5rem" />
@@ -281,7 +293,11 @@ export default {
       checkReMail: false,
       reMailopen: [],
       forMail: [],
-      getMailRecord: []
+      getMailRecord: [],
+      filter: '',
+      filtermodel: '',
+      filter_02: '',
+      filtermodel_02: ''
     }
   },
   computed: {
@@ -335,6 +351,68 @@ export default {
         if (this.reMailopen.forId === item.user) {
           return item
         }
+      })
+    },
+    // 收信 filter
+    filteredMail() {
+      return this.allMail.filter(mail => {
+        const keyword = this.filter.toUpperCase()
+        if (
+          mail.title
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        if (
+          mail.description
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        if (
+          mail.sendUser
+            .toString()
+            .toUpperCase()
+            .includes(keyword)
+        ) {
+          return true
+        }
+        return false
+      })
+    },
+    // 寄信 filter
+    filteredMail_02() {
+      return this.getMailRecord.filter(mail => {
+        const keyword02 = this.filter_02.toUpperCase()
+        if (
+          mail.title
+            .toString()
+            .toUpperCase()
+            .includes(keyword02)
+        ) {
+          return true
+        }
+        if (
+          mail.description
+            .toString()
+            .toUpperCase()
+            .includes(keyword02)
+        ) {
+          return true
+        }
+        if (
+          mail.forName
+            .toString()
+            .toUpperCase()
+            .includes(keyword02)
+        ) {
+          return true
+        }
+        return false
       })
     }
   },
@@ -579,6 +657,12 @@ export default {
     },
     reMailOpenUser(reMailopen) {
       this.$router.push(this.froMailName[0] ? '/petpage/' + this.froMailName[0]._id : '')
+    },
+    filterMail(filter) {
+      this.filter = this.filtermodel
+    },
+    filterMail_02(filter) {
+      this.filter_02 = this.filtermodel_02
     }
   },
   mounted() {
@@ -593,8 +677,7 @@ export default {
             icon: 'error',
             title: '錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })
@@ -624,8 +707,7 @@ export default {
             title: '錯誤',
             text: '檔案格式錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })

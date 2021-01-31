@@ -141,11 +141,11 @@ const routes = [
         }
       },
       {
-        path: 'about',
-        name: 'admin.about',
-        component: () => import('pages/AdminAbout.vue'),
+        path: 'Contact',
+        name: 'admin.contact',
+        component: () => import('pages/AdminContact.vue'),
         meta: {
-          title: 'Petcle | 關於我們管理',
+          title: 'Petcle | 聯絡我們信件管理',
           login: true
         }
       },
@@ -169,7 +169,7 @@ const routes = [
       },
       {
         path: 'member',
-        name: 'admin.members',
+        name: 'admin.member',
         component: () => import('pages/AdminMember.vue'),
         meta: {
           title: 'Petcle | 用戶管理',
@@ -178,7 +178,7 @@ const routes = [
       },
       {
         path: 'member/:id',
-        name: 'admin.member',
+        name: 'admin.members',
         component: () => import('pages/AdminMemberContent.vue'),
         meta: {
           title: 'Petcle | 用戶管理',
@@ -189,6 +189,15 @@ const routes = [
         path: 'pet',
         name: 'admin.pet',
         component: () => import('pages/AdminPets.vue'),
+        meta: {
+          title: 'Petcle | 寵物管理',
+          login: true
+        }
+      },
+      {
+        path: 'pet/:id',
+        name: 'admin.pets',
+        component: () => import('pages/AdminPetsContent.vue'),
         meta: {
           title: 'Petcle | 寵物管理',
           login: true
