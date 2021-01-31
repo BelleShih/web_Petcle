@@ -13,6 +13,7 @@ import routerNews from './routes/news.js'
 import routerPedias from './routes/pedias.js'
 import routerDiscuss from './routes/discuss.js'
 import routerPets from './routes/pets.js'
+import routerContacts from './routes/contacts.js'
 
 dotenv.config()
 
@@ -68,6 +69,7 @@ app.use('/news', routerNews)
 app.use('/pedias', routerPedias)
 app.use('/discuss', routerDiscuss)
 app.use('/pets', routerPets)
+app.use('/contacts', routerContacts)
 
 app.use((_, req, res, next) => {
   res.status(500).send({ success: false, message: '伺服器錯誤' })
