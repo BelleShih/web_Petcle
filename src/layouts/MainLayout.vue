@@ -215,40 +215,48 @@
       <router-view />
     </q-page-container>
     <!-- footer -->
-    <q-footer elevated class="text-white footer">
-      <div class="flex flex-center" style="height:100%">
-        <div class="flex row justify-end footer_row" style="width:100%;height:100%">
-          <div class="col-xs-10 col-sm-10 col-md-12 col-lg-2 flex row  footer_coll">
+    <q-footer id="footer">
+      <div class="container footer">
+        <div class="flex row justify-around" style="margin:50px 0">
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-4 left">
             <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
             <p>Copyright © 2020 Petcle. All rights reserved.</p>
           </div>
-          <div class="col-xs-10 col-sm-10 col-md-12 col-lg-9 flex row justify-end footer_col02">
-            <div class="col-xs-10 col-sm-5 col-md-3 col-lg-3 flex column ">
-              <div class="footer_col">
-                <p style="font-weight:800;font-size:1.2rem;">Petcle</p>
-                <ul class="footer_li">
-                  <li>service@petcle.com</li>
-                  <li>(270) 555-0117</li>
-                  <li>3517 W. Gray St. Utica, Pennsylvania</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-xs-10 col-sm-5 col-md-3 col-lg-2 flex column">
-              <div class="flex column justify-start align-start footer_col">
-                <p class="footer_h6">毛孩大小事</p>
-                <q-btn :to="{ name: 'front.questions' }" align="left">網友疑問</q-btn>
-                <q-btn :to="{ name: 'front.questions' }" align="left">我要發問</q-btn>
-                <q-btn :to="{ name: 'front.pedia' }" align="left">寵物百科</q-btn>
-              </div>
-            </div>
-            <div class="col-xs-10 col-sm-5 col-md-3 col-lg-3 flex column ">
-              <div class="flex column justify-start align-start footer_col">
-                <p class="footer_h6">網站會員</p>
-                <q-btn @click="loginPage = true" align="left">登入會員</q-btn>
-                <q-btn @click="registeredPage = true" align="left">註冊會員</q-btn>
-                <q-btn :to="{ name: 'front.pedia' }" align="left">會員權益與條款</q-btn>
-              </div>
-            </div>
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+            <h6>Petcle</h6>
+            <ul class="footer_li">
+              <li>service@petcle.com</li>
+              <li>(270) 555-0117</li>
+              <li>3517 W. Gray St. Utica, Pennsylvania</li>
+            </ul>
+          </div>
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+            <h6>毛孩大小事</h6>
+            <q-list class="footer_li">
+              <q-item clickable v-ripple :to="{ name: 'front.questions' }">
+                <q-item-section>網友疑問</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple :to="{ name: 'front.news' }">
+                <q-item-section>最新消息</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple :to="{ name: 'front.pedia' }">
+                <q-item-section>寵物百科</q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+            <h6>網站會員</h6>
+            <q-list class="footer_li">
+              <q-item clickable v-ripple :to="{ name: 'front.index' }" @click="loginPage = true">
+                <q-item-section>登入會員</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple :to="{ name: 'front.index' }" @click="registeredPage = true">
+                <q-item-section>註冊會員</q-item-section>
+              </q-item>
+              <q-item clickable v-ripple>
+                <q-item-section>會員權益與條款</q-item-section>
+              </q-item>
+            </q-list>
           </div>
         </div>
       </div>

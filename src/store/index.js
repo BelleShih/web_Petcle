@@ -20,7 +20,8 @@ export default function(/* { ssrContext } */) {
       user: {
         id: '',
         name: '',
-        account: ''
+        account: '',
+        album: []
       },
       like: []
     },

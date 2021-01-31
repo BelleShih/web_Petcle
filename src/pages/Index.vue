@@ -132,9 +132,33 @@ export default {
         return Math.round(Math.random() * (max - min)) + min
       }
       this.rand = r(0, this.photos.length)
+    },
+    addAlbum(photo) {
+      if (this.user.account === undefined) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請先登入會員',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else {
+        this.axios.patch(process.env.VUE_APP_API + '/users/album/' + photo._id)
+          .then(res => {
+            if (res.data.success) {
+              photo.star = true
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     }
   },
   computed: {
+    user() {
+      return this.$store.state.user
+    },
     redStar() {
       return this.$store.getters.stars
     },
@@ -203,8 +227,7 @@ export default {
             icon: 'error',
             title: '錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })
@@ -245,6 +268,13 @@ export default {
       })
       p.star = true
     })
+    // // 加入購物車後星星的 bug
+    // this.user.album.forEach(item => {
+    //   const p = this.photos.find(photo => {
+    //     return item.Photos === photo._id
+    //   })
+    //   p.star = true
+    // })
     // 抓取動物資料
     this.axios
       .get(process.env.VUE_APP_API + '/animals/')
@@ -256,8 +286,7 @@ export default {
             icon: 'error',
             title: '錯誤',
             confirmButtonColor: '#C2B593',
-            iconColor: '#8d2430',
-            border: 'none'
+            iconColor: '#8d2430'
           })
         }
       })
