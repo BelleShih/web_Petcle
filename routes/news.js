@@ -11,7 +11,7 @@ router.get('/', getNews)
 router.get('/:id', getNew)
 // 刪除指定消息
 router.delete('/:id', delNew)
-// // 編輯指定消息
+// 編輯指定消息
 router.patch('/:id', editNew)
 // 抓指定消息圖片
 router.get('/file/:file', file)

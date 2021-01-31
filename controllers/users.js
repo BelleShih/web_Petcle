@@ -183,3 +183,49 @@ export const getUsers = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
+
+// 把喜歡的圖加入清單
+export const likePhoto = async (req, res) => {
+  if (req.session.user === undefined) {
+    res.status(401).send({ success: false, message: '未登入' })
+    return
+  }
+  try {
+    users.findByIdAndUpdate(req.params.id, 
+      {
+        $push: {
+          album: {
+            Photos: req.body._id
+          }
+        }
+      },
+      {new: true}
+      ) .then(result => {
+        res.status(200).send({ success: true, message: '', result })
+      }).catch(error => {
+        console.log(error)
+      })
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      const key = Object.keys(error.errors)[0]
+      const message = error.errors[key].message
+      res.status(400).send({ success: false, message })
+    } else {
+      console.log(error)
+      res.status(500).send({ success: false, message: '伺服器錯誤' })
+    }
+  }
+}
+
+// 用相簿的照片抓資料庫的照片
+export const albumFunc = async (req, res) => {
+  try {
+    const result = await users.album.findById(req.params._id).populate('Photos')
+    const photo = result.photos.filter(photo => {
+      return `${photo._id}` === `${result.Photos}`
+    })[0]
+    res.status(200).send({ success: true, message: '', photo})
+  } catch (error) {
+    console.log(error)
+  }
+}

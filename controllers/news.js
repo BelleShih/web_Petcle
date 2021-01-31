@@ -4,7 +4,6 @@ import axios from 'axios'
 import path from 'path'
 import fs from 'fs'
 import dotenv from 'dotenv'
-import util from 'util'
 
 import news from '../models/news.js'
 

@@ -173,10 +173,10 @@ export const user = async (req, res) => {
     res.status(401).send({ success: false, message: '未登入' })
     return
   }
-  if (req.session.user._id !== req.params.user) {
-    res.status(403).send({ success: false, message: '沒有權限' })
-    return
-  }
+  // if (req.session.user._id !== req.params.user) {
+  //   res.status(403).send({ success: false, message: '沒有權限' })
+  //   return
+  // }
 
   try {
     const result = await photos.find({ user: req.params.user })

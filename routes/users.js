@@ -1,5 +1,5 @@
 import express from 'express'
-import { create, login, logout, delUser, editUser, getUser, getUsers, heartbeat } from '../controllers/users.js'
+import { create, login, logout, delUser, editUser, getUser, getUsers, likePhoto, heartbeat } from '../controllers/users.js'
 
 const router = express.Router()
 
@@ -17,6 +17,8 @@ router.patch('/:id', editUser)
 router.get('/:id', getUser)
 // 查詢全部使用者
 router.get('/', getUsers)
+// 把喜歡的圖丟到相簿裡
+router.patch('/album/:id', likePhoto)
 
 router.get('/heartbeat', heartbeat)
 

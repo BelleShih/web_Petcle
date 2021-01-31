@@ -2,13 +2,12 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-const albumnSchema = new Schema(
+const albumSchema = new Schema(
   {
-    description: {
+    Photos: {
       type: mongoose.ObjectId,
       ref: 'photos'
-    },
-    feature: Boolean
+    }
   }
 )
 
@@ -34,9 +33,9 @@ const userSchema = new Schema(
       required: [true, '請輸入電子信箱']
     },
     pet: Boolean,
-    userophoto: String,
-    album: [albumnSchema],
-    petpage: {
+    userPhoto: String,
+    album: [albumSchema],
+    petPage: {
       type: mongoose.ObjectId,
       ref: 'pets'
     },
