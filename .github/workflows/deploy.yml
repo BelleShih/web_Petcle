@@ -33,5 +33,4 @@ jobs:
           BUILD_SCRIPT: npm install && npm run build
           # 動作完成後清除檔案
           CLEAN: true
-					# 這裡是 heroku的網址
           VUE_APP_URL: ${{ secrets.VUE_APP_URL }}
