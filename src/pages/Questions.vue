@@ -13,14 +13,14 @@
           align="justify"
           style="color:#C2B593"
         >
-          <q-tab name="all" label="全部" class="tab" />
-          <q-tab name="eat" label="飲食" class="tab" />
-          <q-tab name="life" label="生活" class="tab" />
-          <q-tab name="friend" label="交友" class="tab" />
-          <q-tab name="sick" label="生病" class="tab" />
-          <q-tab name="other" label="其他" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="all" label="全部" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="eat" label="飲食" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="life" label="生活" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="friend" label="交友" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="sick" label="生病" class="tab" />
+          <q-tab v-if="$q.screen.gt.sm" name="other" label="其他" class="tab" />
           <!-- 小尺寸時拉霸 -->
-          <q-btn-dropdown auto-close stretch label="更多分類">
+          <q-btn-dropdown v-if="$q.screen.lt.md" auto-close stretch label="更多分類" style="padding-left:2rem">
             <q-list>
               <q-item clickable @click="tab = 'eat'">
                 <q-item-section>飲食</q-item-section>
@@ -41,7 +41,7 @@
           </q-btn-dropdown>
         </q-tabs>
         <!-- 搜尋功能 -->
-        <div class="flex row col-xs-5 col-lg-3 flex-center search">
+        <div class="flex row col-xs-5 col-md-3 col-lg-3 flex-center search">
           <q-input borderless dense debounce="300" v-model="filtermodel" @keyup.enter="filterDiscuss()">
             <template v-slot:append id="search">
               <q-icon id="search-icon" name="search" />
@@ -50,7 +50,7 @@
           </q-input>
         </div>
         <!-- 寵物百科按鈕 -->
-        <div class="flex row col-xs-5 col-lg-2 flex-center pl">
+        <div class="flex row col-xs-5 col-md-2 col-lg-2 flex-center pl">
           <q-btn id="pedia_enter" rounded icon="emoji_objects" :to="{ name: 'front.pedia' }" label="寵物百科" />
         </div>
       </div>
@@ -58,10 +58,10 @@
 
     <!-- 全部問題頁 -->
     <q-tab-panels v-model="tab" animated class="tab-panels flex m-auto w-85">
-      <q-tab-panel name="all" class="flex row justify-betwen">
+      <q-tab-panel name="all" class="flex row direction">
         <q-btn
           align="left"
-          class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn"
+          class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn"
           v-for="item in filteredDiscuss"
           :key="item._id"
           :value="item"
@@ -91,7 +91,7 @@
         </q-btn>
       </q-tab-panel>
       <q-tab-panel name="eat" class="flex row justify-betwen news_table">
-        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn" v-for="item in eatDis" :key="item._id" :value="item" @click="discussOpen(item)">
+        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in eatDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
@@ -116,7 +116,7 @@
         </q-btn>
       </q-tab-panel>
       <q-tab-panel name="life" class="flex row justify-betwen news_table">
-        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn" v-for="item in lifeDis" :key="item._id" :value="item" @click="discussOpen(item)">
+        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in lifeDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
@@ -143,7 +143,7 @@
       <q-tab-panel name="friend" class="flex row justify-betwen news_table">
         <q-btn
           align="left"
-          class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn"
+          class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn"
           v-for="item in friendDis"
           :key="item._id"
           :value="item"
@@ -198,7 +198,7 @@
         </q-btn>
       </q-tab-panel>
       <q-tab-panel name="other" class="flex row justify-betwen news_table">
-        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn" v-for="item in otherDis" :key="item._id" :value="item" @click="discussOpen(item)">
+        <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in otherDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
@@ -277,8 +277,8 @@
             <!-- 使用者回覆輸入區 -->
             <div class="col">
               <form class="align-center" style="width:100%;display:flex;">
-                <textarea clearable v-model="modelFeedback" class="fb_btn" @keyup.enter="addfb()"/>
-                <q-btn outline color="white" label="送出" @click="addfb()"/>
+                <textarea clearable v-model="modelFeedback" class="fb_btn" @keyup.enter="addfb()" />
+                <q-btn outline color="white" label="送出" @click="addfb()" style="width:15%"/>
               </form>
             </div>
           </div>
@@ -287,7 +287,7 @@
     </q-dialog>
     <!-- 我要發問按鈕 -->
     <div class="q-pa-md q-gutter-lg que-btn">
-      <q-btn round size="35px" color="primary" @click="quedialog = true" style="box-shadow:0px 0px 10px #eee"/>
+      <q-btn round size="35px" color="primary" @click="quedialog = true" style="border:0.5px solid white; box-shadow:0px 0px 5px white"/>
       <p>我要發問</p>
     </div>
     <!-- 發問視窗 -->

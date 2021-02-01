@@ -1,6 +1,6 @@
 <template>
   <q-page id="index">
-    <q-page-container>
+    <q-page-container style="padding:50px 0 100px 0;">
       <!-- 搜尋列 -->
       <div class="row justify-center" style="margin-bottom:0.3rem;margin-top:1.5rem">
         <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
@@ -35,9 +35,9 @@
           <q-icon name="help_outline" size="1.2rem" style="margin-right:0.5rem"></q-icon>隨機療癒</q-btn>
       </div>
       <!-- 照片展示 -->
-      <q-page-container class="flex flex-center page" style="padding-bottom: 10px;">
+      <q-page-container class="flex flex-center page" style="">
         <div class="row fit wrap items-start">
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo._id" :value="photo">
+          <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo._id" :value="photo">
             <q-card class="my-card">
               <img :src="photo.src" />
               <div class="absolute-bottom-right">

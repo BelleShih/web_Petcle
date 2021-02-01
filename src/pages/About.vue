@@ -4,7 +4,7 @@
       <!-- 關於我們 -->
       <div class="flex column flex-center text-center" style="color:#C2B593;letter-spacing: 0.5rem;">
         <img id="about-logo" src="../assets/petcle-logo.png" />
-        <h7>療癒力就是毛孩的超能力</h7>
+        <h7 style="font-size:1rem">療癒力就是毛孩的超能力</h7>
       </div>
       <div class="flex row flex-center about-title relative-position">
         <div class="col-12 col-lg-5" style="height:450px">
@@ -13,7 +13,7 @@
         <div class="col-12 col-lg-7 about-text" style="">
           <b style="font-size:1.5rem">關於我們 ABOUT US</b>
           <div id="about-line"></div>
-          <p>
+          <p class="aboutPetcle">
             Petcle 是一個公開的寵物交流平台，使用者可以在這裡分享自己滿意的寵物照片，全部會員上傳的照片皆為公開狀態，加入會員後可以將喜歡的照片收藏在自己的療癒空間裡面，且隨時都可以進入療癒空間看這些可愛寵物照，療癒身心。<br>
             網站不定時會發佈一些與寵物相關的消息，也會在寵物百科定期上架寵物相關文章，讓會員們得到第一手寵物相關消息！
           </p>
@@ -26,22 +26,22 @@
         <div class="col-12 col-lg-3 flex column flex-center q-pa-lg">
           <q-icon name="star" color="primary" style="font-size:5rem" />
           <h6 class="about-h6">收藏喜愛的照片</h6>
-          <p class="text-center">
-            首頁會列出所有會員上傳的照片，加入會員後，您就擁有一個屬於您的療癒空間，若有看到喜歡的照片，可以點擊照片右下角的星星按鈕，當按鈕轉為紅色代表照片已經添加到您的療癒相簿中！在相簿中您可以選擇照片以輪播或拍立得方式呈現，療癒您的身心。
+          <p class="text-center about_text">
+            首頁會列出所有會員上傳的照片，加入會員後，您就擁有一個屬於您的療癒空間，若有看到喜歡的照片，可以點擊照片右下角的星星按鈕，當按鈕轉為紅色代表照片已經添加到您的療癒相簿中！心情不佳時可以隨時回來看這些收藏照，療癒您的身心。
           </p>
         </div>
         <div class="col-12 col-lg-3 flex column flex-center q-pa-lg">
           <q-icon name="emoji_objects" color="primary" style="font-size:5rem" />
           <h6 class="about-h6">獲取新知與互動</h6>
-          <p class="text-center">
-            最新消息與寵物百科不定期會更新文章與消息，讓您隨時得到寵物相關的第一手資訊！在毛孩大小事留言版裡，您也可以點擊右下角的”我要發問“，即可將您的問題丟到留言板上與會員們互動，也可以點擊他人的留言，在下方回覆，讓整個討論區更熱鬧！
+          <p class="text-center about_text">
+            最新消息與寵物百科不定期會更新文章與消息，讓您隨時得到寵物相關的第一手資訊！在毛孩大小事留言版裡，可以點擊右下角的”我要發問“，即可將您的問題丟到留言板上與會員們互動，也可以點擊他人的留言，在下方回覆，讓整個討論區更熱鬧！
           </p>
         </div>
         <div class="col-12 col-lg-3 flex column flex-center q-pa-lg">
           <q-icon name="email" color="primary" style="font-size:5rem" />
           <h6 class="about-h6">專屬的寵物信箱</h6>
-          <p class="text-center">
-            只要上傳您的寵物後，即可開通您的寵物信箱功能！可以與其他會員的寵物一起寫信交流，讓您的寶貝也可以交朋友～Ｐetcle 還貼心的為您設計了信件搜尋功能，讓您可以在眾多信件中找到重要信件，也可以查詢您的寄件紀錄，不用怕忘記回信內容喔！
+          <p class="text-center about_text">
+            只要上傳您的寵物後，即可開通您的寵物信箱功能！可與其他會員的寵物一起寫信交流，讓您的寶貝也可以交朋友～Petcle還貼心的為您設計了信件搜尋功能，讓您可以在眾多信件中找到重要信件，也可以查詢寄件紀錄，不用怕忘記回信內容喔！
           </p>
         </div>
       </div>

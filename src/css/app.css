@@ -598,13 +598,13 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (min-width: 576px) {
   #index .my-card {
-    height: 180px;
+    height: 250px;
   }
 }
 
 @media (min-width: 768px) {
   #index .my-card {
-    height: 200px;
+    height: 250px;
   }
 }
 
@@ -616,21 +616,26 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (min-width: 1200px) {
   #index .my-card {
-    height: 400px;
+    height: 300px;
     margin: 0 0.5rem;
   }
+}
+
+#index .page {
+  padding-bottom: 10px !important;
 }
 
 @media (max-width: 575px) {
   #index .page {
     margin-top: 0rem !important;
-    padding-top: 2rem !important;
+    padding-top: 1rem !important;
   }
 }
 
 @media (min-width: 576px) {
   #index .page {
     margin-top: 0rem !important;
+    padding-top: 1rem !important;
   }
 }
 
@@ -721,6 +726,15 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   height: 1px;
   background: #C2B593;
   margin: 1rem 0;
+}
+
+.aboutPetcle {
+  letter-spacing: 0.05rem !important;
+  line-height: 1.7rem !important;
+}
+
+.about_text {
+  line-height: 1.5rem;
 }
 
 .about-des {
@@ -1437,7 +1451,19 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
+@media (min-width: 768px) {
+  #question .search {
+    display: none;
+  }
+}
+
 @media (min-width: 992px) {
+  #question .search {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
   #question .search {
     display: block;
     height: 49px;
@@ -1514,6 +1540,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   white-space: normal;
   text-align: left;
   font-size: 1rem;
+  font-weight: 350;
   letter-spacing: 0.05rem;
 }
 
@@ -1589,6 +1616,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 #question #qes_dialog {
   height: 600px !important;
+  z-index: 999999 !important;
 }
 
 #question #qes_dialog .asker {
@@ -1644,7 +1672,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 .fb-1 {
-  margin-left: 0.5rem;
+  width: 60px !important;
+  margin: 0 1rem 0.5rem 1rem;
   font-weight: 800;
   color: #56C6BF;
 }
@@ -1779,19 +1808,19 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (max-width: 575px) {
   .w-RWD {
-    width: 90% !important;
+    width: 95% !important;
   }
 }
 
 @media (min-width: 576px) {
   .w-RWD {
-    widows: 90% !important;
+    widows: 50% !important;
   }
 }
 
 @media (min-width: 768px) {
   .w-RWD {
-    width: 60% !important;
+    width: 80% !important;
   }
 }
 
@@ -1911,13 +1940,13 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (max-width: 575px) {
   #news .width {
-    width: 90%;
+    width: 95%;
   }
 }
 
 @media (min-width: 576px) {
   #news .width {
-    width: 90%;
+    width: 95%;
   }
 }
 

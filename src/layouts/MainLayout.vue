@@ -3,12 +3,12 @@
     <!-- 導覽列 -->
     <q-header elevated class="bg-white" height-hint="98" style="width:100%">
       <div class="flex row wrap justify-between nav-padding">
-        <div class="col-12 col-lg-4 row flex-left flex-logo-justify">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 row flex-left flex-logo-justify">
           <q-btn dense unelevated exact :to="{ name: 'front.index' }">
             <img id="logo" src="../assets/petcle-logo.png" />
           </q-btn>
         </div>
-        <ul id="nav" class="flex row col-12 col-md-12 col-xl-6">
+        <ul id="nav" class="flex row col-xs-12 col-sm-12 col-md-6 col-xl-6">
           <li><q-btn dense unelevated exact :to="{ name: 'front.about' }" active-class="text-blue-3">關於 Petcle</q-btn></li>
           <li><q-btn dense unelevated exact :to="{ name: 'front.news' }" active-class="text-blue-3">最新消息</q-btn></li>
           <li><q-btn dense unelevated exact :to="{ name: 'front.questions' }">毛孩大小事</q-btn></li>
@@ -222,7 +222,7 @@
             <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
             <p>Copyright © 2020 Petcle. All rights reserved.</p>
           </div>
-          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-2 col-xl-2 footer_col">
             <h6>Petcle</h6>
             <ul class="footer_li">
               <li>service@petcle.com</li>
@@ -230,7 +230,7 @@
               <li>3517 W. Gray St. Utica, Pennsylvania</li>
             </ul>
           </div>
-          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-2 col-xl-2 footer_col">
             <h6>毛孩大小事</h6>
             <q-list class="footer_li">
               <q-item clickable v-ripple :to="{ name: 'front.questions' }">
@@ -244,7 +244,7 @@
               </q-item>
             </q-list>
           </div>
-          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-2 footer_col">
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-2 col-xl-2 footer_col">
             <h6>網站會員</h6>
             <q-list class="footer_li">
               <q-item clickable v-ripple :to="{ name: 'front.index' }" @click="loginPage = true">

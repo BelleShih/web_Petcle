@@ -548,27 +548,29 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
       height: 200px;
     }
     @include sm {
-      height: 180px;
+      height: 250px;
     }
     @include md {
-      height: 200px;
+      height: 250px;
     }
     @include lg {
       height: 200px;
     }
     @include xl {
-      height: 400px;
+      height: 300px;
       margin: 0 0.5rem;
     }
   }
 
   .page {
+    padding-bottom: 10px !important;
     @include xs {
       margin-top: 0rem !important;
-      padding-top: 2rem !important;
+      padding-top: 1rem !important;
     }
     @include sm {
       margin-top: 0rem !important;
+      padding-top: 1rem !important;
     }
     @include md {
       margin-top: 1rem !important;
@@ -634,6 +636,15 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   height: 1px;
   background: $petcolor01;
   margin: 1rem 0;
+}
+
+.aboutPetcle {
+  letter-spacing: 0.05rem !important; 
+  line-height:1.7rem !important
+}
+
+.about_text {
+  line-height: 1.5rem;
 }
 
 .about-des {
@@ -1127,7 +1138,13 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     @include sm {
       display: none;
     }
+    @include md {
+      display: none;
+    }
     @include lg {
+      display: none;
+    }
+    @include xl {
       display: block;
       height: 49px;
       padding: 0 1rem;
@@ -1151,6 +1168,9 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
   .tab-panels {
     margin-top: 2rem;
+  }
+
+  .direction {
   }
 
   .qus_btn {
@@ -1197,6 +1217,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     white-space: normal;
     text-align: left;
     font-size: 1rem;
+    font-weight: 350;
     letter-spacing: 0.05rem;
   }
 
@@ -1266,6 +1287,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
   #qes_dialog {
     height: 600px !important;
+    z-index:999999 !important;
 
     .asker {
       margin-left: 0.5rem;
@@ -1324,7 +1346,8 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 //發問跳出視窗，抓回應者與內容的排版
 .fb-1 {
-  margin-left: 0.5rem;
+  width: 60px !important;
+  margin:0 1rem 0.5rem 1rem;
   font-weight: 800;
   color: $petcolor02;
 }
@@ -1436,13 +1459,13 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 .w-RWD {
   width: 50%;
   @include xs {
-    width: 90% !important;
+    width: 95% !important;
   }
   @include sm {
-    widows: 90% !important;
+    widows: 50% !important;
   }
   @include md {
-    width: 60% !important;
+    width: 80% !important;
   }
   @include lg {
     width: 50% !important;
@@ -1528,10 +1551,10 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   margin-top: 2rem;
   .width {
     @include xs {
-      width: 90%;
+      width: 95%;
     }
     @include sm {
-      width: 90%;
+      width: 95%;
     }
     @include md {
       width: 80%;
