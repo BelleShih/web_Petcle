@@ -8,7 +8,7 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "bulid": "quasar build"
+    "build": "quasar build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
