@@ -57,9 +57,9 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      petpage: [],
+      petpage: {},
       mail: false,
       title: '',
       textarea: '',
@@ -68,17 +68,17 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    master() {
+    master () {
       return this.allUsers.filter(item => {
         if (item._id === this.petpage.user) {
           return item
         }
       })
     },
-    getUserPet() {
+    getUserPet () {
       return this.allPets.filter(item => {
         if (this.user.id === item.user) {
           return item
@@ -89,10 +89,10 @@ export default {
   },
   methods: {
     // 維持文章送出格式
-    html(description) {
+    html (description) {
       return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     },
-    sendMail(petpage) {
+    sendMail (petpage) {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -107,7 +107,7 @@ export default {
       }
     },
     // 確認送信
-    onSubmit(petpage) {
+    onSubmit (petpage) {
       if (this.title === '' || this.textarea === '') {
         this.$swal.fire({
           icon: 'error',
@@ -148,12 +148,12 @@ export default {
         this.axios.patch(process.env.VUE_APP_API + '/pets/sendMail/' + this.getUserPet[0]._id, sendMail)
       }
     },
-    onReset() {
+    onReset () {
       this.title = ''
       this.textarea = ''
     }
   },
-  mounted() {
+  mounted () {
     // 抓使用者的寵物
     this.axios
       .get(process.env.VUE_APP_API + '/pets/' + this.$route.params.id)

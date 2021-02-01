@@ -23,7 +23,8 @@ module.exports = function (/* ctx */) {
 
       'i18n',
       'axios',
-      'VueSweetalert2'
+      'VueSweetalert2',
+      'analytics'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -48,7 +49,10 @@ module.exports = function (/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: 'hash',
-      env: require('./src/config/EnvParse.js')(),
+      env: {
+        ...require('./src/config/EnvParse.js')(),
+        VUE_APP_API: process.env.VUE_APP_API
+      },
       // transpile: false,
 
       // Add dependencies for transpiling with Babel (Array of string/regex)

@@ -47,13 +47,13 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       left: false
     }
   },
   methods: {
-    logout() {
+    logout () {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {

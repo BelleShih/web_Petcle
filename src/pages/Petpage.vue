@@ -45,7 +45,7 @@
         </div>
         <!-- 修改、刪除、取消 按鈕 -->
         <div class="row justify-center" style="height:30px;margin-top:1rem">
-          <q-btn v-if="petpage[0].edit" icon="delete_forever" color="negative" size="0.8rem" @click="del(petpage[0], index)" class="col-3 pet_icon">
+          <q-btn v-if="petpage[0].edit" icon="delete_forever" color="negative" size="0.8rem" @click="del(petpage[0])" class="col-3 pet_icon">
             刪除寶貝
           </q-btn>
           <q-btn v-if="petpage[0].edit" icon="cancel" color="accent" size="0.8rem" @click="cancel(petpage[0])" class="col-3 pet_icon">取消修改</q-btn>
@@ -223,7 +223,7 @@
             <template v-slot:append>
               <q-icon id="search-icon" name="search" />
             </template>
-            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail_02()" color="primary"/>
+            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail_02()" color="primary" style="width:60px"/>
           </q-input>
           <div v-for="mail in filteredMail_02" :value="mail" :key="mail._id" class="row items-center newMail">
             <!-- 寄件人資訊 -->
@@ -268,7 +268,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       petpage: [],
       uploadPet: false,
@@ -281,7 +281,7 @@ export default {
       modelfile: null,
       mailDialog: false,
       checkMail: false,
-      mailopen: [],
+      mailopen: {},
       allMail: [],
       allPets: [],
       sendername: [],
@@ -291,7 +291,7 @@ export default {
       mailReDialog: false,
       getmail: [],
       checkReMail: false,
-      reMailopen: [],
+      reMailopen: {},
       forMail: [],
       getMailRecord: [],
       filter: '',
@@ -301,10 +301,10 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    pageOpen() {
+    pageOpen () {
       // 判斷寵物頁面是否顯示出來
       let pageOpen = false
       if (this.petpage.length !== 0) {
@@ -314,39 +314,39 @@ export default {
       }
       return pageOpen
     },
-    selectedBreed() {
+    selectedBreed () {
       // return this.animalSelected.breeds
       return this.animals.find(item => item.name === this.animalSelected)
     },
     // 編輯時，儲存後 維持選項的值
-    animalSelected_edit() {
+    animalSelected_edit () {
       return this.petpage[0].animal
     },
-    breedSelected_edit() {
+    breedSelected_edit () {
       return this.petpage[0].breed
     },
-    getPet() {
+    getPet () {
       return this.allPets.filter(item => {
         if (this.sendername.uid === item.user) {
           return item
         }
       })
     },
-    getPetOpen() {
+    getPetOpen () {
       return this.allPets.filter(item => {
         if (this.mailopen.uid === item.user) {
           return item
         }
       })
     },
-    getmailName() {
+    getmailName () {
       return this.allPets.filter(item => {
         if (this.getmail.forId === item.user) {
           return item
         }
       })
     },
-    froMailName() {
+    froMailName () {
       return this.allPets.filter(item => {
         if (this.reMailopen.forId === item.user) {
           return item
@@ -354,7 +354,7 @@ export default {
       })
     },
     // 收信 filter
-    filteredMail() {
+    filteredMail () {
       return this.allMail.filter(mail => {
         const keyword = this.filter.toUpperCase()
         if (
@@ -385,7 +385,7 @@ export default {
       })
     },
     // 寄信 filter
-    filteredMail_02() {
+    filteredMail_02 () {
       return this.getMailRecord.filter(mail => {
         const keyword02 = this.filter_02.toUpperCase()
         if (
@@ -417,7 +417,7 @@ export default {
     }
   },
   methods: {
-    onSubmit_upload() {
+    onSubmit_upload () {
       if (this.petFile.size > 1024 * 1024) {
         this.$swal.fire({
           icon: 'error',
@@ -473,7 +473,7 @@ export default {
         })
       }
     },
-    onReset_upload() {
+    onReset_upload () {
       this.petFile = null
       this.petName = ''
       this.animalSelected = ''
@@ -481,17 +481,17 @@ export default {
       this.textarea = ''
     },
     // 維持文章送出格式
-    html(description) {
+    html (description) {
       return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     },
-    edit() {
-      this.animalSelected = this.petpage[0].animal
-      this.breedSelected = this.petpage[0].breed
-      this.petpage[0].edit = true
+    edit (item) {
+      this.animalSelected = item.animal
+      this.breedSelected = item.breed
+      item.edit = true
     },
-    del() {
+    del (item) {
       this.axios
-        .delete(process.env.VUE_APP_API + '/pets/' + this.petpage[0]._id)
+        .delete(process.env.VUE_APP_API + '/pets/' + item._id)
         .then(res => {
           if (res.data.success) {
             this.petpage.splice(0, 1)
@@ -500,8 +500,7 @@ export default {
               icon: 'error',
               title: '刪除失敗',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         })
@@ -509,22 +508,21 @@ export default {
           console.log(err)
         })
     },
-    cancel() {
-      this.petpage[0].edit = false
-      this.petpage[0].modelDes = this.petpage[0].description
-      this.petpage[0].modelName = this.petpage[0].name
-      this.animalSelected = this.petpage[0].animal
-      this.breedSelected = this.petpage[0].breed
+    cancel (item) {
+      item.edit = false
+      item.modelDes = item.description
+      item.modelName = item.name
+      this.animalSelected = item.animal
+      this.breedSelected = item.breed
     },
-    save() {
+    save (item) {
       if (this.animalSelected === '' || this.breedSelected === '') {
         this.$swal.fire({
           icon: 'error',
           title: '更新錯誤',
           text: '請輸入動物種類 或 品種種類',
           confirmButtonColor: '#C2B593',
-          iconColor: '#8d2430',
-          border: 'none'
+          iconColor: '#8d2430'
         })
       } else {
         if (this.modelfile) {
@@ -534,8 +532,7 @@ export default {
               title: '更新錯誤',
               text: '圖片太大',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           } else if (!this.modelfile.type.includes('image')) {
             this.$swal.fire({
@@ -543,36 +540,34 @@ export default {
               title: '更新錯誤',
               text: '檔案格式錯誤',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         }
         const petNew = new FormData()
         petNew.append('file', this.modelfile)
-        petNew.append('name', this.petpage[0].modelName)
+        petNew.append('name', item.modelName)
         petNew.append('animal', this.animalSelected)
         petNew.append('breed', this.breedSelected)
         petNew.append('description', this.petpage[0].modelDes)
         this.axios
-          .patch(process.env.VUE_APP_API + '/pets/' + this.petpage[0]._id, petNew)
+          .patch(process.env.VUE_APP_API + '/pets/' + item._id, petNew)
           .then(res => {
             if (res.data.success) {
               console.log(res.data.result.file)
-              this.petpage[0].edit = false
-              this.petpage[0].src = process.env.VUE_APP_API + '/pets/file/' + res.data.result.file
-              this.petpage[0].file = res.data.result.file
-              this.petpage[0].name = this.petpage[0].modelName
-              this.petpage[0].animal = this.animalSelected
-              this.petpage[0].breed = this.breedSelected
-              this.petpage[0].description = this.petpage[0].modelDes
+              item.edit = false
+              item.src = process.env.VUE_APP_API + '/pets/file/' + res.data.result.file
+              item.file = res.data.result.file
+              item.name = item.modelName
+              item.animal = this.animalSelected
+              item.breed = this.breedSelected
+              item.description = item.modelDes
             } else {
               this.$swal.fire({
                 icon: 'error',
                 title: '更新失敗',
                 confirmButtonColor: '#C2B593',
-                iconColor: '#8d2430',
-                border: 'none'
+                iconColor: '#8d2430'
               })
             }
           })
@@ -581,21 +576,21 @@ export default {
           })
       }
     },
-    mailOpen(mail) {
+    mailOpen (mail) {
       this.checkMail = true
       this.mailopen = mail
     },
-    senderName(mail) {
+    senderName (mail) {
       this.sendername = mail
       this.$router.push(this.getPet[0] ? '/petpage/' + this.getPet[0]._id : '')
     },
-    senderNameOpen(mailopen) {
+    senderNameOpen (mailopen) {
       this.$router.push(this.getPetOpen[0] ? '/petpage/' + this.getPetOpen[0]._id : '')
     },
-    replyMail(mailopen) {
+    replyMail (mailopen) {
       this.reply = true
     },
-    onSubmit_reply(mailopen) {
+    onSubmit_reply (mailopen) {
       if (this.replyTitle === '' || this.replyTextarea === '') {
         this.$swal.fire({
           icon: 'error',
@@ -632,8 +627,7 @@ export default {
               icon: 'error',
               title: '送出失敗',
               confirmButtonColor: '#C2B593',
-              iconColor: '#8d2430',
-              border: 'none'
+              iconColor: '#8d2430'
             })
           }
         })
@@ -641,31 +635,31 @@ export default {
         this.axios.patch(process.env.VUE_APP_API + '/pets/sendMail/' + this.petpage[0]._id, sendMailRecord)
       }
     },
-    onReset_reply() {
+    onReset_reply () {
       this.replyText = ''
       this.replyTextarea = ''
     },
     // 從寄信紀錄的收件者連到她的寵物
-    getMailrName(mail) {
+    getMailrName (mail) {
       this.getmail = mail
       this.$router.push(this.getmailName[0] ? '/petpage/' + this.getmailName[0]._id : '')
     },
     // 打開寄信紀錄的信
-    reMailOpen(mail) {
+    reMailOpen (mail) {
       this.checkReMail = true
       this.reMailopen = mail
     },
-    reMailOpenUser(reMailopen) {
+    reMailOpenUser (reMailopen) {
       this.$router.push(this.froMailName[0] ? '/petpage/' + this.froMailName[0]._id : '')
     },
-    filterMail(filter) {
+    filterMail (filter) {
       this.filter = this.filtermodel
     },
-    filterMail_02(filter) {
+    filterMail_02 (filter) {
       this.filter_02 = this.filtermodel_02
     }
   },
-  mounted() {
+  mounted () {
     // 抓所有動物
     this.axios
       .get(process.env.VUE_APP_API + '/animals/')

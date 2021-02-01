@@ -1,6 +1,6 @@
 <template>
   <q-page id="pedia" style="height:100%">
-    <q-layout-container style="height:100%">
+    <q-page-container style="height:100%">
       <div class="flex flex-center" style="height:100%;margin-top:2rem">
         <div class="row fit wrap flex-center">
           <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
@@ -21,18 +21,18 @@
           </div>
         </div>
       </div>
-    </q-layout-container>
+    </q-page-container>
   </q-page>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       pedias: []
     }
   },
   // 抓全部文章
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/pedias/')
       .then(res => {

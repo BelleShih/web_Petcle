@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
     <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="pets" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
+      <q-table :data="pets" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
         <template v-slot:body="pet">
           <q-tr :props="pet">
             <q-td key="file">
@@ -14,13 +14,13 @@
             </q-td>
 
             <q-td key="animal">
-              <q-input outlined filled v-if="pet.row.edit" v-model="pet.row.modelAnimal" />
-              <p v-else>{{ pet.row.animal }}</p>
+              <!-- <q-input outlined filled v-if="pet.row.edit" v-model="pet.row.modelAnimal" /> -->
+              <p>{{ pet.row.animal }}</p>
             </q-td>
 
             <q-td key="breed">
-              <q-input outlined filled type="textarea" v-if="pet.row.edit" v-model="pet.row.modelBreed" />
-              <p v-else>{{ pet.row.breed }}</p>
+              <!-- <q-input outlined filled type="textarea" v-if="pet.row.edit" v-model="pet.row.modelBreed" /> -->
+              <p>{{ pet.row.breed }}</p>
             </q-td>
 
             <q-td key="description">
@@ -31,7 +31,7 @@
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!pet.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(pet)" class="mr-1" />
-              <q-btn v-if="!pet.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pet, index)" />
+              <q-btn v-if="!pet.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pet)" />
               <q-btn v-if="pet.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(pet)" class="mr-1" />
               <q-btn v-if="pet.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(pet)" />
             </q-td>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       pets: [],
@@ -114,14 +114,14 @@ export default {
     }
   },
   methods: {
-    edit(pet) {
+    edit (pet) {
       pet.row.edit = true
       pet.row.modelName = pet.row.name
       pet.row.modelAnimal = pet.row.account
       pet.row.modelBreed = pet.row.email
       pet.row.modelDes = pet.row.description
     },
-    save(pet) {
+    save (pet) {
       this.axios
         .patch(process.env.VUE_APP_API + '/pets/' + pet.row._id, {
           name: pet.row.modelName,
@@ -145,7 +145,7 @@ export default {
           console.log(err)
         })
     },
-    del(pet) {
+    del (pet) {
       this.axios
         .delete(process.env.VUE_APP_API + '/pets/' + pet.row._id)
         .then(res => {
@@ -160,7 +160,7 @@ export default {
           console.log(err)
         })
     },
-    cancel(pet) {
+    cancel (pet) {
       pet.row.edit = false
       pet.modelName = pet.name
       pet.modeAnimal = pet.animal
@@ -168,7 +168,7 @@ export default {
       pet.modelDes = pet.description
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/pets/')
       .then(res => {

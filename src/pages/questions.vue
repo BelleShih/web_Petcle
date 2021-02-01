@@ -14,13 +14,13 @@
           style="color:#C2B593"
         >
           <q-tab name="all" label="全部" class="tab" />
-          <q-tab v-if="$q.screen.gt.sm" name="eat" label="飲食" class="tab" />
-          <q-tab v-if="$q.screen.gt.sm" name="life" label="生活" class="tab" />
-          <q-tab v-if="$q.screen.gt.sm" name="friend" label="交友" class="tab" />
-          <q-tab v-if="$q.screen.gt.sm" name="sick" label="生病" class="tab" />
-          <q-tab v-if="$q.screen.gt.sm" name="other" label="其他" class="tab" />
+          <q-tab name="eat" label="飲食" class="tab" />
+          <q-tab name="life" label="生活" class="tab" />
+          <q-tab name="friend" label="交友" class="tab" />
+          <q-tab name="sick" label="生病" class="tab" />
+          <q-tab name="other" label="其他" class="tab" />
           <!-- 小尺寸時拉霸 -->
-          <q-btn-dropdown v-if="$q.screen.lt.md" auto-close stretch label="更多分類">
+          <q-btn-dropdown auto-close stretch label="更多分類">
             <q-list>
               <q-item clickable @click="tab = 'eat'">
                 <q-item-section>飲食</q-item-section>
@@ -277,8 +277,8 @@
             <!-- 使用者回覆輸入區 -->
             <div class="col">
               <form class="align-center" style="width:100%;display:flex;">
-                <textarea clearable v-model="modelFeedback" class="fb_btn" />
-                <q-btn outline color="white" label="送出" @click="addfb()" />
+                <textarea clearable v-model="modelFeedback" class="fb_btn" @keyup.enter="addfb()"/>
+                <q-btn outline color="white" label="送出" @click="addfb()"/>
               </form>
             </div>
           </div>
@@ -300,7 +300,7 @@
           <p class="title">我要發問</p>
         </div>
         <div class="col-12 flex justify-center cloumn qes_div">
-          <q-form @submit="onSubmit" @reset="onReset" class="q-form">
+          <q-form @submit="onSubmit" class="q-form">
             <!-- 主旨 -->
             <q-input class="input_title" filled v-model="title" label="請輸入主旨" />
             <!-- 分類 -->
@@ -323,7 +323,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tab: 'all',
       discuss: [],
@@ -347,17 +347,17 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    getPet() {
+    getPet () {
       return this.allPets.filter(item => {
         if (this.discussmodel.uid === item.user) {
           return item
         }
       })
     },
-    getPetFB() {
+    getPetFB () {
       return this.allPets.filter(item => {
         if (this.fbUser.uid === item.user) {
           return item
@@ -365,7 +365,7 @@ export default {
       })
     },
     // 搜尋功能
-    filteredDiscuss() {
+    filteredDiscuss () {
       return this.discuss.filter(dis => {
         const keyword = this.filter.toUpperCase()
         if (
@@ -405,12 +405,12 @@ export default {
     }
   },
   methods: {
-    discussOpen(item) {
+    discussOpen (item) {
       this.qes = true
       this.discussmodel = item
     },
     // 使用者送出留言
-    addfb() {
+    addfb () {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -437,7 +437,7 @@ export default {
         })
       }
     },
-    onSubmit() {
+    onSubmit () {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -478,7 +478,7 @@ export default {
         })
       }
     },
-    getPetFb(fb) {
+    getPetFb (fb) {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -492,10 +492,10 @@ export default {
         this.$router.push(this.getPetFB[0] ? '/petpage/' + this.getPetFB[0]._id : '')
       }
     },
-    filterDiscuss(filter) {
+    filterDiscuss (filter) {
       this.filter = this.filtermodel
     },
-    askName() {
+    askName () {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -509,7 +509,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  async mounted () {
     await this.axios.get(process.env.VUE_APP_API + '/discuss/').then(res => {
       if (res.data.success) {
         this.discuss = res.data.result.reverse()

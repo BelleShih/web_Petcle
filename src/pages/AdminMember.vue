@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
-    <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="users" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
+    <q-page-container style="padding-left:10px">
+      <q-table :data="users" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
         <template v-slot:body="user">
           <q-tr :props="user">
             <q-td key="name">
@@ -37,7 +37,7 @@
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!user.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(user)" class="mr-1" />
-              <q-btn v-if="!user.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(user, index)" />
+              <q-btn v-if="!user.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(user)" />
               <q-btn v-if="user.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(user)" class="mr-1" />
               <q-btn v-if="user.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(user)" />
             </q-td>
@@ -55,13 +55,13 @@
           </q-input>
         </template>
       </q-table>
-    </q-layout-container>
+    </q-page-container>
   </q-page>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       users: [],
@@ -131,14 +131,14 @@ export default {
     }
   },
   methods: {
-    edit(user) {
+    edit (user) {
       user.row.edit = true
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
     },
-    save(user) {
+    save (user) {
       this.axios
         .patch(process.env.VUE_APP_API + '/users/' + user.row._id, {
           name: user.row.modelName,
@@ -163,7 +163,7 @@ export default {
           console.log(err)
         })
     },
-    del(user) {
+    del (user) {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/' + user.row._id)
         .then(res => {
@@ -178,19 +178,19 @@ export default {
           console.log(err)
         })
     },
-    cancel(user) {
+    cancel (user) {
       user.row.edit = false
       user.row.modelName = user.row.name
       user.row.modelAccount = user.row.account
       user.row.modelEmail = user.row.email
       this.modelPet = user.row.pet
     },
-    goPet(user) {
+    goPet (user) {
       this.userDes = user.row
       this.$router.push(this.userPet[0] ? '/admin/pet/' + this.userPet[0]._id : '')
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/users/')
       .then(res => {

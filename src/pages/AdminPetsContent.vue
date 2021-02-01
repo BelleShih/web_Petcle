@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
     <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="pets" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
+      <q-table  :data="pets" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
         <template v-slot:body="pet">
           <q-tr :props="pet">
             <q-td key="file">
@@ -28,18 +28,18 @@
               <p v-else>{{ pet.row.description }}</p>
             </q-td>
 
-            <q-td key="mails">
+            <!-- <q-td key="mails">
               <q-btn flat icon="mail_outline" color="primary"></q-btn>
             </q-td>
 
             <q-td key="sendMails">
               <q-btn flat icon="forward_to_inbox" color="secondary"></q-btn>
-            </q-td>
+            </q-td> -->
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!pet.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(pet)" class="mr-1" />
-              <q-btn v-if="!pet.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pet, index)" />
+              <q-btn v-if="!pet.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pet)" />
               <q-btn v-if="pet.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(pet)" class="mr-1" />
               <q-btn v-if="pet.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(pet)" />
             </q-td>
@@ -64,7 +64,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       pets: [],
@@ -115,20 +115,20 @@ export default {
           field: 'description',
           sortable: true
         },
-        {
-          name: 'mails',
-          align: 'left',
-          label: '收信',
-          field: 'mails',
-          sortable: true
-        },
-        {
-          name: 'sendMails',
-          align: 'left',
-          label: '寄信',
-          field: 'sendMails',
-          sortable: true
-        },
+        // {
+        //   name: 'mails',
+        //   align: 'left',
+        //   label: '收信',
+        //   field: 'mails',
+        //   sortable: true
+        // },
+        // {
+        //   name: 'sendMails',
+        //   align: 'left',
+        //   label: '寄信',
+        //   field: 'sendMails',
+        //   sortable: true
+        // },
         {
           name: 'actions',
           label: '編輯',
@@ -138,14 +138,14 @@ export default {
     }
   },
   methods: {
-    edit(pet) {
+    edit (pet) {
       pet.row.edit = true
       pet.row.modelName = pet.row.name
       pet.row.modelAnimal = pet.row.animal
       pet.row.modelBreed = pet.row.breed
       pet.row.modelDes = pet.row.description
     },
-    save(pet) {
+    save (pet) {
       this.axios
         .patch(process.env.VUE_APP_API + '/pets/' + pet.row._id, {
           name: pet.row.modelName,
@@ -169,7 +169,7 @@ export default {
           console.log(err)
         })
     },
-    del(pet) {
+    del (pet) {
       this.axios
         .delete(process.env.VUE_APP_API + '/pets/' + pet.row._id)
         .then(res => {
@@ -184,7 +184,7 @@ export default {
           console.log(err)
         })
     },
-    cancel(pet) {
+    cancel (pet) {
       pet.row.edit = false
       pet.modelName = pet.name
       pet.modeAnimal = pet.animal
@@ -192,7 +192,7 @@ export default {
       pet.modelDes = pet.description
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/pets/' + this.$route.params.id)
       .then(res => {

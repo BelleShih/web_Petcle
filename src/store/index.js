@@ -14,7 +14,7 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
-export default function(/* { ssrContext } */) {
+export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     state: {
       user: {
@@ -27,19 +27,19 @@ export default function(/* { ssrContext } */) {
     },
     computed: {},
     mutations: {
-      logout(state) {
+      logout (state) {
         state.user.account = ''
         state.user.id = ''
       },
-      login(state, data) {
+      login (state, data) {
         state.user.account = data.account
         state.user.id = data._id
         state.user.name = data.name
       },
-      like(state, photo) {
+      like (state, photo) {
         state.like.push(photo)
       },
-      delPhoto(state, index) {
+      delPhoto (state, index) {
         state.like.splice(index, 1)
       }
     },
@@ -47,7 +47,7 @@ export default function(/* { ssrContext } */) {
     modules: {},
     plugins: [persistedstate()],
     getters: {
-      stars(state) {
+      stars (state) {
         return state.like
       }
     },

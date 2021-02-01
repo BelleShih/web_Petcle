@@ -217,8 +217,8 @@
     <!-- footer -->
     <q-footer id="footer">
       <div class="container footer">
-        <div class="flex row justify-around" style="margin:50px 0">
-          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-4 left">
+        <div class="flex row justify-between" style="margin:50px 0">
+          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-5 left">
             <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
             <p>Copyright © 2020 Petcle. All rights reserved.</p>
           </div>
@@ -267,7 +267,7 @@
 <script>
 export default {
   name: 'MainLayout',
-  data() {
+  data () {
     return {
       reg: {
         name: '',
@@ -287,7 +287,7 @@ export default {
     }
   },
   computed: {
-    accountState() {
+    accountState () {
       if (this.log.account.length === 0) {
         return null
       } else if (this.log.account.length >= 4 && this.log.account.length <= 20) {
@@ -296,7 +296,7 @@ export default {
         return false
       }
     },
-    passwordState() {
+    passwordState () {
       if (this.log.password.length === 0) {
         return null
       } else if (this.log.password.length >= 4 && this.log.password.length <= 20) {
@@ -305,7 +305,7 @@ export default {
         return false
       }
     },
-    nameState() {
+    nameState () {
       if (this.reg.name.length === 0) {
         return null
       } else if (this.reg.name.length >= 1 && this.reg.name.length <= 20) {
@@ -314,7 +314,7 @@ export default {
         return false
       }
     },
-    accountState_reg() {
+    accountState_reg () {
       if (this.reg.account.length === 0) {
         return null
       } else if (this.reg.account.length >= 4 && this.reg.account.length <= 20) {
@@ -323,7 +323,7 @@ export default {
         return false
       }
     },
-    passwordState_reg() {
+    passwordState_reg () {
       if (this.reg.password1.length === 0) {
         return null
       } else if (this.reg.password1.length >= 4 && this.reg.password1.length <= 20 && this.reg.password1 === this.reg.password2) {
@@ -332,7 +332,7 @@ export default {
         return false
       }
     },
-    emailState() {
+    emailState () {
       if (this.reg.email.length === 0) {
         return null
       } else if (this.reg.email.length >= 1) {
@@ -341,11 +341,11 @@ export default {
         return false
       }
     },
-    user() {
+    user () {
       return this.$store.state.user
     },
     // 判斷是否為管理員
-    admin() {
+    admin () {
       if (this.user.account === 'admin') {
         return true
       } else {
@@ -354,7 +354,7 @@ export default {
     }
   },
   methods: {
-    onSubmit_reg() {
+    onSubmit_reg () {
       if (this.reg.password1 !== this.reg.password2) {
         this.$swal.fire({
           icon: 'error',
@@ -402,7 +402,7 @@ export default {
           })
       }
     },
-    onSubmit_log() {
+    onSubmit_log () {
       if (this.accountState && this.passwordState) {
         this.axios
           .post(process.env.VUE_APP_API + '/users/login', this.log)
@@ -434,11 +434,11 @@ export default {
           })
       }
     },
-    onReset_log() {
+    onReset_log () {
       this.account = ''
       this.password = ''
     },
-    onReset_reg() {
+    onReset_reg () {
       this.reg.name = ''
       this.reg.account = ''
       this.reg.password1 = ''
@@ -446,7 +446,7 @@ export default {
       this.reg.email = ''
       this.reg.pet = null
     },
-    logout() {
+    logout () {
       this.axios
         .delete(process.env.VUE_APP_API + '/users/logout')
         .then(res => {
@@ -479,7 +479,7 @@ export default {
           })
         })
     },
-    heartbeat() {
+    heartbeat () {
       this.axios
         .get(process.env.VUE_APP_API + '/users/heartbeat')
         .then(res => {
@@ -513,7 +513,7 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     this.heartbeat()
     setInterval(() => {
       this.heartbeat()

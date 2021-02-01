@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
     <q-layout-container>
-      <q-table :grid="$q.screen.md" :data="userPhoto" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
+      <q-table :data="userPhoto" :columns="titles" row-key="name" :rows-per-page-option="[10, 15, 20]" :filter="filter">
         <template v-slot:body="photo">
           <q-tr :props="photo">
             <q-td key="file">
@@ -16,7 +16,7 @@
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!photo.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(photo)" class="mr-1" />
-              <q-btn v-if="!photo.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(photo, index)" />
+              <q-btn v-if="!photo.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(photo)" />
               <q-btn v-if="photo.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(photo)" class="mr-1" />
               <q-btn v-if="photo.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="canael(photo)" />
             </q-td>
@@ -41,7 +41,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       userPhoto: [],
@@ -107,11 +107,11 @@ export default {
       photo.row.edit = false
       photo.modelDes = photo.description
     },
-    del(photo) {
+    del (photo) {
       this.axios.delete(process.env.VUE_APP_API + '/photos/' + photo.row._id)
         .then(res => {
           if (res.data.success) {
-            this.photos.splice(photo.index, 1)
+            this.photos.splice(photo.rowIndex, 1)
             alert('刪除成功')
           } else {
             alert(res.data.message)
@@ -122,7 +122,7 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     this.axios.get(process.env.VUE_APP_API + '/photos/user/' + this.$route.params.id)
       .then(res => {
         if (res.data.success) {

@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
-    <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="contacts" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
+    <q-page>
+      <q-table :data="contacts" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
         <template v-slot:body="contact">
           <q-tr :props="contact">
             <q-td key="sender">
@@ -25,7 +25,7 @@
 
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
-              <q-btn round icon="delete_forever" color="negative" size="0.7rem" @click="del(contact, index)" />
+              <q-btn round icon="delete_forever" color="negative" size="0.7rem" @click="del(contact)" />
             </q-td>
           </q-tr>
         </template>
@@ -41,13 +41,13 @@
           </q-input>
         </template>
       </q-table>
-    </q-layout-container>
+    </q-page>
   </q-page>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       contacts: [],
@@ -98,7 +98,7 @@ export default {
     }
   },
   methods: {
-    del(contact) {
+    del (contact) {
       this.axios
         .delete(process.env.VUE_APP_API + '/contacts/' + contact.row._id)
         .then(res => {
@@ -114,11 +114,12 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/contacts/')
       .then(res => {
         if (res.data.success) {
+          console.log(res.data)
           this.contacts = res.data.result.map(contact => {
             return contact
           })

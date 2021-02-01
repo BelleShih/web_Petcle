@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
-    <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="discuss" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
+    <q-page>
+      <q-table :data="discuss" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
         <template v-slot:body="discuss">
           <q-tr :props="discuss">
             <q-td key="questiontype">
@@ -29,7 +29,7 @@
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!discuss.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(discuss)" class="mr-1" />
-              <q-btn v-if="!discuss.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(discuss, index)" />
+              <q-btn v-if="!discuss.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(discuss)" />
               <q-btn v-if="discuss.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(discuss)" class="mr-1" />
               <q-btn v-if="discuss.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(discuss)" />
             </q-td>
@@ -47,13 +47,13 @@
           </q-input>
         </template>
       </q-table>
-    </q-layout-container>
+    </q-page>
   </q-page>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       filter: '',
       discuss: [],
@@ -107,14 +107,14 @@ export default {
     }
   },
   methods: {
-    edit(discuss) {
+    edit (discuss) {
       discuss.row.edit = true
 
       discuss.row.modelType = discuss.row.questiontype
       discuss.row.modelTitle = discuss.row.title
       discuss.row.modelDescription = discuss.row.description
     },
-    save(discuss) {
+    save (discuss) {
       this.axios
         .patch(process.env.VUE_APP_API + '/discuss/' + discuss.row._id, {
           title: discuss.row.modelTitle,
@@ -137,7 +137,7 @@ export default {
           console.log(err)
         })
     },
-    del(discuss) {
+    del (discuss) {
       this.axios
         .delete(process.env.VUE_APP_API + '/discuss/' + discuss.row._id)
         .then(res => {
@@ -152,12 +152,12 @@ export default {
           console.log(err)
         })
     },
-    cancel(discuss) {
+    cancel (discuss) {
       discuss.row.edit = false
       discuss.row.model = discuss.row.description
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/discuss/')
       .then(res => {

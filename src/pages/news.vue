@@ -166,7 +166,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       tab: 'all',
       key: false,
@@ -181,7 +181,7 @@ export default {
   },
   methods: {
     // 不同分類給他的cube不同背景色
-    getCubeBG(type) {
+    getCubeBG (type) {
       let background = ''
       switch (type) {
         case '新聞快訊':
@@ -206,7 +206,7 @@ export default {
       return { background }
     }
   },
-  async mounted() {
+  async mounted () {
     // 抓全部的消息
     await this.axios
       .get(process.env.VUE_APP_API + '/news/')

@@ -24,26 +24,29 @@
         </div>
         <!-- 線 -->
         <div class="line" style="margin-bottom:2rem"></div>
-        <q-btn icon="expand_less" color="primary" :to="{ name: 'front.news' }">回到最新消息</q-btn>
+        <q-btn icon="expand_less" color="primary" :to="{ name: 'front.news' }"
+          >回到最新消息</q-btn
+        >
       </div>
     </q-layout-container>
   </q-page>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      news: []
+      news: {}
     }
   },
-  mounted() {
+  mounted () {
     this.axios
       .get(process.env.VUE_APP_API + '/news/' + this.$route.params.id)
       .then(res => {
         console.log(this.$route.params.id)
         if (res.data.success) {
           this.news = res.data.result
-          this.news.src = process.env.VUE_APP_API + '/news/file/' + this.news.file
+          this.news.src =
+            process.env.VUE_APP_API + '/news/file/' + this.news.file
         } else {
           this.$swal.fire({
             icon: 'error',
@@ -59,8 +62,13 @@ export default {
       })
   },
   methods: {
-    html(description) {
-      return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
+    html (description) {
+      return description
+        .replace(/\n/g, '<br>')
+        .replace(
+          /(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g,
+          '<a href="$1" target="_blank" >$1</a>'
+        )
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <q-page id="index">
-    <q-layout-container>
+    <q-page-container>
       <!-- 搜尋列 -->
       <div class="row justify-center" style="margin-bottom:0.3rem;margin-top:1.5rem">
         <div class="col-xs-10 col-md-8 col-lg-6" style="margin-top:20px">
@@ -35,9 +35,9 @@
           <q-icon name="help_outline" size="1.2rem" style="margin-right:0.5rem"></q-icon>隨機療癒</q-btn>
       </div>
       <!-- 照片展示 -->
-      <q-page-container class="flex flex-center page">
+      <q-page-container class="flex flex-center page" style="padding-bottom: 10px;">
         <div class="row fit wrap items-start">
-          <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo.file" :value="photo">
+          <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(photo, index) in filteredphoto" :key="photo._id" :value="photo">
             <q-card class="my-card">
               <img :src="photo.src" />
               <div class="absolute-bottom-right">
@@ -77,19 +77,19 @@
             </div>
             <div class="absolute-bottom-right" style="margin-right:1rem">
               <q-btn v-if="photos[rand].star === false" flat round color="negative" icon="star_border" @click="like_rand(photos[rand])" />
-              <q-btn v-else flat round color="red-9" icon="star" @click="del(index)" />
+              <q-btn v-else flat round color="red-9" icon="star" @click="del(rand)" />
             </div>
           </q-card-section>
         </q-card>
       </q-dialog>
-    </q-layout-container>
+    </q-page-container>
   </q-page>
 </template>
 
 <script>
 export default {
   name: 'PageIndex',
-  data() {
+  data () {
     return {
       model: '依熱門程度排序',
       options: [
@@ -117,7 +117,7 @@ export default {
     }
   },
   methods: {
-    like(photo) {
+    like (photo) {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -126,11 +126,14 @@ export default {
           confirmButtonColor: '#C2B593'
         })
       } else {
-        photo.star = true
+        const idx = this.photos.findIndex(pho => pho._id === photo._id)
+        console.log(idx)
+        this.photos[idx].star = true
         this.$store.commit('like', photo)
       }
+      this.$forceUpdate()
     },
-    like_rand(item) {
+    like_rand (item) {
       if (this.user.account === '') {
         this.$swal.fire({
           icon: 'error',
@@ -139,26 +142,32 @@ export default {
           confirmButtonColor: '#C2B593'
         })
       } else {
-        this.ranPhoto = item
-        this.ranPhoto.star = true
-        this.$store.commit('like', this.ranPhoto)
+        const idx = this.photos.findIndex(pho => pho._id === item._id)
+        console.log(idx)
+        // this.ranPhoto = item
+        item.star = true
+        this.$store.commit('like', item)
       }
+      this.$forceUpdate()
     },
-    del(index) {
+    del (index) {
+      const idx = this.photos[index]
+      this.photo[idx].star = false
       this.$store.commit('delPhoto', index)
+      this.$forceUpdate()
     },
-    filterPhoto(filter) {
+    filterPhoto (filter) {
       // 搜尋功能
       this.filter = this.filtermodel
     },
-    random() {
+    random () {
       this.randomCard = true
       const r = (min, max) => {
         return Math.round(Math.random() * (max - min)) + min
       }
       this.rand = r(0, this.photos.length)
     },
-    addAlbum(photo) {
+    addAlbum (photo) {
       if (this.user.account === undefined) {
         this.$swal.fire({
           icon: 'error',
@@ -181,14 +190,14 @@ export default {
     }
   },
   computed: {
-    user() {
+    user () {
       return this.$store.state.user
     },
-    redStar() {
+    redStar () {
       return this.$store.getters.stars
     },
     // filter文字過濾
-    filteredphoto() {
+    filteredphoto () {
       return this.photos.filter(photo => {
         const keyword = this.filter.toUpperCase()
         if (
@@ -225,7 +234,7 @@ export default {
     //   return r(0, this.photos.length)
     // }
   },
-  async mounted() {
+  async mounted () {
     this.$axios.post('login', {
       username: 'username',
       password: 'password'

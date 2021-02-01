@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-layout-container>
+    <q-page-container style="padding-bottom: 50px;">
       <!-- 關於我們 -->
       <div class="flex column flex-center text-center" style="color:#C2B593;letter-spacing: 0.5rem;">
         <img id="about-logo" src="../assets/petcle-logo.png" />
@@ -64,7 +64,7 @@
                     <input v-model="mail" placeholder="電子信箱" class="about_input" />
                   </div>
                   <div class="about_input_div">
-                    <input v-model="title" placeholder="主旨" :dense="dense" class="about_input" />
+                    <input v-model="title" placeholder="主旨" class="about_input" />
                   </div>
                 </div>
                 <div class="flex col-12 col-lg-6 about_textarea ">
@@ -78,7 +78,7 @@
           </div>
         </q-form>
       </div>
-    </q-layout-container>
+    </q-page-container>
   </q-page>
 </template>
 
@@ -93,7 +93,7 @@ export default {
     }
   },
   methods: {
-    onSubmit_mail() {
+    onSubmit_mail () {
       if (this.sender === '') {
         this.$swal.fire({
           icon: 'error',

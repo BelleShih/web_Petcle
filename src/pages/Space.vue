@@ -44,7 +44,7 @@
         <q-tab-panel name="tab2">
           <div class="flex">
             <div class="row fit wrap items-start">
-              <div class="col-6 col-md-4 col-lg-4 col-xl-2 q-pa-sm" v-for="(item, index) in photo" :key="item.file" :value="item">
+              <div class="col-6 col-md-4 col-lg-4 col-xl-2 q-pa-sm" v-for="(item, index) in photo" :key="item._id" :value="item">
                 <q-btn @click="photoOpen(item)">
                   <q-card class="my-pet-card">
                     <img :src="item.src" />
@@ -85,47 +85,12 @@
         </q-card>
       </q-dialog>
     </div>
-    <!-- <template >
-              <q-tabs v-model="tab" vertical class="spaceMenu-background">
-                <q-tab name="play" icon="play_circle" label="隨機撥放" />
-                <q-tab name="photo" icon="photo" label="最愛展示" />
-              </q-tabs>
-            </template> -->
-    <!-- 隨機撥放 -->
-    <!-- <q-tab-panel name="play">
-                <q-carousel
-                  v-model="slide"
-                  swipeable
-                  animated
-                  :autoplay="autoplay"
-                  infinite
-                  height="1200px"
-                  class=" text-white rounded-borders"
-                >
-                <q-carousel-slide v-for="(item, index) in photo" :key="item.file" :value="item" :name="index" :img-src="item.src"/>
-                </q-carousel>
-              </q-tab-panel> -->
-    <!-- 最愛展示 -->
-    <!-- <q-tab-panel name="photo" style="padding:1rem">
-                <div class="flex">
-                  <div class="row fit wrap items-start">
-                    <div class="col-6 col-md-4 col-lg-4 col-xl-3 q-pa-sm" v-for="(item, index) in photo" :key="item.file" :value="item">
-                      <q-card class="my-card">
-                        <img :src="item.src">
-                        <div class="absolute-bottom-right">
-                          <q-btn v-if="item.star = true" flat round color="red-9" icon="star" @click="del(index)"/>
-                        </div>
-                      </q-card>
-                    </div>
-                  </div>
-                </div>
-              </q-tab-panel> -->
   </q-page>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer: false,
       tab: 'tab1',
@@ -133,20 +98,20 @@ export default {
       autoplay: true,
       fullscreen: false,
       photoOpenn: false,
-      photos: ''
+      photos: {}
     }
   },
   computed: {
-    photo() {
+    photo () {
       return this.$store.getters.stars
     }
   },
   methods: {
-    del(index) {
+    del (index) {
       this.photo.star = false
       this.$store.commit('delPhoto', index)
     },
-    photoOpen(item) {
+    photoOpen (item) {
       this.photoOpenn = true
       this.photos = item
     }

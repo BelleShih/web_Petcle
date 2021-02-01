@@ -1,7 +1,7 @@
 <template>
   <q-page style="padding:1rem" id="admin_new">
     <q-layout-container>
-      <q-table :grid="$q.screen.xs" :data="pedias" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
+      <q-table :data="pedias" :columns="titles" row-key="name" :rows-per-page-option="[5, 7, 10]" :filter="filter">
         <template v-slot:body="pedia">
           <q-tr :props="pedia">
             <q-td key="type">
@@ -25,7 +25,7 @@
             <q-td key="actions">
               <!-- 增改刪查按鈕區 -->
               <q-btn v-if="!pedia.row.edit" round icon="edit" color="primary" size="0.7rem" @click="edit(pedia)" class="mr-1" />
-              <q-btn v-if="!pedia.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pedia, index)" />
+              <q-btn v-if="!pedia.row.edit" round icon="delete_forever" color="negative" size="0.7rem" @click="del(pedia)" />
               <q-btn v-if="pedia.row.edit" round icon="save" color="secondary" size="0.7rem" @click="save(pedia)" class="mr-1" />
               <q-btn v-if="pedia.row.edit" round icon="cancel" color="accent" size="0.7rem" @click="cancel(pedia)" />
             </q-td>
