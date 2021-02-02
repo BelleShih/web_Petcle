@@ -135,10 +135,12 @@
                 val => val.includes('@') || '請輸入電子信箱正確格式'
               ]" />
             </div>
-            <div class="q-gutter-sm registered-input row flex-center">
-              是否有養寵物
-              <q-radio v-model="reg.pet" type="radio" :val="true" label="是" />
-              <q-radio v-model="reg.pet" type="radio" :val="false" label="否" />
+            <div class="registered-input row flex-center">
+              <div class="account_text col-3">是否有養寵物</div>
+              <div class="input col-7">
+                <q-radio v-model="reg.pet" type="radio" :val="true" label="是" />
+                <q-radio v-model="reg.pet" type="radio" :val="false" label="否" />
+              </div>
             </div>
             <div class="registered-btn flex flex-center">
               <q-btn rounded label="註冊" type="submit" color="primary" size="1.1rem" style="margin-right:1rem;width:80px" />

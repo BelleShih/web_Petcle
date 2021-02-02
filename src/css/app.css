@@ -304,7 +304,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 @media (min-width: 1200px) {
   #reg_dialog {
     width: 60%;
-    height: 85%;
+    height: 70%;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
@@ -348,6 +348,10 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   border-radius: 50px;
   height: 56px;
   max-width: 100%;
+}
+
+#reg_dialog .registered-btn {
+  margin-top: 1.5rem;
 }
 
 #reg_dialog .registered-font {
