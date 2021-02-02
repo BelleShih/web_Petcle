@@ -127,7 +127,7 @@
             <template v-slot:append>
               <q-icon id="search-icon" name="search" />
             </template>
-            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail()" color="secondary"/>
+            <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail()" color="secondary" style="width:60px"/>
           </q-input>
           <div v-for="mail in filteredMail" :value="mail" :key="mail._id" class="row items-center newMail">
             <!-- 寄件人資訊 -->

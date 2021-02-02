@@ -1,9 +1,17 @@
 <template>
   <q-page id="pedia" style="height:100%">
-    <q-page-container style="height:100%;padding-top:1rem">
-      <div class="flex flex-center" style="height:100%;margin-top:2rem">
-        <div class="row fit wrap flex-center">
-          <div class="col-10 col-md-4 col-lg-3 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
+    <q-page-container style="height:100%">
+      <div class="flex flex-center" style="height:100%;">
+        <!-- 搜尋功能 -->
+        <!-- <q-input borderless dense debounce="300" v-model="filtermodel" @keyup.enter="filterMail()" class="mailSearch">
+          <template v-slot:append>
+            <q-icon id="search-icon" name="search" />
+          </template>
+          <q-btn unelevated rounded label="搜尋" type="submit" @click="filterMail()" color="secondary" style="width:60px"/>
+        </q-input> -->
+        <!-- 寵物文章 -->
+        <div class="row flex-center">
+          <div class="col-10 col-md-5 col-lg-5 q-pa-sm flex" v-for="pedia in pedias" :key="pedia._id" :value="pedia" id="pedia">
             <q-card class="pedia-card flex column">
               <div class="flex col-6">
                 <img :src="pedia.src" />
