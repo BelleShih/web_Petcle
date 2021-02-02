@@ -235,11 +235,6 @@ export default {
     // }
   },
   async mounted () {
-    this.$axios.post('login', {
-      username: 'username',
-      password: 'password'
-    })
-
     // 抓資料庫photos的所有圖
     await this.axios
       .get(process.env.VUE_APP_API + '/photos/')
