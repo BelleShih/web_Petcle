@@ -1699,25 +1699,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 // 寵物百科 ----------------------------
-.mailSearch {
-    border: 1px solid $petcolor02;
-    border-radius: 100px;
-    text-indent: 40px !important;
-    margin-bottom: 0.2rem;
-
-    &:focus {
-      border: 2px solid $petcolor02;
-    }
-
-    // 放大鏡 icon
-  #search-icon {
-    position: absolute;
-    left: 10px;
-    top: 8px;
-    color: $petcolor02;
-  }
-  }
-
 .pedia-card {
   border: 1px solid rgb(180, 180, 180);
   height: 350px !important;

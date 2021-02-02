@@ -2125,24 +2125,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   line-height: 1.7rem;
 }
 
-.mailSearch {
-  border: 1px solid #56C6BF;
-  border-radius: 100px;
-  text-indent: 40px !important;
-  margin-bottom: 0.2rem;
-}
-
-.mailSearch:focus {
-  border: 2px solid #56C6BF;
-}
-
-.mailSearch #search-icon {
-  position: absolute;
-  left: 10px;
-  top: 8px;
-  color: #56C6BF;
-}
-
 .pedia-card {
   border: 1px solid #b4b4b4;
   height: 350px !important;
