@@ -9,6 +9,15 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        path: '',
+        name: 'front.index2',
+        component: () => import('pages/Index.vue'),
+        meta: {
+          title: 'Petcle',
+          login: false
+        }
+      },
+      {
         path: 'index',
         name: 'front.index',
         component: () => import('pages/Index.vue'),
