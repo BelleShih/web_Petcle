@@ -3,6 +3,7 @@ import { create, login, logout, delUser, editUser, getUser, getUsers, likePhoto,
 
 const router = express.Router()
 
+router.get('/heartbeat', heartbeat)
 // 建立使用者
 router.post('/', create)
 // 登入
@@ -19,7 +20,5 @@ router.get('/:id', getUser)
 router.get('/', getUsers)
 // 把喜歡的圖丟到相簿裡
 router.patch('/album/:id', likePhoto)
-
-router.get('/heartbeat', heartbeat)
 
 export default router
