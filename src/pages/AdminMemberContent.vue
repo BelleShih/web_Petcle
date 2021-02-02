@@ -111,7 +111,7 @@ export default {
       this.axios.delete(process.env.VUE_APP_API + '/photos/' + photo.row._id)
         .then(res => {
           if (res.data.success) {
-            this.photos.splice(photo.rowIndex, 1)
+            this.userPhoto.splice(photo.rowIndex, 1)
             alert('刪除成功')
           } else {
             alert(res.data.message)

@@ -1170,9 +1170,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     margin-top: 2rem;
   }
 
-  .direction {
-  }
-
   .qus_btn {
     padding: 0.5rem;
     border-radius: 7px;
@@ -2499,22 +2496,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
     }
     @include xl {
       display: block;
-    }
-  }
-
-  .aaa {
-
-  }
-
-  .zzz {
-    @include md {
-      margin-left: 0rem;
-    }
-    @include lg {
-      margin-left: 5rem;
-    }
-    @include xl {
-      margin-left: 0rem;
     }
   }
 

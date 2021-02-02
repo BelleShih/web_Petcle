@@ -125,7 +125,7 @@ const routes = [
       {
         path: '/',
         name: 'admin.index',
-        component: () => import('pages/AdminIndex.vue'),
+        component: () => import('pages/AdminDiscuss.vue'),
         meta: {
           title: 'Petcle | 管理員系統',
           login: true

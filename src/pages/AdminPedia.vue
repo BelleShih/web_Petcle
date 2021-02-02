@@ -214,6 +214,7 @@ export default {
             this.modelTitle = ''
             this.modelDescription = ''
             this.modelType = ''
+            this.uploadPedia = false
           } else {
             alert('上傳錯誤')
           }

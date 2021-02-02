@@ -211,11 +211,13 @@ export default {
             res.data.result.model = res.data.result.description
             res.data.result.edit = false
             this.news.push(res.data.result)
+
             // 清空
             this.newFile = null
             this.modelTitle = ''
             this.modelDescription = ''
             this.modelType = ''
+            this.uploadNew = false
           } else {
             alert('上傳錯誤')
           }

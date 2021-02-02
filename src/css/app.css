@@ -3054,24 +3054,6 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   }
 }
 
-@media (min-width: 768px) {
-  #footer .zzz {
-    margin-left: 0rem;
-  }
-}
-
-@media (min-width: 992px) {
-  #footer .zzz {
-    margin-left: 5rem;
-  }
-}
-
-@media (min-width: 1200px) {
-  #footer .zzz {
-    margin-left: 0rem;
-  }
-}
-
 #footer .footer_col {
   border-left: 1px solid white;
   padding-left: 3rem;

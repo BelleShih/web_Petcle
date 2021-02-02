@@ -204,7 +204,7 @@
                 v-model="bodySelected"
                 placeholder="選擇你的動物部位"
               >
-                <option value="" disabled selected>選擇你的動物部位</option>
+                <option value="" disabled selected>選擇相片的重點</option>
                 <option
                   v-for="bodypart in selectedBodypart"
                   :key="bodypart.name"

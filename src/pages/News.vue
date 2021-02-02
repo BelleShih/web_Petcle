@@ -48,7 +48,7 @@
       <!-- 分頁內容頁 -->
       <q-tab-panels v-model="tab" animated >
         <!-- 全部新聞分頁 -->
-        <q-tab-panel name="all" class="news_table" id="tabb" >
+        <q-tab-panel name="all" class="news_table">
           <div class="flex flex-center">
             <div class="flex row q-layout-container flex-center news_row" v-for="item in news" :key="item._id" :value="item">
               <div class="col-2 type_cube" :style="getCubeBG(item.type)">
