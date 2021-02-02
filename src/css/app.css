@@ -1671,6 +1671,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 .fb {
+  width: 100%;
   border-bottom: 1px solid #eee;
   padding: 1rem 0;
 }
@@ -1807,7 +1808,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 }
 
 .w-RWD {
-  width: 50%;
+  width: 80%;
 }
 
 @media (max-width: 575px) {
@@ -1818,7 +1819,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (min-width: 576px) {
   .w-RWD {
-    widows: 50% !important;
+    widows: 80% !important;
   }
 }
 
@@ -1830,7 +1831,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (min-width: 992px) {
   .w-RWD {
-    width: 50% !important;
+    width: 60% !important;
   }
 }
 

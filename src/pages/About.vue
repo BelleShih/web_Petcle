@@ -72,7 +72,7 @@
                 </div>
               </div>
               <div class="col-12 col-md-2 col-lg-2 form_btn">
-                <q-btn color="white" class="full-width" label="送出" @click="onSubmit_mail()"/>
+                <q-btn color="white" style="font-weight:800" class="full-width" label="送出" @click="onSubmit_mail()"/>
               </div>
             </q-form>
           </div>

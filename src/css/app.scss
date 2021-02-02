@@ -1341,6 +1341,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 // 網友回覆區
 .fb {
+  width: 100%;
   border-bottom: 1px solid #eee;
   padding: 1rem 0;
 }
@@ -1458,18 +1459,18 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 // 設定discuss彈出視窗寬度
 .w-RWD {
-  width: 50%;
+  width: 80%;
   @include xs {
     width: 95% !important;
   }
   @include sm {
-    widows: 50% !important;
+    widows: 80% !important;
   }
   @include md {
     width: 80% !important;
   }
   @include lg {
-    width: 50% !important;
+    width: 60% !important;
   }
   @include xl {
     width: 50% !important;

@@ -98,7 +98,7 @@
                     name="delete_forever"
                     color="negative"
                     size="2rem"
-                    @click="del(photo, index)"
+                    @click="dele(photo, index)"
                   ></q-icon>
                   <q-icon
                     v-if="photo.edit"
@@ -270,6 +270,21 @@
           </q-card-section>
         </q-card>
       </q-dialog>
+      <!-- 確定刪除鈕 -->
+      <q-dialog v-model="delOK" persistent transition-show="scale" transition-hide="scale">
+        <q-card class="text-white bg-red-10" style="width:350px">
+          <q-card-section class="flex flex-center">
+            <div class="text-h5">刪除通知</div>
+          </q-card-section>
+          <q-card-section class="q-pt-none flex flex-center">
+            你確定要刪除這張照片嗎?
+          </q-card-section>
+          <q-card-actions align="right" class="bg-white text-red-10 flex flex-center">
+            <q-btn flat label="刪除" @click="del(delePho, idx)" />
+            <q-btn flat label="取消" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </q-layout-container>
   </q-page>
 </template>
@@ -291,7 +306,10 @@ export default {
       editMenu: false,
       uploadSuccess: false,
       photoopen: {},
-      photoOpenn: false
+      photoOpenn: false,
+      delOK: false,
+      delePho: '',
+      idx: ''
     }
   },
   computed: {
@@ -315,6 +333,14 @@ export default {
           confirmButtonColor: '#C2B593',
           iconColor: '#8d2430'
         })
+      } else if (this.photoFile.length === 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '圖片欄位不得空白',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
       } else if (!this.photoFile.type.includes('image')) {
         this.$swal.fire({
           icon: 'error',
@@ -323,11 +349,27 @@ export default {
           confirmButtonColor: '#C2B593',
           iconColor: '#8d2430'
         })
-      } else if (this.photoFile === '') {
+      } else if (this.animalSelected.length === 0) {
         this.$swal.fire({
           icon: 'error',
           title: '錯誤',
-          text: '圖片欄位不得空白',
+          text: '請選擇動物分類',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else if (this.breedSelected.length === 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請選擇動物品種',
+          confirmButtonColor: '#C2B593',
+          iconColor: '#8d2430'
+        })
+      } else if (this.bodySelected.length === 0) {
+        this.$swal.fire({
+          icon: 'error',
+          title: '錯誤',
+          text: '請選擇相片重點',
           confirmButtonColor: '#C2B593',
           iconColor: '#8d2430'
         })
@@ -341,7 +383,7 @@ export default {
 
         this.axios
           .post(process.env.VUE_APP_API + '/photos/', photo)
-          .then(res => {
+          .then(async res => {
             console.log(res.data)
             if (res.data.success) {
               res.data.result.src =
@@ -354,7 +396,18 @@ export default {
               res.data.result.breeds01 = res.data.result.breeds
               res.data.result.bodyparts01 = res.data.result.bodyparts
               res.data.result.edit = false
-              this.photos.push(res.data.result)
+              // 抓出照片動物/ 品種/部位
+              const item = res.data.result
+              let ress = await this.axios.get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
+              item.breed = ress.data.breed.name
+
+              ress = await this.axios.get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id)
+              item.bodypart = ress.data.body.name
+
+              ress = await this.axios.get(process.env.VUE_APP_API + '/photos/animals/' + item._id)
+              item.animal = ress.data.animal
+
+              this.photos.push(item)
               this.$swal.fire({
                 icon: 'success',
                 title: '上傳成功',
@@ -422,20 +475,26 @@ export default {
     },
     edit (photo) {
       photo.edit = true
-      photo.model = photo.des
+      photo.model = photo.description
     },
-    del (photo, index) {
+    dele (photo, index) {
+      this.delOK = true
+      this.delePho = photo
+      this.idx = index
+    },
+    del (delePho, idx) {
       this.axios
-        .delete(process.env.VUE_APP_API + '/photos/' + photo._id)
+        .delete(process.env.VUE_APP_API + '/photos/' + delePho._id)
         .then(res => {
           if (res.data.success) {
-            this.photos.splice(index, 1)
+            this.photos.splice(idx, 1)
             this.$swal.fire({
               icon: 'success',
               title: '刪除成功',
               confirmButtonColor: '#C2B593',
               iconColor: '#56C6BF'
             })
+            this.delOK = false
           } else {
             this.$swal.fire({
               icon: 'error',
@@ -504,31 +563,20 @@ export default {
         console.log(err)
       })
     // 抓動物品種、類型、部位的name出來
-    await this.photos.map(item => {
-      this.axios
-        .get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
-        .then(res => {
-          item.breed = res.data.breed.name
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      this.axios
-        .get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id)
-        .then(res => {
-          item.bodypart = res.data.body.name
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      this.axios
-        .get(process.env.VUE_APP_API + '/photos/animals/' + item._id)
-        .then(res => {
-          item.animal = res.data.animal
-        })
-        .catch(err => {
-          console.log(err)
-        })
+    this.photos.map(async item => {
+      try {
+        let res = await this.axios.get(process.env.VUE_APP_API + '/photos/breeds/' + item._id)
+        item.breed = res.data.breed.name
+
+        res = await this.axios.get(process.env.VUE_APP_API + '/photos/bodyparts/' + item._id)
+        item.bodypart = res.data.body.name
+
+        res = await this.axios.get(process.env.VUE_APP_API + '/photos/animals/' + item._id)
+        item.animal = res.data.animal
+      } catch (err) {
+        console.log(err)
+      }
+      return item
     })
   }
 }

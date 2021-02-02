@@ -70,7 +70,7 @@
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
-              <q-chip color="primary" text-color="white" class="chip">
+              <q-chip :style="chipBG(item.questiontype)" text-color="white" class="chip" size="0.9rem" style="font-weight:800;">
                 {{ item.questiontype }}
               </q-chip>
               <!-- 標題 -->
@@ -90,12 +90,12 @@
           </div>
         </q-btn>
       </q-tab-panel>
-      <q-tab-panel name="eat" class="flex row justify-betwen news_table">
+      <q-tab-panel name="eat" class="flex row justify-betwen">
         <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in eatDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
-              <q-chip color="primary" text-color="white" class="chip">
+              <q-chip :style="chipBG(item.questiontype)" text-color="white" class="chip">
                 {{ item.questiontype }}
               </q-chip>
               <!-- 標題 -->
@@ -115,12 +115,12 @@
           </div>
         </q-btn>
       </q-tab-panel>
-      <q-tab-panel name="life" class="flex row justify-betwen news_table">
+      <q-tab-panel name="life" class="flex row justify-betwen">
         <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in lifeDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
-              <q-chip color="primary" text-color="white" class="chip">
+              <q-chip :style="chipBG(item.questiontype)" text-color="white" class="chip">
                 {{ item.questiontype }}
               </q-chip>
               <!-- 標題 -->
@@ -140,7 +140,7 @@
           </div>
         </q-btn>
       </q-tab-panel>
-      <q-tab-panel name="friend" class="flex row justify-betwen news_table">
+      <q-tab-panel name="friend" class="flex row justify-betwen">
         <q-btn
           align="left"
           class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn"
@@ -152,7 +152,7 @@
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
-              <q-chip color="primary" text-color="white" class="chip">
+              <q-chip :style="chipBG(item.questiontype)" text-color="white" class="chip">
                 {{ item.questiontype }}
               </q-chip>
               <!-- 標題 -->
@@ -172,7 +172,7 @@
           </div>
         </q-btn>
       </q-tab-panel>
-      <q-tab-panel name="sick" class="flex row justify-betwen news_table">
+      <q-tab-panel name="sick" class="flex row justify-betwen">
         <q-btn align="left" class="flex col-xs-12 col-sm-12 col-lg-4 qus_btn" v-for="item in sickDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
@@ -197,12 +197,12 @@
           </div>
         </q-btn>
       </q-tab-panel>
-      <q-tab-panel name="other" class="flex row justify-betwen news_table">
+      <q-tab-panel name="other" class="flex row justify-betwen">
         <q-btn align="left" class="flex col-xs-12 col-sm-12 col-md-6 col-lg-4 qus_btn" v-for="item in otherDis" :key="item._id" :value="item" @click="discussOpen(item)">
           <div class="border">
             <div class="row col-12 justify-between qus_card_top">
               <!-- 分類標籤 -->
-              <q-chip color="primary" text-color="white" class="chip">
+              <q-chip style="chipBG(item)" text-color="white" class="chip">
                 {{ item.questiontype }}
               </q-chip>
               <!-- 標題 -->
@@ -241,7 +241,7 @@
             </div>
           </div>
           <div class="row">
-            <q-chip color="primary" text-color="white" class="chip">
+            <q-chip :style="chipBG(discussmodel.questiontype)" text-color="white" class="chip" size="0.9rem" style="font-weight:800">
               {{ discussmodel.questiontype }}
             </q-chip>
             <div class="qes_date">{{ new Date(discussmodel.date).toLocaleString() }}</div>
@@ -261,7 +261,7 @@
               </q-avatar>
               <q-btn class="col-1 fb-1" @click="getPetFb(fb)">{{ fb.user }}</q-btn>
               <div class="col-7 fb-2">{{ fb.description }}</div>
-              <div class="col-12 col-lg-2 fb-3">{{ new Date(fb.date).toLocaleString() }}</div>
+              <div class="row col-12 col-lg-3 fb-3 justify-end">{{ new Date(fb.date).toLocaleString() }}</div>
             </div>
           </div>
         </q-card-section>
@@ -507,6 +507,27 @@ export default {
       } else {
         this.$router.push(this.getPet[0] ? '/petpage/' + this.getPet[0]._id : '')
       }
+    },
+    chipBG (item) {
+      let background = ''
+      switch (item) {
+        case '生活':
+          background = '#56C6BF'
+          break
+        case '飲食':
+          background = '#E8D38B'
+          break
+        case '交友':
+          background = '#A9486B'
+          break
+        case '生病':
+          background = '#548E9B'
+          break
+        case '其他':
+          background = '#C2B593'
+          break
+      }
+      return { background }
     }
   },
   async mounted () {
