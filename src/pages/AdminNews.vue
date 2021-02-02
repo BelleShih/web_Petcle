@@ -14,7 +14,7 @@
               <p v-else>{{ newss.row.title }}</p>
             </q-td>
 
-            <q-td key="description">
+            <q-td key="description" class="long-text" @click="moreinfo(newss.row.description, newss.row.edit, newss.row.title)">
               <q-input outlined filled type="textarea" v-if="newss.row.edit" v-model="newss.row.modelDescription" />
               <p v-else>{{ newss.row.description }}</p>
             </q-td>
@@ -142,6 +142,14 @@ export default {
     }
   },
   methods: {
+    moreinfo (text, edit, title) {
+      if (!edit) {
+        this.$q.dialog({
+          message: text,
+          title
+        })
+      }
+    },
     edit (newss) {
       newss.row.edit = true
 

@@ -166,7 +166,7 @@
                   />
                 </template>
                 <template v-slot:hint>
-                  *僅接受jpeg、png格式，且檔案不超過1KB
+                  *僅接受jpeg、png格式，且檔案不超過1MB
                 </template>
               </q-file>
               <!-- 選擇哪種動物 & 類型 -->
