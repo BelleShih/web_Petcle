@@ -418,7 +418,7 @@ export default {
               this.log.account = ''
               this.log.password = ''
               this.loginPage = false
-              this.$router.push('/')
+              this.$router.push('/index')
             } else {
               this.$swal.fire({
                 icon: 'error',
