@@ -14,7 +14,7 @@
               <p v-else>{{ pedia.row.title }}</p>
             </q-td>
 
-            <q-td key="description">
+            <q-td key="description" class="long-text" @click="moreinfo(pedia.row.description, pedia.row.edit, pedia.row.title)">
               <q-input outlined filled type="textarea" v-if="pedia.row.edit" v-model="pedia.row.modelDescription" />
               <p v-else>{{ pedia.row.description }}</p>
             </q-td>
@@ -142,6 +142,14 @@ export default {
     }
   },
   methods: {
+    moreinfo (text, edit, title) {
+      if (!edit) {
+        this.$q.dialog({
+          message: text,
+          title
+        })
+      }
+    },
     edit (pedia) {
       pedia.row.edit = true
 
