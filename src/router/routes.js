@@ -9,7 +9,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: 'index',
+        path: '',
         name: 'front.index',
         component: () => import('pages/Index.vue'),
         meta: {
