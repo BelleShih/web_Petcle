@@ -17,11 +17,11 @@
         <q-icon v-if="!petpage[0].edit" name="edit" class="edit_icon" size="1.5rem" color="accent" @click="edit(petpage[0])" />
         <!-- 寵物名字 -->
         <div class="row items-center">
-          <div v-if="!petpage[0].edit" class="col-3 name">{{ petpage[0].name }}</div>
+          <div v-if="!petpage[0].edit" class="col-sm-4 col-lg-3 name">{{ petpage[0].name }}</div>
           <q-input v-if="petpage[0].edit" v-model="petpage[0].modelName" filled type="text" class="name_edit" />
-          <div class="col-3 master">@{{ user.name }}</div>
+          <div class="col-sm-2 col-lg-3 master">@{{ user.name }}</div>
           <!-- 寄信給他 -->
-          <q-btn v-if="!petpage[0].edit" icon="mail" color="secondary" size="15px" rounded class="mail_btn" @click="mailDialog = true">寶貝信箱</q-btn>
+          <q-btn v-if="!petpage[0].edit" icon="mail" color="secondary" size="15px" rounded class="mail_btn col-sm-3 col-lg-3" @click="mailDialog = true">寶貝信箱</q-btn>
         </div>
         <!-- 寵物自我介紹 -->
         <div>
@@ -92,7 +92,7 @@
               </select>
               <select class="col-12 col-lg-6 ULanimaltype" v-model="breedSelected" placeholder="選擇寶貝的動物品種">
                 <option value="" disabled selected>選擇寶貝的動物品種</option>
-                <option v-for="breed in selectedBreed" :key="breed.name" :value="breed">{{ breed.name }}</option>
+                <option v-for="breed in selectedBreed2" :key="breed.name" :value="breed">{{ breed.name }}</option>
               </select>
             </div>
             <!-- 照片說明 -->
@@ -314,8 +314,10 @@ export default {
       }
       return pageOpen
     },
+    selectedBreed2 () {
+      return this.animalSelected.breeds
+    },
     selectedBreed () {
-      // return this.animalSelected.breeds
       return this.animals.find(item => item.name === this.animalSelected)
     },
     // 編輯時，儲存後 維持選項的值
@@ -485,9 +487,11 @@ export default {
       return description.replace(/\n/g, '<br>').replace(/(https?:\/\/[\w-.]+(:\d+)?(\/[\w/.]*)?(\?\S*)?(#\S*)?)/g, '<a href="$1" target="_blank" >$1</a>')
     },
     edit (item) {
+      item.edit = true
+      this.name = item.name
+      this.description = item.description
       this.animalSelected = item.animal
       this.breedSelected = item.breed
-      item.edit = true
     },
     del (item) {
       this.axios

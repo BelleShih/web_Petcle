@@ -616,7 +616,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 @media (min-width: 1200px) {
   #index .my-card {
-    height: 300px;
+    height: 400px;
     margin: 0 0.5rem;
   }
 }
@@ -1936,6 +1936,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 
 #news {
   margin-top: 2rem;
+  /* Custom Scrollbar */
 }
 
 @media (max-width: 575px) {
@@ -1960,6 +1961,28 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
   #news .width {
     width: 70%;
   }
+}
+
+#news ::-webkit-scrollbar {
+  width: 10px;
+}
+
+#news ::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 20px rgba(86, 198, 191, 0.3);
+  border-radius: 10px;
+}
+
+#news ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 50px rgba(86, 198, 191, 0.8);
+}
+
+#news ::-webkit-scrollbar-thumb:hover {
+  -webkit-box-shadow: inset 0 0 50px #56c6bf;
+}
+
+.news_table {
+  height: 800px !important;
 }
 
 .news_table .q-table__card {
@@ -2948,6 +2971,11 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 .footer {
   height: 300px;
   background: #56c6bf;
+  width: 90%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (max-width: 575px) {
@@ -2993,6 +3021,54 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 @media (min-width: 1200px) {
   #footer .left {
     margin-top: 100px;
+  }
+}
+
+@media (max-width: 575px) {
+  #footer .dis {
+    display: none;
+  }
+}
+
+@media (min-width: 576px) {
+  #footer .dis {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  #footer .dis {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  #footer .dis {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  #footer .dis {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  #footer .zzz {
+    margin-left: 0rem;
+  }
+}
+
+@media (min-width: 992px) {
+  #footer .zzz {
+    margin-left: 5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  #footer .zzz {
+    margin-left: 0rem;
   }
 }
 

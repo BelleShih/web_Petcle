@@ -216,12 +216,13 @@
     </q-page-container>
     <!-- footer -->
     <q-footer id="footer">
-      <div class="container footer">
-        <div class="flex row justify-between" style="margin:50px 0">
-          <div class="col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-5 left">
+      <div class="footer">
+        <div class="flex row justify-between" style="margin:50px 0;width:100%">
+          <div class="flex column col-xs-10 col-sm-10 col-md-5 col-lg-5 col-xl-5 left">
             <q-icon name="facebook" size="45px" style="margin-bottom:1rem"></q-icon>
             <p>Copyright © 2020 Petcle. All rights reserved.</p>
           </div>
+          <!-- <div class="col-xl-1 dis"></div> -->
           <div class="col-xs-10 col-sm-10 col-md-5 col-lg-2 col-xl-2 footer_col">
             <h6>Petcle</h6>
             <ul class="footer_li">
