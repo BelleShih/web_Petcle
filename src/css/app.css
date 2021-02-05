@@ -304,7 +304,7 @@ body.desktop .q-hoverable:hover > .q-focus-helper {
 @media (min-width: 1200px) {
   #reg_dialog {
     width: 60%;
-    height: 70%;
+    height: 88%;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
         -ms-flex-direction: row;
