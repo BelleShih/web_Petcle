@@ -15,11 +15,11 @@ jobs:
       # 步驟一：複製程式碼
       - name: checkout
         # 使用的 actions/checkout 複製程式碼
-        uses: actions/checkout@master
+        uses: actions/checkout@m2.3.1
 
       # 步驟二：編譯及部署
       - name: buildAndDeploy
-        uses: JamesIves/github-pages-deploy-action@master 
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         # 步驟設定
         env:
           GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
