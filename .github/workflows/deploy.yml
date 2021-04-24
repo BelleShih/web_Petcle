@@ -26,7 +26,7 @@ jobs:
           # 使用 master 分支的檔案
           BASE_BRANCH: master
           # 部署到 gh-pages 分支
-          branch: gh-pages
+          Branch: gh-pages
           # 編譯後要上傳的資料夾
           FOLDER: dist/spa
           # 執行指令
