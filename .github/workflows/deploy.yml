@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@master
 
       # 步驟二：編譯及部署
-      - name: Build and Deploy
+      - name: buildAndDeploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         # 步驟設定
         with:
