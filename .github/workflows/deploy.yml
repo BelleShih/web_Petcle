@@ -3,12 +3,11 @@ name: Deploy
 # 觸發時機，當推送到分支 master 時
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 # 執行的工作
 jobs:
   # 工作名稱
-  deploy:
+  build-and-deploy:
     # 執行工作的虛擬機作業系統
     runs-on: ubuntu-latest
     # 工作步驟
@@ -19,10 +18,10 @@ jobs:
         uses: actions/checkout@master
 
       # 步驟二：編譯及部署
-      - name: buildAndDeploy
+      - name: Build and Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         # 步驟設定
-        env:
+        with:
           GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
           # 使用 master 分支的檔案
           BASE_BRANCH: master
