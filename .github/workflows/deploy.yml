@@ -21,6 +21,7 @@ jobs:
             npm run build
         env:
           VUE_APP_API: ${{ secrets.VUE_APP_API }}
+          GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
